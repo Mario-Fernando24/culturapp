@@ -1,6 +1,7 @@
 import 'package:culturappco/config/themes/app_style.dart';
 import 'package:culturappco/config/themes/size_config.dart';
 import 'package:culturappco/domain/models/onbording.dart';
+import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
 
 class OnbordingView extends StatefulWidget {
@@ -71,9 +72,8 @@ class _OnbordingViewState extends State<OnbordingView> {
                             RichText(
                                 textAlign: TextAlign.center,
                                 text: TextSpan(
-                                      text: onboardingContents[index].description,
-                                      style: kBodyText2)
-                            ),
+                                    text: onboardingContents[index].description,
+                                    style: kBodyText2)),
                             SizedBox(height: sizeV * 5),
                           ],
                         ))),
@@ -88,10 +88,23 @@ class _OnbordingViewState extends State<OnbordingView> {
                               height: SizeConfig.blockSizeH! * 15.5,
                               width: SizeConfig.blockSizeV! * 100,
                               child: TextButton(
-                                onPressed: () {},
+                                onPressed: () => Navigator.pushNamed(
+                                    context, loginViewRoutes),
                                 child: Text('Empezar', style: kBodyText1),
-                                style: TextButton.styleFrom(
-                                    backgroundColor: kPrimaryColor),
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                  ),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          kPrimaryColor),
+                                  foregroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.white),
+                                ),
                               ),
                             ),
                           )

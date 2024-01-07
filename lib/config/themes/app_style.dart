@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 Color kPrimaryColor = Color(0xffFC9D45);
 Color kSecondaryColor = Color(0xff573353);
+Color inputColors = Color.fromRGBO(142, 142, 147, 1.2);
 
 final kTitle = TextStyle(
   fontFamily: 'Klasik',
