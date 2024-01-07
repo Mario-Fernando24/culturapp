@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'warena',
+      title: 'cultura app',
       home: OnbordingView(),
       initialRoute: onbordingViewRoutes,
       routes: appRoutes,
