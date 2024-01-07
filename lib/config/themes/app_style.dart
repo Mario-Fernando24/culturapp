@@ -15,3 +15,9 @@ final kBodyText1 = TextStyle(
   fontSize: SizeConfig.blockSizeH! * 4.5,
   fontWeight: FontWeight.bold,
 );
+
+final kBodyText2 = TextStyle(
+  color: kPrimaryColor,
+  fontSize: SizeConfig.blockSizeH! * 4.5,
+  fontWeight: FontWeight.bold,
+);
