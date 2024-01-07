@@ -31,7 +31,9 @@ class _OnbordingViewState extends State<OnbordingView> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
 
+    // ignore: unused_local_variable
     double sizeH = SizeConfig.blockSizeH!;
+    // ignore: unused_local_variable
     double sizeV = SizeConfig.blockSizeV!;
 
     return Scaffold(

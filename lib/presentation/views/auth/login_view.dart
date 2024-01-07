@@ -1,5 +1,4 @@
 import 'package:culturappco/config/themes/app_style.dart';
-import 'package:culturappco/presentation/widgets/back_button.dart';
 import 'package:culturappco/presentation/widgets/header_text.dart';
 import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +26,6 @@ class _LoginViewState extends State<LoginView> {
                         height: MediaQuery.of(context).size.height * 0.50,
                         fit: BoxFit.cover),
                   ),
-                  // Container(
-                  //   child: backButton(context, Colors.white),
-                  // ),
                 ],
               ),
               _container(context)
