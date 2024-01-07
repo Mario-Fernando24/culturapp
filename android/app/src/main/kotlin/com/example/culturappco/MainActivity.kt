@@ -1,4 +1,4 @@
-package com.example.culturappco
+package com.mario.gamermvvmapp
 
 import io.flutter.embedding.android.FlutterActivity
 

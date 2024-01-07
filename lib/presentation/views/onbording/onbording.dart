@@ -49,32 +49,49 @@ class _OnbordingViewState extends State<OnbordingView> {
                         currentPage = value;
                       });
                     },
-                    itemBuilder: (context, index) => Column(
+                    itemBuilder: (context, index) => Stack(
                           children: [
-                            SizedBox(height: sizeV * 5),
-                            Text(onboardingContents[index].title,
-                                style: kTitle, textAlign: TextAlign.center),
-                            SizedBox(height: sizeV * 1),
-                            Container(
-                              height: sizeV * 55,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    10.0), // Ajusta el valor según lo redondo que desees los bordes
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
+                            Positioned.fill(
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 00),
                                 child: Image.asset(
                                   onboardingContents[index].image,
-                                  fit: BoxFit.contain,
+                                  fit: BoxFit.fill,
                                 ),
                               ),
                             ),
-                            RichText(
+                            // Container(
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(
+                            //         10.0), // Ajusta el valor según lo redondo que desees los bordes
+                            //   ),
+                            //   child:  Image.asset(
+                            //       onboardingContents[index].image,
+                            //       fit: BoxFit.contain,
+                            //     ),
+
+                            // ),
+                            Positioned(
+                              top: 40,
+                              left: 0,
+                              right: 0,
+                              child: Text(
+                                onboardingContents[index].title,
+                                style: kTitle,
                                 textAlign: TextAlign.center,
-                                text: TextSpan(
-                                    text: onboardingContents[index].description,
-                                    style: kBodyText2)),
-                            SizedBox(height: sizeV * 5),
+                              ),
+                            ),
+                            Positioned(
+                              top: SizeConfig.blockSizeH! * 130,
+                              left: 10,
+                              right: 10,
+                              child: Text(
+                                onboardingContents[index].description,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.justify,
+                              ),
+                            )
                           ],
                         ))),
             Expanded(
