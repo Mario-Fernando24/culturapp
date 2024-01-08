@@ -11,13 +11,29 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   AuthenticationCubit(this.authRespository) : super(AuthenticationInitial());
 
 
-  Future<void> logIn(String username, String password) async {
+  Future<void> loginCubit(String username, String password) async {
     emit(AuthenticationLoading());
     try {
+
+      emit(AuthenticationLoading());
       final user = await authRespository.login(username, password);
       emit(AuthenticationSuccessBoolean(user));
+
     } on Exception {
-      emit(AuthenticationFailure());
+      emit(AuthenticationFailure("Error"));
+    }
+  }
+
+  Future<void> register(Users users) async {
+    emit(AuthenticationLoading());
+    try {
+
+      emit(AuthenticationLoading());
+      final user = await authRespository.register(users);
+      emit(AuthenticationSuccess(user));
+
+    } on Exception {
+      emit(AuthenticationFailure("Error"));
     }
   }
 

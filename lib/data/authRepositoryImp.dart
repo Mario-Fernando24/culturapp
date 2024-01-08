@@ -32,7 +32,7 @@ class AuthRespositoryImpl implements AuthRespository {
         password: usuario.password!,
       );
 
-      Users users = Users(uid: userCredential.user!.uid);
+      Users users = Users(uid: userCredential.user!.uid, username: usuario.username, lastname: usuario.lastname, email: usuario.email, telefono: usuario.telefono);
       await FirebaseFirestore.instance
           .collection('Usuario')
           .doc(userCredential.user!.uid)
