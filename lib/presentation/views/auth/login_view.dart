@@ -16,40 +16,53 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: BlocListener<AuthenticationCubit, AuthenticationState>(
+        body: BlocConsumer<AuthenticationCubit, AuthenticationState>(
           listener: (context, state) {
             if (state is AuthenticationSuccess) {
               state.user.rol == rolAdmin
                   ? Navigator.pushNamed(context, homeAdminviewRoutes)
                   : Navigator.pushNamed(context, homeUserviewRoutes);
             } else if (state is AuthenticationFailure) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(state.error)));
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(state.error),
+                backgroundColor: Colors.red, // Color de fondo rojo
+                behavior: SnackBarBehavior.floating, // Posición superior
+              ));
             }
           },
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      child: Image.asset("assets/images/onbording2.jpg",
-                          width: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.50,
-                          fit: BoxFit.cover),
-                    ),
-                  ],
-                ),
-                _container(context)
-              ],
-            ),
-          ),
+          builder: (context, state) {
+            if (state is AuthenticationLoading) {
+              return Center(child: CircularProgressIndicator());
+            }
+            return loginForm(context);
+          },
         ),
+      ),
+    );
+  }
+
+  Widget loginForm(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Container(
+                child: Image.asset("assets/images/onbording2.jpg",
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.50,
+                    fit: BoxFit.cover),
+              ),
+            ],
+          ),
+          _container(context)
+        ],
       ),
     );
   }
@@ -148,12 +161,29 @@ class _LoginViewState extends State<LoginView> {
       padding: EdgeInsets.only(left: 20.0),
       decoration: BoxDecoration(
           color: inputColors, borderRadius: BorderRadius.circular(30.0)),
-      child: TextField(
-        controller: _passwordController,
-        obscureText: true,
-        decoration: InputDecoration(
-            hintText: 'Contraseña',
-            border: OutlineInputBorder(borderSide: BorderSide.none)),
+      child: Stack(
+        alignment: Alignment.centerRight,
+        children: [
+          TextField(
+            obscureText: _obscureText,
+            controller: _passwordController,
+            decoration: InputDecoration(
+              hintText: "Contraseña",
+              border: OutlineInputBorder(borderSide: BorderSide.none),
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _obscureText = !_obscureText;
+              });
+            },
+            icon: Icon(
+              _obscureText ? Icons.visibility : Icons.visibility_off,
+              color: Colors.grey,
+            ),
+          ),
+        ],
       ),
     );
   }

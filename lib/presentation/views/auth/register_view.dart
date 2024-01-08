@@ -23,6 +23,8 @@ class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _password_confirm_Controller =
       TextEditingController();
+  bool _obscureText = true;
+  bool _obscureText2 = true;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +35,11 @@ class _RegisterViewState extends State<RegisterView> {
             if (state.user.rol == rolUser)
               Navigator.pushNamed(context, homeUserviewRoutes);
           } else if (state is AuthenticationFailure) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.error),
+              backgroundColor: Colors.red, // Color de fondo rojo
+              behavior: SnackBarBehavior.floating, // Posición superior
+            ));
           }
         },
         builder: (context, state) {
@@ -169,13 +174,30 @@ class _RegisterViewState extends State<RegisterView> {
       padding: EdgeInsets.only(left: 20.0),
       decoration: BoxDecoration(
           color: inputColors, borderRadius: BorderRadius.circular(40.0)),
-      child: TextField(
-        controller: _passwordController,
-        keyboardType: TextInputType.visiblePassword,
-        obscureText: true,
-        decoration: InputDecoration(
-            hintText: "Contraseña",
-            border: OutlineInputBorder(borderSide: BorderSide.none)),
+  
+      child: Stack(
+        alignment: Alignment.centerRight,
+        children: [
+          TextField(
+            obscureText: _obscureText,
+            controller: _passwordController,
+            decoration: InputDecoration(
+              hintText: "Contraseña",
+              border: OutlineInputBorder(borderSide: BorderSide.none),
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _obscureText = !_obscureText;
+              });
+            },
+            icon: Icon(
+              _obscureText ? Icons.visibility : Icons.visibility_off,
+              color: Colors.grey,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -186,13 +208,29 @@ class _RegisterViewState extends State<RegisterView> {
       padding: EdgeInsets.only(left: 20.0),
       decoration: BoxDecoration(
           color: inputColors, borderRadius: BorderRadius.circular(40.0)),
-      child: TextField(
-        controller: _password_confirm_Controller,
-        keyboardType: TextInputType.visiblePassword,
-        obscureText: true,
-        decoration: InputDecoration(
-            hintText: "Confirmar contraseña",
-            border: OutlineInputBorder(borderSide: BorderSide.none)),
+           child: Stack(
+        alignment: Alignment.centerRight,
+        children: [
+          TextField(
+            obscureText: _obscureText2,
+            controller: _password_confirm_Controller,
+            decoration: InputDecoration(
+              hintText: "Confirmar contraseña",
+              border: OutlineInputBorder(borderSide: BorderSide.none),
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _obscureText2 = !_obscureText2;
+              });
+            },
+            icon: Icon(
+              _obscureText2 ? Icons.visibility : Icons.visibility_off,
+              color: Colors.grey,
+            ),
+          ),
+        ],
       ),
     );
   }
