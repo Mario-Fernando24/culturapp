@@ -25,6 +25,12 @@ class _RegisterViewState extends State<RegisterView> {
       TextEditingController();
   bool _obscureText = true;
   bool _obscureText2 = true;
+  bool _usersValidate = false;
+  bool _lastNameValidate = false;
+  bool _emailValidate = false;
+  bool _phoneValidate = false;
+  bool _passwordValidate = false;
+  bool _password_confirm_Validate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -106,18 +112,35 @@ class _RegisterViewState extends State<RegisterView> {
 
   Widget _userInput(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 40.0),
-      padding: EdgeInsets.only(left: 20.0),
-      decoration: BoxDecoration(
-          color: inputColors, borderRadius: BorderRadius.circular(40.0)),
-      child: TextField(
-        controller: _usersController,
-        keyboardType: TextInputType.text,
-        decoration: InputDecoration(
-            hintText: "Nombre",
-            border: OutlineInputBorder(borderSide: BorderSide.none)),
-      ),
-    );
+        margin: EdgeInsets.only(top: 40.0),
+        padding: EdgeInsets.only(left: 20.0),
+        decoration: BoxDecoration(
+            color: inputColors, borderRadius: BorderRadius.circular(40.0)),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: TextField(
+                controller: _usersController,
+                keyboardType: TextInputType.text,
+                onChanged: (value) => {
+                  setState(() {
+                    _usersValidate = _usersController.text.isNotEmpty;
+                  })
+                },
+                decoration: InputDecoration(
+                  hintText: "Nombre",
+                  border: OutlineInputBorder(borderSide: BorderSide.none),
+                ),
+              ),
+            ),
+            _usersValidate
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                  child: Icon(Icons.check_circle, color: Colors.green),
+                )
+                : Container(),
+          ],
+        ));
   }
 
   Widget _lastNameInput(BuildContext context) {
@@ -126,12 +149,29 @@ class _RegisterViewState extends State<RegisterView> {
       padding: EdgeInsets.only(left: 20.0),
       decoration: BoxDecoration(
           color: inputColors, borderRadius: BorderRadius.circular(40.0)),
-      child: TextField(
-        controller: _lastNameController,
-        keyboardType: TextInputType.text,
-        decoration: InputDecoration(
-            hintText: "Apellido",
-            border: OutlineInputBorder(borderSide: BorderSide.none)),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: _lastNameController,
+              onChanged: (value) => {
+                setState(() {
+                  _lastNameValidate = _lastNameController.text.isNotEmpty;
+                })
+              },
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                  hintText: "Apellido",
+                  border: OutlineInputBorder(borderSide: BorderSide.none)),
+            ),
+          ),
+          _lastNameValidate
+              ? Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                child: Icon(Icons.check_circle, color: Colors.green),
+              )
+              : Container(),
+        ],
       ),
     );
   }
@@ -142,12 +182,29 @@ class _RegisterViewState extends State<RegisterView> {
       padding: EdgeInsets.only(left: 20.0),
       decoration: BoxDecoration(
           color: inputColors, borderRadius: BorderRadius.circular(40.0)),
-      child: TextField(
-        controller: _emailController,
-        keyboardType: TextInputType.emailAddress,
-        decoration: InputDecoration(
-            hintText: "Correo electronico",
-            border: OutlineInputBorder(borderSide: BorderSide.none)),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: _emailController,
+              onChanged: (value) => {
+                setState(() {
+                  _emailValidate = _emailController.text.isNotEmpty;
+                })
+              },
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                  hintText: "Correo electronico",
+                  border: OutlineInputBorder(borderSide: BorderSide.none)),
+            ),
+          ),
+          _emailValidate
+              ? Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                child: Icon(Icons.check_circle, color: Colors.green),
+              )
+              : Container(),
+        ],
       ),
     );
   }
@@ -158,12 +215,29 @@ class _RegisterViewState extends State<RegisterView> {
       padding: EdgeInsets.only(left: 20.0),
       decoration: BoxDecoration(
           color: inputColors, borderRadius: BorderRadius.circular(40.0)),
-      child: TextField(
-        controller: _phoneController,
-        keyboardType: TextInputType.phone,
-        decoration: InputDecoration(
-            hintText: "Telefono",
-            border: OutlineInputBorder(borderSide: BorderSide.none)),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: _phoneController,
+              onChanged: (value) => {
+                setState(() {
+                  _phoneValidate = _phoneController.text.isNotEmpty;
+                })
+              },
+              keyboardType: TextInputType.phone,
+              decoration: InputDecoration(
+                  hintText: "Telefono",
+                  border: OutlineInputBorder(borderSide: BorderSide.none)),
+            ),
+          ),
+          _phoneValidate
+              ? Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Icon(Icons.check_circle, color: Colors.green),
+                )
+              : Container(),
+        ],
       ),
     );
   }
@@ -174,17 +248,33 @@ class _RegisterViewState extends State<RegisterView> {
       padding: EdgeInsets.only(left: 20.0),
       decoration: BoxDecoration(
           color: inputColors, borderRadius: BorderRadius.circular(40.0)),
-  
       child: Stack(
         alignment: Alignment.centerRight,
         children: [
-          TextField(
-            obscureText: _obscureText,
-            controller: _passwordController,
-            decoration: InputDecoration(
-              hintText: "Contraseña",
-              border: OutlineInputBorder(borderSide: BorderSide.none),
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  obscureText: _obscureText,
+                  controller: _passwordController,
+                  onChanged: (value) => {
+                    setState(() {
+                      _passwordValidate = _passwordController.text.isNotEmpty;
+                    })
+                  },
+                  decoration: InputDecoration(
+                    hintText: "Contraseña",
+                    border: OutlineInputBorder(borderSide: BorderSide.none),
+                  ),
+                ),
+              ),
+              _passwordValidate
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Icon(Icons.check_circle, color: Colors.green),
+                    )
+                  : Container(),
+            ],
           ),
           IconButton(
             onPressed: () {
@@ -192,9 +282,12 @@ class _RegisterViewState extends State<RegisterView> {
                 _obscureText = !_obscureText;
               });
             },
-            icon: Icon(
-              _obscureText ? Icons.visibility : Icons.visibility_off,
-              color: Colors.grey,
+            icon: Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Icon(
+                _obscureText ? Icons.visibility : Icons.visibility_off,
+                color: Colors.grey,
+              ),
             ),
           ),
         ],
@@ -208,16 +301,34 @@ class _RegisterViewState extends State<RegisterView> {
       padding: EdgeInsets.only(left: 20.0),
       decoration: BoxDecoration(
           color: inputColors, borderRadius: BorderRadius.circular(40.0)),
-           child: Stack(
+      child: Stack(
         alignment: Alignment.centerRight,
         children: [
-          TextField(
-            obscureText: _obscureText2,
-            controller: _password_confirm_Controller,
-            decoration: InputDecoration(
-              hintText: "Confirmar contraseña",
-              border: OutlineInputBorder(borderSide: BorderSide.none),
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  obscureText: _obscureText2,
+                  onChanged: (value) => {
+                    setState(() {
+                      _password_confirm_Validate =
+                          _password_confirm_Controller.text.isNotEmpty;
+                    })
+                  },
+                  controller: _password_confirm_Controller,
+                  decoration: InputDecoration(
+                    hintText: "Confirmar contraseña",
+                    border: OutlineInputBorder(borderSide: BorderSide.none),
+                  ),
+                ),
+              ),
+              _password_confirm_Validate
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Icon(Icons.check_circle, color: Colors.green),
+                    )
+                  : Container(),
+            ],
           ),
           IconButton(
             onPressed: () {

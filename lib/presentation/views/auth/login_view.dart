@@ -17,6 +17,8 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _obscureText = true;
+  bool _emailValidate = false;
+  bool _passwordValidate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -141,36 +143,70 @@ class _LoginViewState extends State<LoginView> {
 
   Widget _emailInput() {
     return Container(
-      margin: EdgeInsets.only(top: 30.0),
+      margin: EdgeInsets.only(top: 10.0),
       padding: EdgeInsets.only(left: 20.0),
       decoration: BoxDecoration(
-          color: inputColors, borderRadius: BorderRadius.circular(30.0)),
-      child: TextField(
-        controller: _emailController,
-        keyboardType: TextInputType.emailAddress,
-        decoration: InputDecoration(
-            hintText: 'Correo electronico',
-            border: OutlineInputBorder(borderSide: BorderSide.none)),
+          color: inputColors, borderRadius: BorderRadius.circular(40.0)),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: _emailController,
+              onChanged: (value) => {
+                setState(() {
+                  _emailValidate = _emailController.text.isNotEmpty;
+                })
+              },
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                  hintText: "Correo electronico",
+                  border: OutlineInputBorder(borderSide: BorderSide.none)),
+            ),
+          ),
+          _emailValidate
+              ? Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Icon(Icons.check_circle, color: Colors.green),
+                )
+              : Container(),
+        ],
       ),
     );
   }
 
   Widget _passwordInput() {
     return Container(
-      margin: EdgeInsets.only(top: 15.0),
+      margin: EdgeInsets.only(top: 10.0),
       padding: EdgeInsets.only(left: 20.0),
       decoration: BoxDecoration(
-          color: inputColors, borderRadius: BorderRadius.circular(30.0)),
+          color: inputColors, borderRadius: BorderRadius.circular(40.0)),
       child: Stack(
         alignment: Alignment.centerRight,
         children: [
-          TextField(
-            obscureText: _obscureText,
-            controller: _passwordController,
-            decoration: InputDecoration(
-              hintText: "Contraseña",
-              border: OutlineInputBorder(borderSide: BorderSide.none),
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  obscureText: _obscureText,
+                  controller: _passwordController,
+                  onChanged: (value) => {
+                    setState(() {
+                      _passwordValidate = _passwordController.text.isNotEmpty;
+                    })
+                  },
+                  decoration: InputDecoration(
+                    hintText: "Contraseña",
+                    border: OutlineInputBorder(borderSide: BorderSide.none),
+                  ),
+                ),
+              ),
+              _passwordValidate
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Icon(Icons.check_circle, color: Colors.green),
+                    )
+                  : Container(),
+            ],
           ),
           IconButton(
             onPressed: () {
@@ -178,9 +214,12 @@ class _LoginViewState extends State<LoginView> {
                 _obscureText = !_obscureText;
               });
             },
-            icon: Icon(
-              _obscureText ? Icons.visibility : Icons.visibility_off,
-              color: Colors.grey,
+            icon: Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Icon(
+                _obscureText ? Icons.visibility : Icons.visibility_off,
+                color: Colors.grey,
+              ),
             ),
           ),
         ],
