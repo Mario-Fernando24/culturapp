@@ -7,8 +7,11 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.0'
+               // START: FlutterFire Configuration
+        classpath 'com.google.gms:google-services:4.3.13'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
+
 }
 
 allprojects {

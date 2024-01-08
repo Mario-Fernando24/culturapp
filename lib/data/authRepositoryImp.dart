@@ -4,6 +4,7 @@ import 'package:culturappco/domain/repositories/authRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRespositoryImpl implements AuthRespository {
+  
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override
@@ -43,4 +44,22 @@ class AuthRespositoryImpl implements AuthRespository {
       return throw Exception('Error en el registro :$e');
     }
   }
+
+  @override
+  bool isSignedIn() {
+    final currentUser = _firebaseAuth.currentUser;
+
+    if (currentUser == null) {
+      return false;
+    }
+    return true;
+  }
+
+  Future signOut() async {
+    return Future.wait([_firebaseAuth.signOut()]);
+  }
+
+  // Users? getUser() {
+  //   return _firebaseAuth.currentUser;
+  // }
 }
