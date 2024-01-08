@@ -11,10 +11,6 @@ class AuthenticationSuccess extends AuthenticationState {
   final Users user;
   AuthenticationSuccess(this.user);
 }
-class AuthenticationSuccessBoolean extends AuthenticationState {
-  final bool auth;
-  AuthenticationSuccessBoolean(this.auth);
-}
 class AuthenticationFailure extends AuthenticationState {
   final String error;
   AuthenticationFailure(this.error);

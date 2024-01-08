@@ -3,6 +3,8 @@ import 'package:culturappco/domain/models/usuario.dart';
 import 'package:culturappco/presentation/cubits/loginCubits/auth_cubit.dart';
 import 'package:culturappco/presentation/widgets/back_button.dart';
 import 'package:culturappco/presentation/widgets/header_text.dart';
+import 'package:culturappco/utils/constants/constant_routes.dart';
+import 'package:culturappco/utils/constants/constant_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,9 +30,9 @@ class _RegisterViewState extends State<RegisterView> {
       body: BlocConsumer<AuthenticationCubit, AuthenticationState>(
         listener: (context, state) {
           if (state is AuthenticationSuccess) {
-            // Navega a la pantalla principal u otra pantalla después del inicio de sesión exitoso
+            if (state.user.rol == rolUser)
+              Navigator.pushNamed(context, homeUserviewRoutes);
           } else if (state is AuthenticationFailure) {
-            // Muestra un mensaje de error
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.error)));
           }
@@ -57,7 +59,8 @@ class _RegisterViewState extends State<RegisterView> {
                     "assets/images/onbording2.jpg",
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.22,
-                    fit: BoxFit.cover, // Ajusta el BoxFit según tus preferencias
+                    fit:
+                        BoxFit.cover, // Ajusta el BoxFit según tus preferencias
                   ),
                 ),
                 Container(
@@ -202,11 +205,11 @@ class _RegisterViewState extends State<RegisterView> {
       child: ElevatedButton(
         onPressed: () {
           final userss = Users(
-              username: _usersController.text.toString(),
-              lastname: _lastNameController.text.toString(),
-              email: _emailController.text.toString(),
-              telefono: _phoneController.text.toString(),
-              password: _passwordController.toString());
+              username: _usersController.text.trim(),
+              lastname: _lastNameController.text.trim(),
+              email: _emailController.text.trim(),
+              telefono: _phoneController.text.trim(),
+              password: _passwordController.text.trim());
           context.read<AuthenticationCubit>().register(userss);
         },
         child: Row(

@@ -1,25 +1,41 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:culturappco/domain/models/usuario.dart';
 import 'package:culturappco/domain/repositories/authRepository.dart';
+import 'package:culturappco/utils/constants/constant_string.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRespositoryImpl implements AuthRespository {
-  
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override
-  Future<bool> login(String email, String password) async {
+  Future<Users> login(String email, String password) async {
     try {
-      UserCredential userCred = await _firebaseAuth.signInWithEmailAndPassword(
+
+      
+          print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+          print(email);
+          print(password);
+          print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      final userCred = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+
+          print("***********************************************************************");
+          print(userCred.user!.email);
+          print(userCred.user!.uid);
+          print("***********************************************************************");
       // ignore: unnecessary_null_comparison
-      if (userCred.user!.uid != null) {
-        return true;
-      } else {
-        return false;
-      }
-    } on FirebaseAuthException catch (e) {
-      return false;
+
+      DocumentSnapshot docSnapshot = await FirebaseFirestore.instance
+          .collection('Usuario')
+          .doc(userCred.user!.uid)
+          .get();
+
+      Users usuario =
+          Users.fromJson(docSnapshot.data() as Map<String, dynamic>);
+
+      return usuario;
+    } catch (e) {
+      return throw Exception('$e');
     }
   }
 
@@ -32,7 +48,13 @@ class AuthRespositoryImpl implements AuthRespository {
         password: usuario.password!,
       );
 
-      Users users = Users(uid: userCredential.user!.uid, username: usuario.username, lastname: usuario.lastname, email: usuario.email, telefono: usuario.telefono);
+      final users = Users(
+          uid: userCredential.user!.uid,
+          username: usuario.username,
+          lastname: usuario.lastname,
+          email: usuario.email,
+          telefono: usuario.telefono,
+          rol: rolUser);
       await FirebaseFirestore.instance
           .collection('Usuario')
           .doc(userCredential.user!.uid)
@@ -40,8 +62,7 @@ class AuthRespositoryImpl implements AuthRespository {
 
       return users;
     } catch (e) {
-      print('Error en el registro: $e');
-      return throw Exception('Error en el registro :$e');
+      return throw Exception('$e');
     }
   }
 
