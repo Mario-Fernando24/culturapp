@@ -1,5 +1,7 @@
 import 'package:culturappco/config/routes/routes.dart';
 import 'package:culturappco/data/authRepositoryImp.dart';
+import 'package:culturappco/data/homeRepositoryImp.dart';
+import 'package:culturappco/presentation/cubits/homeCubits/home_cubit.dart';
 import 'package:culturappco/presentation/cubits/loginCubits/auth_cubit.dart';
 import 'package:culturappco/presentation/views/onbording/onbording.dart';
 import 'package:culturappco/utils/constants/constant_routes.dart';
@@ -14,13 +16,17 @@ void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   final authenticationRepository = AuthRespositoryImpl();
+    final homeRepository = HomeRespositoryImpl();
+
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider<AuthenticationCubit>(
           create: (context) => AuthenticationCubit(authenticationRepository),
         ),
-        // Agrega otros Cubits aquí si los tienes
+        BlocProvider<HomeCubit>(
+          create: (context) => HomeCubit(homeRepository),
+        ),
       ],
       child: const MyApp(),
     ),

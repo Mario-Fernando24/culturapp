@@ -1,5 +1,6 @@
 import 'package:culturappco/config/themes/app_style.dart';
 import 'package:culturappco/domain/models/usuario.dart';
+import 'package:culturappco/presentation/cubits/homeCubits/home_cubit.dart';
 import 'package:culturappco/presentation/cubits/loginCubits/auth_cubit.dart';
 import 'package:culturappco/presentation/widgets/back_button.dart';
 import 'package:culturappco/presentation/widgets/drawer.dart';
@@ -21,50 +22,47 @@ class _PerfilViewState extends State<PerfilView> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _password_confirm_Controller =
-      TextEditingController();
-  bool _obscureText = true;
-  bool _obscureText2 = true;
   bool _usersValidate = false;
   bool _lastNameValidate = false;
   bool _emailValidate = false;
   bool _phoneValidate = false;
-  bool _passwordValidate = false;
-  bool _password_confirm_Validate = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    context.read<HomeCubit>().getProfile();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-  appBar: AppBar(
-          backgroundColor: kPrimaryColor,
-          title: Text('Perfil'),
-        ),
-        drawer: drawer_menu(context,Colors.black),
-      body: BlocConsumer<AuthenticationCubit, AuthenticationState>(
+      appBar: AppBar(
+        backgroundColor: kPrimaryColor,
+        title: Text('Perfil'),
+      ),
+      drawer: drawer_menu(context, Colors.black),
+      body: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
-          if (state is AuthenticationSuccess) {
-            if (state.user.rol == rolUser)
-              Navigator.pushNamed(context, homeUserviewRoutes);
-          } else if (state is AuthenticationFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(state.error),
-              backgroundColor: Colors.red, // Color de fondo rojo
-              behavior: SnackBarBehavior.floating, // Posición superior
-            ));
+          if (state is UsuarioState) {
+              
+   _usersController.text=state.user.username!;
+   
+    _lastNameController.text=state.user.lastname!;
+   _emailController.text=state.user.email!;
+   _phoneController.text=state.user.telefono!;
+
           }
         },
         builder: (context, state) {
-          if (state is AuthenticationLoading) {
-            return Center(child: CircularProgressIndicator());
-          }
-          return _registerForm(context);
+          return _editProfileForm(context);
         },
       ),
     );
   }
 
-  Widget _registerForm(BuildContext context) {
+  Widget _editProfileForm(BuildContext context) {
     return SingleChildScrollView(
       child: SafeArea(
         child: Column(
@@ -72,14 +70,13 @@ class _PerfilViewState extends State<PerfilView> {
             Stack(
               children: [
                 Container(
-               margin: EdgeInsets.only(top: 20),
-                  
+                  margin: EdgeInsets.only(top: 20),
                   child: Image.asset(
                     "assets/images/logoapp.png",
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.22,
-                    fit:
-                        BoxFit.contain, // Ajusta el BoxFit según tus preferencias
+                    fit: BoxFit
+                        .contain, // Ajusta el BoxFit según tus preferencias
                   ),
                 ),
               ],
@@ -123,6 +120,8 @@ class _PerfilViewState extends State<PerfilView> {
           children: <Widget>[
             Expanded(
               child: TextField(
+                
+                enabled: false,
                 controller: _usersController,
                 keyboardType: TextInputType.text,
                 onChanged: (value) => {
@@ -139,8 +138,8 @@ class _PerfilViewState extends State<PerfilView> {
             _usersValidate
                 ? Padding(
                     padding: const EdgeInsets.only(right: 10),
-                  child: Icon(Icons.check_circle, color: Colors.green),
-                )
+                    child: Icon(Icons.check_circle, color: Colors.green),
+                  )
                 : Container(),
           ],
         ));
@@ -156,6 +155,8 @@ class _PerfilViewState extends State<PerfilView> {
         children: [
           Expanded(
             child: TextField(
+              
+                enabled: false,
               controller: _lastNameController,
               onChanged: (value) => {
                 setState(() {
@@ -170,9 +171,9 @@ class _PerfilViewState extends State<PerfilView> {
           ),
           _lastNameValidate
               ? Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                child: Icon(Icons.check_circle, color: Colors.green),
-              )
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Icon(Icons.check_circle, color: Colors.green),
+                )
               : Container(),
         ],
       ),
@@ -189,6 +190,7 @@ class _PerfilViewState extends State<PerfilView> {
         children: [
           Expanded(
             child: TextField(
+                enabled: false,
               controller: _emailController,
               onChanged: (value) => {
                 setState(() {
@@ -203,9 +205,9 @@ class _PerfilViewState extends State<PerfilView> {
           ),
           _emailValidate
               ? Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                child: Icon(Icons.check_circle, color: Colors.green),
-              )
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Icon(Icons.check_circle, color: Colors.green),
+                )
               : Container(),
         ],
       ),
@@ -222,6 +224,8 @@ class _PerfilViewState extends State<PerfilView> {
         children: [
           Expanded(
             child: TextField(
+              
+                enabled: false,
               controller: _phoneController,
               onChanged: (value) => {
                 setState(() {
@@ -245,7 +249,6 @@ class _PerfilViewState extends State<PerfilView> {
     );
   }
 
-  
   Widget _buttonSign_up(BuildContext context) {
     return Container(
       width: 350.0,
@@ -259,7 +262,6 @@ class _PerfilViewState extends State<PerfilView> {
               email: _emailController.text.trim(),
               telefono: _phoneController.text.trim(),
               password: "");
-          context.read<AuthenticationCubit>().register(userss);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

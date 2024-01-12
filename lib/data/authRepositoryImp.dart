@@ -79,8 +79,20 @@ class AuthRespositoryImpl implements AuthRespository {
   Future signOut() async {
     return Future.wait([_firebaseAuth.signOut()]);
   }
+  
+  @override
+  Future<String> getCurrentUserUid()async {
+   User? user = await FirebaseAuth.instance.currentUser;
+  if (user != null) {
+    String uid = user.uid;
+    return uid;
+  } else {
+    return "null";
+  }
 
-  // Users? getUser() {
-  //   return _firebaseAuth.currentUser;
-  // }
+  }
+
+
+
+ 
 }
