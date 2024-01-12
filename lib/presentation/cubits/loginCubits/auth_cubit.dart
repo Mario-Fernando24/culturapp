@@ -39,6 +39,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   void logOut() {
     authRespository.signOut();
-    emit(AuthenticationInitial());
+    emit(Unauthenticated());
   }
 }

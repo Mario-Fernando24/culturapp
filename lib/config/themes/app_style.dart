@@ -1,5 +1,6 @@
 import 'package:culturappco/config/themes/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 Color kPrimaryColor = Color(0xffFC9D45);
 Color kSecondaryColor = Color(0xff573353);
@@ -22,3 +23,11 @@ final kBodyText2 = TextStyle(
   fontSize: SizeConfig.blockSizeH! * 4.5,
   fontWeight: FontWeight.bold,
 );
+
+Widget redesSocialesDrawer(String directorio) {
+  return SvgPicture.asset(
+    directorio,
+    width: 44.0,
+    height: 44.0,
+  );
+}

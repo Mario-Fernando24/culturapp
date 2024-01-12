@@ -71,7 +71,7 @@ class _LoginViewState extends State<LoginView> {
 
   Widget _container(BuildContext context) {
     return Transform.translate(
-      offset: Offset(0.0, -55.0),
+      offset: Offset(0.0, -85.0),
       child: Container(
         width: double.infinity,
         height: 500,
