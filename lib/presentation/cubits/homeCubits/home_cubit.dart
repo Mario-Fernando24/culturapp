@@ -17,4 +17,9 @@ class HomeCubit extends Cubit<HomeState> {
      emit(UsuarioState(usuario));
   }
 
+   Future<void> updateProfile(Users users) async{
+     final status =await homeRespository.updateProfile(users);
+     emit(HomeProfile(status));
+  }
+
 }

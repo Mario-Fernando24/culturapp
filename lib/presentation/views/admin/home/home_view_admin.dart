@@ -16,16 +16,18 @@ class _HomeViewAdminState extends State<HomeViewAdmin> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
 
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: kPrimaryColor,
-          title: Text('Cultura app'),
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: kPrimaryColor,
+            title: Text('Cultura app'),
+          ),
+          drawer: drawer_menu(context,Colors.black),
+          body: Center(
+            child: Text('Contenido principal de la aplicación'),
+          ),
         ),
-        drawer: drawer_menu(context,Colors.black),
-        body: Center(
-          child: Text('Contenido principal de la aplicación'),
-        ),
-      );
+    );
     
   }
 }

@@ -17,3 +17,8 @@ class HomeFailure extends HomeState {
   final String error;
   HomeFailure(this.error);
 }
+
+class HomeProfile extends HomeState {
+  final bool status;
+  HomeProfile(this.status);
+}

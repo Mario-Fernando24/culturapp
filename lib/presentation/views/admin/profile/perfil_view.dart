@@ -5,6 +5,7 @@ import 'package:culturappco/presentation/cubits/loginCubits/auth_cubit.dart';
 import 'package:culturappco/presentation/widgets/back_button.dart';
 import 'package:culturappco/presentation/widgets/drawer.dart';
 import 'package:culturappco/presentation/widgets/header_text.dart';
+import 'package:culturappco/presentation/widgets/toasMessage.dart';
 import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:culturappco/utils/constants/constant_string.dart';
 import 'package:flutter/material.dart';
@@ -26,13 +27,14 @@ class _PerfilViewState extends State<PerfilView> {
   bool _lastNameValidate = false;
   bool _emailValidate = false;
   bool _phoneValidate = false;
+  String _uidUsers = '';
 
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
-
     context.read<HomeCubit>().getProfile();
+
+    super.initState();
   }
 
   @override
@@ -43,20 +45,26 @@ class _PerfilViewState extends State<PerfilView> {
         title: Text('Perfil'),
       ),
       drawer: drawer_menu(context, Colors.black),
-      body: BlocConsumer<HomeCubit, HomeState>(
-        listener: (context, state) {
-          if (state is UsuarioState) {
-              
-   _usersController.text=state.user.username!;
-   
-    _lastNameController.text=state.user.lastname!;
-   _emailController.text=state.user.email!;
-   _phoneController.text=state.user.telefono!;
-
-          }
-        },
+      body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
-          return _editProfileForm(context);
+          if (state is HomeLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is UsuarioState) {
+            _usersController.text = state.user.username!;
+            _lastNameController.text = state.user.lastname!;
+            _emailController.text = state.user.email!;
+            _phoneController.text = state.user.telefono!;
+            _uidUsers = state.user.uid!;
+            return _editProfileForm(context);
+          } else if (state is HomeProfile) {
+            if (state.status) {
+              toasMessage('Su perfil se modifico correctamente');
+              state.status!=true;
+              return _editProfileForm(context);
+            }
+          }
+
+          return const SizedBox();
         },
       ),
     );
@@ -120,27 +128,14 @@ class _PerfilViewState extends State<PerfilView> {
           children: <Widget>[
             Expanded(
               child: TextField(
-                
-                enabled: false,
                 controller: _usersController,
                 keyboardType: TextInputType.text,
-                onChanged: (value) => {
-                  setState(() {
-                    _usersValidate = _usersController.text.isNotEmpty;
-                  })
-                },
                 decoration: InputDecoration(
                   hintText: "Nombre",
                   border: OutlineInputBorder(borderSide: BorderSide.none),
                 ),
               ),
             ),
-            _usersValidate
-                ? Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Icon(Icons.check_circle, color: Colors.green),
-                  )
-                : Container(),
           ],
         ));
   }
@@ -155,26 +150,16 @@ class _PerfilViewState extends State<PerfilView> {
         children: [
           Expanded(
             child: TextField(
-              
-                enabled: false,
+              enabled: true, // Asegúrate de que esté habilitado para edición.
+
               controller: _lastNameController,
-              onChanged: (value) => {
-                setState(() {
-                  _lastNameValidate = _lastNameController.text.isNotEmpty;
-                })
-              },
+
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                   hintText: "Apellido",
                   border: OutlineInputBorder(borderSide: BorderSide.none)),
             ),
           ),
-          _lastNameValidate
-              ? Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: Icon(Icons.check_circle, color: Colors.green),
-                )
-              : Container(),
         ],
       ),
     );
@@ -190,25 +175,14 @@ class _PerfilViewState extends State<PerfilView> {
         children: [
           Expanded(
             child: TextField(
-                enabled: false,
+              enabled: false,
               controller: _emailController,
-              onChanged: (value) => {
-                setState(() {
-                  _emailValidate = _emailController.text.isNotEmpty;
-                })
-              },
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                   hintText: "Correo electronico",
                   border: OutlineInputBorder(borderSide: BorderSide.none)),
             ),
           ),
-          _emailValidate
-              ? Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: Icon(Icons.check_circle, color: Colors.green),
-                )
-              : Container(),
         ],
       ),
     );
@@ -224,26 +198,13 @@ class _PerfilViewState extends State<PerfilView> {
         children: [
           Expanded(
             child: TextField(
-              
-                enabled: false,
               controller: _phoneController,
-              onChanged: (value) => {
-                setState(() {
-                  _phoneValidate = _phoneController.text.isNotEmpty;
-                })
-              },
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                   hintText: "Telefono",
                   border: OutlineInputBorder(borderSide: BorderSide.none)),
             ),
           ),
-          _phoneValidate
-              ? Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: Icon(Icons.check_circle, color: Colors.green),
-                )
-              : Container(),
         ],
       ),
     );
@@ -257,11 +218,12 @@ class _PerfilViewState extends State<PerfilView> {
       child: ElevatedButton(
         onPressed: () {
           final userss = Users(
-              username: _usersController.text.trim(),
-              lastname: _lastNameController.text.trim(),
-              email: _emailController.text.trim(),
-              telefono: _phoneController.text.trim(),
-              password: "");
+            uid: _uidUsers,
+            username: _usersController.text.trim(),
+            lastname: _lastNameController.text.trim(),
+            telefono: _phoneController.text.trim(),
+          );
+          context.read<HomeCubit>().updateProfile(userss);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

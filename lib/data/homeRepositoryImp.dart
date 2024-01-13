@@ -17,10 +17,6 @@ class HomeRespositoryImpl implements HomeRespository {
         Map<String, dynamic> data =
             documentSnapshot.data() as Map<String, dynamic>;
         final users = Users.fromJson(data);
-
-        print('00000000000000000000000000000000000000000000000000000000000000');
-        print(users.telefono);
-        print('00000000000000000000000000000000000000000000000000000000000000');
         return users;
       } else {
         throw Exception('Perfil de usuario no encontrado.');
@@ -28,6 +24,26 @@ class HomeRespositoryImpl implements HomeRespository {
     } catch (e) {
       // Manejar el error adecuadamente
       throw Exception('Error al obtener el perfil del usuario: $e');
+    }
+  }
+
+  @override
+  Future<bool> updateProfile(Users users) async {
+    try {
+      DocumentReference userReference =
+          firestore.collection('Usuario').doc(users.uid);
+
+      Map<String, dynamic> userData = {
+        'username': users.username,
+        'lastname': users.lastname,
+        'telefono': users.telefono
+      };
+
+      await userReference.update(userData);
+
+      return true;
+    } catch (e) {
+      return false;
     }
   }
 }
