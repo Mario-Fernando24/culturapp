@@ -90,7 +90,9 @@ class _OnbordingViewState extends State<OnbordingView> {
                               child: Text(
                                 onboardingContents[index].description,
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.justify,
                               ),
                             )
@@ -104,12 +106,17 @@ class _OnbordingViewState extends State<OnbordingView> {
                         ? Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: SizedBox(
-                              height: SizeConfig.blockSizeH! * 15.5,
+                              height: SizeConfig.blockSizeH! * 13.5,
                               width: SizeConfig.blockSizeV! * 100,
                               child: TextButton(
                                 onPressed: () => Navigator.pushNamed(
                                     context, loginViewRoutes),
-                                child: Text('Empezar', style: kBodyText1),
+                                child: Text('Empezar',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: SizeConfig.blockSizeH! * 4.5,
+                                      fontWeight: FontWeight.bold,
+                                    )),
                                 style: ButtonStyle(
                                   shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(

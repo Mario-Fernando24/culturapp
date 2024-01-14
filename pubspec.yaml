@@ -42,6 +42,7 @@ dependencies:
   flutter_blurhash: ^0.8.2
   flutter_svg: ^2.0.9
   fluttertoast: ^8.0.8
+  flutter_swiper_null_safety: ^1.0.2
 
 dev_dependencies:
   flutter_test:

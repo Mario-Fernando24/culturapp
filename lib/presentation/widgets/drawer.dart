@@ -64,7 +64,7 @@ Widget drawer_menu(BuildContext context, Color color) {
               leading: Icon(Icons.event, size: 35, color: kPrimaryColor),
               title: Text('Agenda cultural',
                   style: TextStyle(fontSize: 20, color: kSecondaryColor)),
-              onTap: () {},
+              onTap: () => Navigator.pushNamed(context, agendaCulturalListviewRoutes),
             ),
             ListTile(
               leading: Icon(Icons.library_music_sharp,

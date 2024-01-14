@@ -6,7 +6,8 @@ const String homeAdminviewRoutes = 'homeAdminView';
 
 const String homeUserviewRoutes = 'homeUserView';
 const String profileUsviewRoutes = 'profileUserView';
-
+const String agendaCulturalListviewRoutes = 'agendaCulturalView';
+const String addAgendaCulturalviewRoutes = 'add_agendaCulturalView';
 
 
 

@@ -1,13 +1,9 @@
 import 'package:culturappco/config/themes/app_style.dart';
 import 'package:culturappco/domain/models/usuario.dart';
 import 'package:culturappco/presentation/cubits/homeCubits/home_cubit.dart';
-import 'package:culturappco/presentation/cubits/loginCubits/auth_cubit.dart';
-import 'package:culturappco/presentation/widgets/back_button.dart';
 import 'package:culturappco/presentation/widgets/drawer.dart';
 import 'package:culturappco/presentation/widgets/header_text.dart';
 import 'package:culturappco/presentation/widgets/toasMessage.dart';
-import 'package:culturappco/utils/constants/constant_routes.dart';
-import 'package:culturappco/utils/constants/constant_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
