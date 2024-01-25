@@ -16,7 +16,8 @@ class Evento {
     String fechaEvento;
     double latitud;
     double longitud;
-    String uidUsers;
+    bool ?estado;
+    String ?uidUsers;
 
     Evento({
         required this.imagen,
@@ -26,7 +27,8 @@ class Evento {
         required this.fechaEvento,
         required this.latitud,
         required this.longitud,
-        required this.uidUsers,
+        this.estado,
+        this.uidUsers,
     });
 
     factory Evento.fromJson(Map<String, dynamic> json) => Evento(
@@ -37,6 +39,7 @@ class Evento {
         fechaEvento: json["fecha_evento"],
         latitud: json["latitud"]?.toDouble(),
         longitud: json["longitud"]?.toDouble(),
+        estado: json["estado"],
         uidUsers: json["uid_users"],
     );
 
@@ -48,6 +51,7 @@ class Evento {
         "fecha_evento": fechaEvento,
         "latitud": latitud,
         "longitud": longitud,
+        "estado": estado,
         "uid_users": uidUsers,
     };
 }

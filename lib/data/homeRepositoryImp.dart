@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:culturappco/domain/models/evento_models.dart';
 import 'package:culturappco/domain/models/usuario.dart';
 import 'package:culturappco/domain/repositories/homeRespository.dart';
+import 'package:culturappco/utils/constants/constant_string.dart';
+import 'package:culturappco/utils/function/preference.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class HomeRespositoryImpl implements HomeRespository {
@@ -51,16 +53,36 @@ class HomeRespositoryImpl implements HomeRespository {
   }
 
   @override
-  Future<void> saveEvento(Evento evento, File file) async {
+  Future<bool> saveEvento(Evento evento, File file) async {
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference ref =
         storage.ref().child("images/${DateTime.now().toIso8601String()}");
-    UploadTask uploadTask = ref.putFile(File(file.path));
- 
-    await uploadTask;
-    final url = await ref.getDownloadURL();
-    evento.imagen = url;
 
-    final resp = firestore.collection("eventos").add(evento.toJson());
+// Establecer los metadatos para el tipo de contenido
+    SettableMetadata metadata = SettableMetadata(
+      contentType:
+          'image/jpeg', // Asegúrate de cambiar esto según el tipo de tu imagen (por ejemplo, 'image/png' para imágenes PNG)
+    );
+
+    await ref.putFile(file, metadata);
+    final fileURL = await ref.getDownloadURL();
+
+    evento.imagen = fileURL;
+    evento.estado=true;
+    evento.uidUsers=UserPreferences.getPreference(usersUid);
+
+    try {
+      DocumentReference docRef =
+          await firestore.collection("eventos").add(evento.toJson());
+
+      // ignore: unnecessary_null_comparison
+      if (docRef.id != null) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
   }
 }

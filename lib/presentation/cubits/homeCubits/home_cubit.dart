@@ -5,7 +5,9 @@ import 'package:culturappco/domain/models/evento_models.dart';
 import 'package:culturappco/domain/models/usuario.dart';
 import 'package:culturappco/domain/repositories/authRepository.dart';
 import 'package:culturappco/domain/repositories/homeRespository.dart';
+import 'package:culturappco/utils/constants/constant_string.dart';
 import 'package:culturappco/utils/error/errorMessage.dart';
+import 'package:culturappco/utils/function/preference.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -20,8 +22,11 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.homeRespository) : super(HomeInitial());
 
   Future<void> getProfile() async {
+
+    String uidUsers = UserPreferences.getPreference(usersUid);
+
     final usuario =
-        await homeRespository.getProfile('Obm1r5itY0hmttWQqx7jLc3gH4i2');
+        await homeRespository.getProfile(uidUsers);
     emit(UsuarioState(usuario));
   }
 
@@ -41,12 +46,16 @@ class HomeCubit extends Cubit<HomeState> {
       imageFile = File(imagen.path);
       emit(ImageFileProfile(imageFile));
     }
+    emit(HomeInitial());
   }
-
 
   Future<void> saveEvents(Evento evento, File? imageFile) async {
-        final status = await homeRespository.saveEvento(evento,imageFile!);
-
+    try {
+      emit(HomeLoading());
+      final status = await homeRespository.saveEvento(evento, imageFile!);
+      emit(EventAdd(status));
+    } catch (e) {
+      emit(EventAdd(false));
+    }
   }
-  
 }

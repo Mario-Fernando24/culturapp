@@ -30,3 +30,8 @@ class ImageFileProfile extends HomeState {
   final File? imageFile;
   ImageFileProfile(this.imageFile);
 }
+
+class EventAdd extends HomeState {
+  final bool status;
+  EventAdd(this.status);
+}

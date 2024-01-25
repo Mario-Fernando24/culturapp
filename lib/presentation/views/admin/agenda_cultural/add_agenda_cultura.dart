@@ -6,6 +6,7 @@ import 'package:culturappco/presentation/views/admin/agenda_cultural/marker_map.
 import 'package:culturappco/presentation/widgets/back_button.dart';
 import 'package:culturappco/presentation/widgets/header_text.dart';
 import 'package:culturappco/presentation/widgets/toasMessage.dart';
+import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,6 +51,14 @@ class _AddAgendaCulturaState extends State<AddAgendaCultura> {
         if (state is ImageFileProfile) {
           Navigator.pop(context);
           imageFile = state.imageFile;
+        }
+        if(state is EventAdd){
+          if(state.status){
+            toasMessage("Evento guardado correctamente");
+            Navigator.pushNamed(context, agendaCulturalListviewRoutes);
+          }else{
+            toasMessage("Hubo un error interno\nPor favor intentelo mas tarde");
+          }
         }
       }, builder: (context, state) {
         if (state is HomeLoading) {
@@ -286,8 +295,7 @@ class _AddAgendaCulturaState extends State<AddAgendaCultura> {
                  direccionEvento: puntoReferenciaController.text.trim(),
                  fechaEvento: _dateController.text.trim(),
                  latitud: latitud,
-                 longitud: longitud,
-                 uidUsers: 'okoko');
+                 longitud: longitud);
              context.read<HomeCubit>().saveEvents(eventModelo, imageFile);
           }
         },

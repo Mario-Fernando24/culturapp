@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:culturappco/domain/models/usuario.dart';
 import 'package:culturappco/domain/repositories/authRepository.dart';
 import 'package:culturappco/utils/constants/constant_string.dart';
+import 'package:culturappco/utils/function/preference.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRespositoryImpl implements AuthRespository {
@@ -10,20 +11,8 @@ class AuthRespositoryImpl implements AuthRespository {
   @override
   Future<Users> login(String email, String password) async {
     try {
-
-      
-          print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-          print(email);
-          print(password);
-          print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
       final userCred = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-
-          print("***********************************************************************");
-          print(userCred.user!.email);
-          print(userCred.user!.uid);
-          print("***********************************************************************");
-      // ignore: unnecessary_null_comparison
 
       DocumentSnapshot docSnapshot = await FirebaseFirestore.instance
           .collection('Usuario')
@@ -32,6 +21,9 @@ class AuthRespositoryImpl implements AuthRespository {
 
       Users usuario =
           Users.fromJson(docSnapshot.data() as Map<String, dynamic>);
+
+      await UserPreferences.setPreference(
+          usersUid, await getCurrentUserUid());
 
       return usuario;
     } catch (e) {
@@ -60,6 +52,9 @@ class AuthRespositoryImpl implements AuthRespository {
           .doc(userCredential.user!.uid)
           .set(users.toJson());
 
+      await UserPreferences.setPreference(
+          usersUid, await getCurrentUserUid());
+
       return users;
     } catch (e) {
       return throw Exception('$e');
@@ -79,20 +74,15 @@ class AuthRespositoryImpl implements AuthRespository {
   Future signOut() async {
     return Future.wait([_firebaseAuth.signOut()]);
   }
-  
+
   @override
-  Future<String> getCurrentUserUid()async {
-   User? user = await FirebaseAuth.instance.currentUser;
-  if (user != null) {
-    String uid = user.uid;
-    return uid;
-  } else {
-    return "null";
+  Future<String> getCurrentUserUid() async {
+    User? user = await FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      String uid = user.uid;
+      return uid;
+    } else {
+      return "null";
+    }
   }
-
-  }
-
-
-
- 
 }

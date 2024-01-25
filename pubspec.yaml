@@ -58,6 +58,7 @@ dependencies:
   permission_handler: ^10.2.0
 
   modal_bottom_sheet: ^3.0.0-pre
+  shared_preferences: ^2.2.2
 
 
 dev_dependencies:
