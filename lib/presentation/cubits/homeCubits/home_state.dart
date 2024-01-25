@@ -6,13 +6,16 @@ abstract class HomeState extends Equatable {
 }
 
 class HomeInitial extends HomeState {}
+
 class HomeLoading extends HomeState {}
+
 class Unauthenticated extends HomeState {}
 
 class UsuarioState extends HomeState {
   final Users user;
   UsuarioState(this.user);
 }
+
 class HomeFailure extends HomeState {
   final String error;
   HomeFailure(this.error);
@@ -21,4 +24,9 @@ class HomeFailure extends HomeState {
 class HomeProfile extends HomeState {
   final bool status;
   HomeProfile(this.status);
+}
+
+class ImageFileProfile extends HomeState {
+  final File? imageFile;
+  ImageFileProfile(this.imageFile);
 }

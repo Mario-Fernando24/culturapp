@@ -1,4 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <!-- Agrega permisos según sea necesario -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    
     <application
         android:label="culturappco"
         android:name="${applicationName}"
@@ -31,5 +40,10 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+            
+         <meta-data android:name="com.google.android.geo.API_KEY"
+          android:value="AIzaSyBNdhgYWo-JBxpcLQk1m5kutUa_LLPgGAc"/>
+     
+
     </application>
 </manifest>

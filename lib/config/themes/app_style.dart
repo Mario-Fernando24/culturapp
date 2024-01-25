@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 Color kPrimaryColor = Color(0xffFC9D45);
 Color kSecondaryColor = Color(0xff573353);
 Color inputColors = Color.fromRGBO(142, 142, 147, 1.2);
+final PrimaryGreyColors = Color(0xFFBCB9B7); 
 
 final kTitle = TextStyle(
   fontFamily: 'Klasik',

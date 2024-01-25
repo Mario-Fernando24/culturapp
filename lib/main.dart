@@ -9,7 +9,6 @@ import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -21,12 +20,8 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider<AuthenticationCubit>(
-          create: (context) => AuthenticationCubit(authenticationRepository),
-        ),
-        BlocProvider<HomeCubit>(
-          create: (context) => HomeCubit(homeRepository),
-        ),
+        BlocProvider<AuthenticationCubit>(create: (context) => AuthenticationCubit(authenticationRepository)),
+        BlocProvider<HomeCubit>(create: (context) => HomeCubit(homeRepository)),
       ],
       child: const MyApp(),
     ),

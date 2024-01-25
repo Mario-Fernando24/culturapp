@@ -38,11 +38,27 @@ dependencies:
   equatable: ^2.0.5
   cloud_firestore: ^4.13.6
   firebase_core: ^2.24.2
+
+  firebase_storage: ^11.6.0
+  
   firebase_auth: ^4.3.0
   flutter_blurhash: ^0.8.2
   flutter_svg: ^2.0.9
   fluttertoast: ^8.0.8
   flutter_swiper_null_safety: ^1.0.2
+  image_picker: ^0.8.6
+  #image_picker: ^1.0.0
+
+  # #para poder obtener nuestra localización
+  geolocator: ^10.1.0
+    #mostral el mapa al momento del cliente crear una nueva direccion
+  google_maps_flutter: ^2.5.0
+    # # #arrastrar y obtener la direccion
+  geocoding: ^2.1.0
+  permission_handler: ^10.2.0
+
+  modal_bottom_sheet: ^3.0.0-pre
+
 
 dev_dependencies:
   flutter_test:

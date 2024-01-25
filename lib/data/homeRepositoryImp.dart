@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:culturappco/domain/models/evento_models.dart';
 import 'package:culturappco/domain/models/usuario.dart';
 import 'package:culturappco/domain/repositories/homeRespository.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class HomeRespositoryImpl implements HomeRespository {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -45,5 +48,19 @@ class HomeRespositoryImpl implements HomeRespository {
     } catch (e) {
       return false;
     }
+  }
+
+  @override
+  Future<void> saveEvento(Evento evento, File file) async {
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference ref =
+        storage.ref().child("images/${DateTime.now().toIso8601String()}");
+    UploadTask uploadTask = ref.putFile(File(file.path));
+ 
+    await uploadTask;
+    final url = await ref.getDownloadURL();
+    evento.imagen = url;
+
+    final resp = firestore.collection("eventos").add(evento.toJson());
   }
 }
