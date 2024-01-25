@@ -49,14 +49,19 @@ class _AddAgendaCulturaState extends State<AddAgendaCultura> {
           })),
       body: BlocConsumer<HomeCubit, HomeState>(listener: (context, state) {
         if (state is ImageFileProfile) {
-          Navigator.pop(context);
-          imageFile = state.imageFile;
+
+          print(")))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))");
+          print(state.imageFile!.path);
+          print(")))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))");
+            // Navigator.pop(context);
+            imageFile = state.imageFile;
+          
         }
-        if(state is EventAdd){
-          if(state.status){
+        if (state is EventAdd) {
+          if (state.status) {
             toasMessage("Evento guardado correctamente");
             Navigator.pushNamed(context, agendaCulturalListviewRoutes);
-          }else{
+          } else {
             toasMessage("Hubo un error interno\nPor favor intentelo mas tarde");
           }
         }
@@ -288,15 +293,15 @@ class _AddAgendaCulturaState extends State<AddAgendaCultura> {
               imageFile!.path.isEmpty) {
             toasMessage("Todos los campos son obligatorios");
           } else {
-             final eventModelo = Evento(
-                 imagen: imageFile!.path,
-                 tituloEvento: _titleController.text.trim(),
-                 descriptionEvento: _descriptionController.text.trim(),
-                 direccionEvento: puntoReferenciaController.text.trim(),
-                 fechaEvento: _dateController.text.trim(),
-                 latitud: latitud,
-                 longitud: longitud);
-             context.read<HomeCubit>().saveEvents(eventModelo, imageFile);
+            final eventModelo = Evento(
+                imagen: imageFile!.path,
+                tituloEvento: _titleController.text.trim(),
+                descriptionEvento: _descriptionController.text.trim(),
+                direccionEvento: puntoReferenciaController.text.trim(),
+                fechaEvento: _dateController.text.trim(),
+                latitud: latitud,
+                longitud: longitud);
+            context.read<HomeCubit>().saveEvents(eventModelo, imageFile);
           }
         },
         child: Row(

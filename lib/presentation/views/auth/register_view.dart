@@ -94,7 +94,7 @@ class _RegisterViewState extends State<RegisterView> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              headerText('Crear cuenta', kPrimaryColor, FontWeight.bold, 30.0),
+              headerText('Crear cuenta', kPrimaryColor, FontWeight.bold, 30.0, TextAlign.center),
               _userInput(context),
               _lastNameInput(context),
               _emailInput(context),

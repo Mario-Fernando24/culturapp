@@ -100,7 +100,7 @@ class _PerfilViewState extends State<PerfilView> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              headerText('Editar perfil', kPrimaryColor, FontWeight.bold, 30.0),
+              headerText('Editar perfil', kPrimaryColor, FontWeight.bold, 30.0, TextAlign.center),
               _userInput(context),
               _lastNameInput(context),
               _emailInput(context),

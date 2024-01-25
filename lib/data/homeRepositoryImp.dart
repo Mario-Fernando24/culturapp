@@ -85,4 +85,45 @@ class HomeRespositoryImpl implements HomeRespository {
       return false;
     }
   }
+  
+   @override
+  //  Future<List<Evento>> getEvents()async {
+  //  print("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+  //  QuerySnapshot querySnapshot = await firestore.collection('eventos').get();
+  //  print("llego acaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+  //  print(querySnapshot.docs.toList());
+  //     print("okok acaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
+  //  return querySnapshot.docs.map((doc) => Evento.fromJson(doc as Map<String, dynamic>)).toList();
+  //  }
+
+
+     Future<List<Evento>> getEvents() async {
+     List<Evento> eventModelo = [];
+ print("11111111111111111111111111111111111111111");
+
+     try {
+       QuerySnapshot querySnapshot = await firestore
+           .collection('eventos')
+           .get();
+ print("22222222222222222222222222222222222222222222");
+
+       
+          eventModelo = querySnapshot.docs.map((doc) {
+        return Evento.fromDocumentSnapshot(doc);
+       }).toList();
+
+ print("333333333333333333333333333333333333333333333");
+
+       return eventModelo;
+     } catch (e) {
+       print('Error al obtener las products: $e');
+       return eventModelo;
+     }
+   }
+
+
+
+
+
 }

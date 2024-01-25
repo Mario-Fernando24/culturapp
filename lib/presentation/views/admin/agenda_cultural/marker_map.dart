@@ -47,7 +47,7 @@ class _MarkersMapPageState extends State<MarkersMapPage> {
       appBar: AppBar(
           backgroundColor: kPrimaryColor,
           elevation: 0.0,
-          title: Text('Ubica tu dirección en el mapa'),
+          title: Text('Ubica tu dirección del evento'),
           leading: Builder(builder: (BuildContext context) {
             return backButton(context, Colors.white);
           })),

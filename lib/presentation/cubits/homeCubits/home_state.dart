@@ -35,3 +35,8 @@ class EventAdd extends HomeState {
   final bool status;
   EventAdd(this.status);
 }
+
+class GetEvents extends HomeState {
+  final List<Evento> listEvents;
+  GetEvents(this.listEvents);
+}

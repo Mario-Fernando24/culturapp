@@ -82,7 +82,7 @@ class _LoginViewState extends State<LoginView> {
           child: Center(
             child: Column(
               children: [
-                headerText('Bienvenido', kPrimaryColor, FontWeight.bold, 30.0),
+                headerText('Bienvenido', kPrimaryColor, FontWeight.bold, 30.0, TextAlign.center),
                 Text("inicia sesión en tu cuenta",
                     style: TextStyle(
                         color: kSecondaryColor,

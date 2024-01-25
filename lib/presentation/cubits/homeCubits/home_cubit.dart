@@ -3,16 +3,12 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:culturappco/domain/models/evento_models.dart';
 import 'package:culturappco/domain/models/usuario.dart';
-import 'package:culturappco/domain/repositories/authRepository.dart';
 import 'package:culturappco/domain/repositories/homeRespository.dart';
 import 'package:culturappco/utils/constants/constant_string.dart';
-import 'package:culturappco/utils/error/errorMessage.dart';
 import 'package:culturappco/utils/function/preference.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'home_state.dart';
 
@@ -22,11 +18,9 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.homeRespository) : super(HomeInitial());
 
   Future<void> getProfile() async {
-
     String uidUsers = UserPreferences.getPreference(usersUid);
 
-    final usuario =
-        await homeRespository.getProfile(uidUsers);
+    final usuario = await homeRespository.getProfile(uidUsers);
     emit(UsuarioState(usuario));
   }
 
@@ -40,13 +34,14 @@ class HomeCubit extends Cubit<HomeState> {
     File? imageFile;
 
     XFile? imagen = await picker.pickImage(source: imageSource);
+
     emit(HomeLoading());
 
     if (imagen != null) {
       imageFile = File(imagen.path);
       emit(ImageFileProfile(imageFile));
     }
-    emit(HomeInitial());
+    // emit(HomeInitial());
   }
 
   Future<void> saveEvents(Evento evento, File? imageFile) async {
@@ -58,4 +53,24 @@ class HomeCubit extends Cubit<HomeState> {
       emit(EventAdd(false));
     }
   }
+
+  Future<void> getEvents() async {
+    try {
+      emit(HomeInitial());
+      emit(HomeLoading());
+      final get_events = await homeRespository.getEvents();
+      emit(GetEvents(get_events));
+
+
+    } catch (e) {
+      emit(HomeInitial());
+    }
+  }
+
+
+  Future<void> openGoogleMaps(double latitude, double longitude) async {
+    final Uri url = Uri.parse("https://www.google.com/maps/search/?api=1&query=$latitude,$longitude");
+      launchUrl(url);
+  }
+
 }

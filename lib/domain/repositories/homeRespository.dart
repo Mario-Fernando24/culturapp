@@ -9,6 +9,9 @@ abstract class HomeRespository {
    Future<Users> getProfile(String uid);
    Future<bool> updateProfile(Users users);
    Future<bool> saveEvento(Evento evento, File file);
+   Future<List<Evento>> getEvents();
+
+
 
    
 }

@@ -23,7 +23,7 @@ import 'package:flutter/material.dart';
                     margin:
                         EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                     child: headerText(headerTitle,
-                        Theme.of(context).primaryColor, FontWeight.bold, 20.0)),
+                        Theme.of(context).primaryColor, FontWeight.bold, 20.0, TextAlign.center)),
                 Container(
                   margin:
                       EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
