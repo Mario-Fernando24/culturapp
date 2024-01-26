@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,9 +7,11 @@ import 'package:culturappco/domain/repositories/homeRespository.dart';
 import 'package:culturappco/utils/constants/constant_string.dart';
 import 'package:culturappco/utils/function/preference.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:uuid/uuid.dart';
 
 class HomeRespositoryImpl implements HomeRespository {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final Uuid _uuid = Uuid();
 
   @override
   Future<Users> getProfile(String uid) async {
@@ -66,64 +67,63 @@ class HomeRespositoryImpl implements HomeRespository {
 
     await ref.putFile(file, metadata);
     final fileURL = await ref.getDownloadURL();
+    String uid = _uuid.v4();
 
     evento.imagen = fileURL;
-    evento.estado=true;
-    evento.uidUsers=UserPreferences.getPreference(usersUid);
+    evento.estado = true;
+    evento.uidEvento = uid;
+    evento.uidUsers = UserPreferences.getPreference(usersUid);
 
     try {
-      DocumentReference docRef =
-          await firestore.collection("eventos").add(evento.toJson());
-
+      //var docRef =
+      await firestore.collection('eventos').doc(uid).set(evento.toJson());
       // ignore: unnecessary_null_comparison
-      if (docRef.id != null) {
-        return true;
-      } else {
-        return false;
-      }
+      //if (docRef != null) {
+      return true;
+      // } else {
+      //   return false;
+      // }
     } catch (error) {
       return false;
     }
   }
-  
-   @override
-  //  Future<List<Evento>> getEvents()async {
-  //  print("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-  //  QuerySnapshot querySnapshot = await firestore.collection('eventos').get();
-  //  print("llego acaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-  //  print(querySnapshot.docs.toList());
-  //     print("okok acaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
-  //  return querySnapshot.docs.map((doc) => Evento.fromJson(doc as Map<String, dynamic>)).toList();
-  //  }
+  @override
+  Future<List<Evento>> getEvents() async {
+    List<Evento> eventModelo = [];
 
+    try {
+      QuerySnapshot querySnapshot = await firestore.collection('eventos').get();
 
-     Future<List<Evento>> getEvents() async {
-     List<Evento> eventModelo = [];
- print("11111111111111111111111111111111111111111");
-
-     try {
-       QuerySnapshot querySnapshot = await firestore
-           .collection('eventos')
-           .get();
- print("22222222222222222222222222222222222222222222");
-
-       
-          eventModelo = querySnapshot.docs.map((doc) {
+      eventModelo = querySnapshot.docs.map((doc) {
         return Evento.fromDocumentSnapshot(doc);
-       }).toList();
+      }).toList();
 
- print("333333333333333333333333333333333333333333333");
+      return eventModelo;
+    } catch (e) {
+      print('Error al obtener las products: $e');
+      return eventModelo;
+    }
+  }
 
-       return eventModelo;
-     } catch (e) {
-       print('Error al obtener las products: $e');
-       return eventModelo;
-     }
-   }
+  @override
+  Future<bool> updateEstadoEvents(String uidEvento, bool estado) async {
+    try {
+      
+      bool estadoAux = false;
+      if (estado) {
+        estadoAux = false;
+      } else {
+        estadoAux = true;
+      }
+      firestore
+          .collection('eventos')
+          .doc(uidEvento)
+          .update({'estado': estadoAux});
 
-
-
-
-
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

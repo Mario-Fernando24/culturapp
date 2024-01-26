@@ -18,20 +18,21 @@ class Evento {
   String fechaEvento;
   double latitud;
   double longitud;
-  bool? estado;
+  bool  estado;
   String? uidUsers;
+  String? uidEvento;
 
-  Evento({
-    required this.imagen,
-    required this.tituloEvento,
-    required this.descriptionEvento,
-    required this.direccionEvento,
-    required this.fechaEvento,
-    required this.latitud,
-    required this.longitud,
-    this.estado,
-    this.uidUsers,
-  });
+  Evento(
+      {required this.imagen,
+      required this.tituloEvento,
+      required this.descriptionEvento,
+      required this.direccionEvento,
+      required this.fechaEvento,
+      required this.latitud,
+      required this.longitud,
+      required this.estado,
+      this.uidUsers,
+      this.uidEvento});
 
   factory Evento.fromJson(Map<String, dynamic> json) => Evento(
         imagen: json["imagen"],
@@ -43,6 +44,7 @@ class Evento {
         longitud: json["longitud"]?.toDouble(),
         estado: json["estado"],
         uidUsers: json["uid_users"],
+        uidEvento: json["uidEvento"],
       );
 
   factory Evento.fromDocumentSnapshot(DocumentSnapshot doc) {
@@ -58,6 +60,7 @@ class Evento {
       longitud: data["longitud"]?.toDouble(),
       estado: data["estado"],
       uidUsers: data["uid_users"],
+      uidEvento: data["uidEvento"],
     );
   }
 
@@ -71,5 +74,6 @@ class Evento {
         "longitud": longitud,
         "estado": estado,
         "uid_users": uidUsers,
+        "uidEvento": uidEvento,
       };
 }

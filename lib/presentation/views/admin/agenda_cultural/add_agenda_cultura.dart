@@ -299,6 +299,7 @@ class _AddAgendaCulturaState extends State<AddAgendaCultura> {
                 descriptionEvento: _descriptionController.text.trim(),
                 direccionEvento: puntoReferenciaController.text.trim(),
                 fechaEvento: _dateController.text.trim(),
+                estado: true,
                 latitud: latitud,
                 longitud: longitud);
             context.read<HomeCubit>().saveEvents(eventModelo, imageFile);

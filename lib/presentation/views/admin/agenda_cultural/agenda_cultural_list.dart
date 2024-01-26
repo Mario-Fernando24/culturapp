@@ -4,6 +4,7 @@ import 'package:culturappco/domain/models/evento_models.dart';
 import 'package:culturappco/presentation/cubits/homeCubits/home_cubit.dart';
 import 'package:culturappco/presentation/widgets/drawer.dart';
 import 'package:culturappco/presentation/widgets/header_text.dart';
+import 'package:culturappco/presentation/widgets/toasMessage.dart';
 import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +35,7 @@ class _AgendaCulturalListState extends State<AgendaCulturalList> {
         title: Text('Agenda cultural'),
       ),
       drawer: drawer_menu(context, Colors.black),
-      body: _listAgendaCultural(),
+      body: _listAgendaCultural(context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, addAgendaCulturalviewRoutes);
@@ -48,15 +49,17 @@ class _AgendaCulturalListState extends State<AgendaCulturalList> {
     );
   }
 
-  Widget _listAgendaCultural() {
+  Widget _listAgendaCultural(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         if (state is GetEvents) {
           listEventos.addAll(state.listEvents);
         }
+        if (state is EventUpdate) {
+          toasMessage("Evento actualizado correctamente");
+          //Navigator.pushNamed(context, homeAdminviewRoutes);
+        }
         return _listEvento();
-            
-         
       },
     );
   }
@@ -80,20 +83,27 @@ class _AgendaCulturalListState extends State<AgendaCulturalList> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Image.network(
-            evento.imagen, // URL de la imagen
-            width: 80,
-            height: 90,
+          FadeInImage(
+            height: 120.0,
             fit: BoxFit.cover,
+            image: NetworkImage(evento.imagen),
+            placeholder: AssetImage('assets/images/loading.gif'),
+            fadeInDuration: Duration(milliseconds: 200),
           ),
           Padding(
             padding: EdgeInsets.all(10),
-            child: Text(evento.tituloEvento,textAlign: TextAlign.center, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            child: Text(
+              evento.tituloEvento,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 10, right: 10),
-            child: Text(evento.descriptionEvento, textAlign: TextAlign.justify,)
-          ),
+              padding: EdgeInsets.only(left: 10, right: 10),
+              child: Text(
+                evento.descriptionEvento,
+                textAlign: TextAlign.justify,
+              )),
           Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -108,7 +118,9 @@ class _AgendaCulturalListState extends State<AgendaCulturalList> {
                       : Colors.red,
                   size: 30,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  _showCustomDialog(context, evento);
+                },
               ),
               IconButton(
                 icon: Icon(
@@ -117,13 +129,16 @@ class _AgendaCulturalListState extends State<AgendaCulturalList> {
                   size: 30.0,
                 ),
                 onPressed: () {
-                      context.read<HomeCubit>().openGoogleMaps(evento.latitud, evento.longitud);
-
+                  context
+                      .read<HomeCubit>()
+                      .openGoogleMaps(evento.latitud, evento.longitud);
                 },
               ),
               IconButton(
                 icon: Icon(Icons.more_horiz),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, detailsAgendaCulturalviewRoutes,arguments: evento);
+                },
               ),
             ],
           ),
@@ -131,34 +146,53 @@ class _AgendaCulturalListState extends State<AgendaCulturalList> {
       ),
     );
   }
-  // Widget _tarjetaCollections(BuildContext context, Evento evento) {
-  //   return Center(
-  //         child: Card(
-  //           elevation: 8,
-  //           child: ListTile(
-  //             contentPadding: EdgeInsets.all(16),
-  //             leading: Image.network(
-  //               evento.imagen, // URL de la imagen
-  //               width: 80,
-  //               height: 80,
-  //               fit: BoxFit.cover,
-  //             ),
-  //             title: Text('Título'),
-  //             subtitle: Text(evento.de),
-  //             trailing: Column(
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               children: [
-  //                 ElevatedButton(
-  //                   onPressed: () {
-  //                     // Acciones al hacer clic en el botón
-  //                   },
-  //                   child: Text('Botón'),
-  //                 ),
-  //                 SizedBox(height: 8),
-  //                 Icon(Icons.star, color: Colors.yellow),
-  //               ],
-  //             ),
-  //           ),
-  //         ));
-  // }
+
+  void _showCustomDialog(BuildContext context, Evento evento) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(evento.estado == true
+              ? 'Evento habilitatado'
+              : 'Evento Inhabilitado'),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(evento.estado == true
+                  ? 'Desea Inhabilitar el evento'
+                  : 'Desea habilitar el evento'),
+            ],
+          ),
+          actions: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: kSecondaryColor, // Fondo rojo
+                onPrimary: Colors.white, // Texto en color blanco
+                side: BorderSide(color: Colors.black), // Borde negro
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(); // Cierra el modal
+              },
+              child: Text('Cancelar'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: kPrimaryColor, // Fondo azul
+                onPrimary: Colors.white, // Texto en color blanco
+                side: BorderSide(color: Colors.black), // Borde negro
+              ),
+              onPressed: () {
+                context
+                    .read<HomeCubit>()
+                    .updateEvents(evento.uidEvento.toString(), evento.estado);
+                Navigator.of(context).pop(); // Cierra el modal
+              },
+              child: Text('Aceptar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

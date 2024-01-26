@@ -73,4 +73,14 @@ class HomeCubit extends Cubit<HomeState> {
       launchUrl(url);
   }
 
+  Future<void> updateEvents(String uidEvent, bool estado) async {
+    try {
+      emit(HomeLoading());
+      final status = await homeRespository.updateEstadoEvents(uidEvent,estado);
+      emit(EventUpdate(status));
+    } catch (e) {
+      emit(EventUpdate(false));
+    }
+  }
+
 }
