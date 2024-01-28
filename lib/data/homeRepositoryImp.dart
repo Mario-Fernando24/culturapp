@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:culturappco/domain/models/categoria_models.dart';
 import 'package:culturappco/domain/models/evento_models.dart';
 import 'package:culturappco/domain/models/usuario.dart';
 import 'package:culturappco/domain/repositories/homeRespository.dart';
@@ -109,7 +110,6 @@ class HomeRespositoryImpl implements HomeRespository {
   @override
   Future<bool> updateEstadoEvents(String uidEvento, bool estado) async {
     try {
-      
       bool estadoAux = false;
       if (estado) {
         estadoAux = false;
@@ -123,6 +123,36 @@ class HomeRespositoryImpl implements HomeRespository {
 
       return true;
     } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<List<CategoriaEvento>> getCategoria() async {
+    List<CategoriaEvento> categoriaModelo = [];
+
+    try {
+      QuerySnapshot querySnapshot =
+          await firestore.collection('Categoria').get();
+
+      categoriaModelo = querySnapshot.docs.map((doc) {
+        return CategoriaEvento.fromDocumentSnapshot(doc);
+      }).toList();
+
+      return categoriaModelo;
+    } catch (e) {
+      print('Error al obtener las products: $e');
+      return categoriaModelo;
+    }
+  }
+
+  @override
+  Future<bool> saveCategoryEvents(CategoriaEvento categoriaEvento) async {
+    try {
+      await firestore.collection('Categoria').add(categoriaEvento.toJson());
+
+      return true;
+    } catch (error) {
       return false;
     }
   }

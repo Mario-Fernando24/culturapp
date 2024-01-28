@@ -46,3 +46,13 @@ class GetEvents extends HomeState {
   final List<Evento> listEvents;
   GetEvents(this.listEvents);
 }
+
+class GetCategoryEvents extends HomeState {
+  final List<CategoriaEvento> listCategoryEvents;
+  GetCategoryEvents(this.listCategoryEvents);
+}
+
+class CategoryAdd extends HomeState {
+  final bool status;
+  CategoryAdd(this.status);
+}

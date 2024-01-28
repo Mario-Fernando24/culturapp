@@ -2,6 +2,8 @@ import 'package:culturappco/domain/models/evento_models.dart';
 import 'package:culturappco/presentation/views/admin/agenda_cultural/add_agenda_cultura.dart';
 import 'package:culturappco/presentation/views/admin/agenda_cultural/agenda_cultural_list.dart';
 import 'package:culturappco/presentation/views/admin/agenda_cultural/agenda_detail.dart';
+import 'package:culturappco/presentation/views/admin/directorio_artista/home_categoria_directorio_add.dart';
+import 'package:culturappco/presentation/views/admin/directorio_artista/home_directorio_artista.dart';
 import 'package:culturappco/presentation/views/admin/home/home_view_admin.dart';
 import 'package:culturappco/presentation/views/admin/profile/perfil_view.dart';
 import 'package:culturappco/presentation/views/auth/login_view.dart';
@@ -21,14 +23,14 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   agendaCulturalListviewRoutes: (_) => AgendaCulturalList(),
   addAgendaCulturalviewRoutes: (_) => AddAgendaCultura(),
 
+  homeDirectorioArtistaCulturalviewRoutes: (_) => HomeDirectorioArtista(),
 
 
 
   detailsAgendaCulturalviewRoutes: (_) {
     final Evento evento = ModalRoute.of(_)!.settings.arguments as Evento;
     return AgendaDetails(evento: evento);
-  }
+  },
+  homeDirectorioAddviewRoutes: (_) => HomeCategoriaDirectorioAdd(),
 
-
-  
 };

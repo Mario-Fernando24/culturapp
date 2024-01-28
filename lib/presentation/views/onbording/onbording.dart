@@ -62,17 +62,6 @@ class _OnbordingViewState extends State<OnbordingView> {
                                 ),
                               ),
                             ),
-                            // Container(
-                            //   decoration: BoxDecoration(
-                            //     borderRadius: BorderRadius.circular(
-                            //         10.0), // Ajusta el valor según lo redondo que desees los bordes
-                            //   ),
-                            //   child:  Image.asset(
-                            //       onboardingContents[index].image,
-                            //       fit: BoxFit.contain,
-                            //     ),
-
-                            // ),
                             Positioned(
                               top: 40,
                               left: 0,
@@ -90,77 +79,113 @@ class _OnbordingViewState extends State<OnbordingView> {
                               child: Text(
                                 onboardingContents[index].description,
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.justify,
                               ),
-                            )
-                          ],
-                        ))),
-            Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-                    currentPage == onboardingContents.length - 1
-                        ? Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: SizedBox(
-                              height: SizeConfig.blockSizeH! * 13.5,
-                              width: SizeConfig.blockSizeV! * 100,
-                              child: TextButton(
-                                onPressed: () => Navigator.pushNamed(
-                                    context, loginViewRoutes),
-                                child: Text('Empezar',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: SizeConfig.blockSizeH! * 4.5,
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20.0),
+                            ),
+                       Positioned(
+                         top: SizeConfig.blockSizeH! * 180,
+                              left: 10,
+                              right: 10,
+                         child: Column(
+                                         children: [
+                                           currentPage == onboardingContents.length - 1
+                          ? Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 5),
+                              child: SizedBox(
+                                height: SizeConfig.blockSizeH! * 14.5,
+                                width: SizeConfig.blockSizeV! * 100,
+                                child: Container(
+                                  margin: EdgeInsets.only(top: 10),
+                                  width: SizeConfig.screenWidth! * 0.3,
+                                  height: SizeConfig.blockSizeH! * 12,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.transparent,
+                                      onPrimary: kPrimaryColor,
+                                      side: BorderSide(color: kPrimaryColor),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                          context, loginViewRoutes);
+                                    },
+                                    child: Text(
+                                      'EMPEZAR',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          kPrimaryColor),
-                                  foregroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.white),
                                 ),
                               ),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(top: 10),
+                                  width: SizeConfig.screenWidth! * 0.3,
+                                  height: SizeConfig.blockSizeH! * 12,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.transparent,
+                                      onPrimary: kPrimaryColor,
+                                      side: BorderSide(color: kPrimaryColor),
+                                    ),
+                                    onPressed: () {
+                                      _pageController.previousPage(
+                                          duration: Duration(microseconds: 400),
+                                          curve: Curves.easeInOut);
+                                    },
+                                    child: Text(
+                                      'ANTERIOR',
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  children: List.generate(
+                                      onboardingContents.length,
+                                      (index) => doIndicator(index)),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(top: 10),
+                                  width: SizeConfig.screenWidth! * 0.3,
+                                  height: SizeConfig.blockSizeH! * 12,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.transparent,
+                                      onPrimary: kPrimaryColor,
+                                      side: BorderSide(color: kPrimaryColor),
+                                    ),
+                                    onPressed: () {
+                                      _pageController.nextPage(
+                                          duration: Duration(microseconds: 400),
+                                          curve: Curves.easeInOut);
+                                    },
+                                    child: Text('SIGUIENTE',
+                                        style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                ),
+                              ],
                             ),
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              OnbordingNavBt(
-                                  name: "Anterior",
-                                  onPress: () {
-                                    _pageController.previousPage(
-                                      duration: Duration(milliseconds: 400),
-                                      curve: Curves.easeInOut,
-                                    );
-                                  }),
-                              Row(
-                                children: List.generate(
-                                    onboardingContents.length,
-                                    (index) => doIndicator(index)),
-                              ),
-                              OnbordingNavBt(
-                                  name: "Siguiente",
-                                  onPress: () {
-                                    _pageController.nextPage(
-                                        duration: Duration(microseconds: 400),
-                                        curve: Curves.easeInOut);
-                                  })
-                            ],
-                          ),
-                  ],
-                ))
+                                         ],
+                                       ),
+                       )
+              
+                          ],
+                        
+                        )
+                      )
+                    ),
+           
           ],
         ),
       ),

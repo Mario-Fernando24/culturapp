@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
+import 'package:culturappco/domain/models/categoria_models.dart';
 import 'package:culturappco/domain/models/evento_models.dart';
 import 'package:culturappco/domain/models/usuario.dart';
 import 'package:culturappco/domain/repositories/homeRespository.dart';
@@ -80,6 +81,34 @@ class HomeCubit extends Cubit<HomeState> {
       emit(EventUpdate(status));
     } catch (e) {
       emit(EventUpdate(false));
+    }
+  }
+
+
+   Future<void> getCategoryEvent() async {
+    try {
+      emit(HomeLoading());
+      // emit(GetCategoryEvents([]));
+      
+      final get_categoryEvents = await homeRespository.getCategoria();
+
+      print("##############################################################################");
+      print(get_categoryEvents.length);
+      print("##############################################################################");
+      emit(GetCategoryEvents(get_categoryEvents));
+
+    } catch (e) {
+      emit(HomeInitial());
+    }
+  }
+
+  Future<void> saveCategoryEvents(CategoriaEvento categoriaEvento) async {
+    try {
+      emit(HomeLoading());
+      final status = await homeRespository.saveCategoryEvents(categoriaEvento);
+      emit(CategoryAdd(status));
+    } catch (e) {
+      emit(CategoryAdd(false));
     }
   }
 
