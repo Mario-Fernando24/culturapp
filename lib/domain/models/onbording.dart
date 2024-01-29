@@ -12,9 +12,9 @@ class OnBoarding {
 
 List<OnBoarding> onboardingContents = [
   OnBoarding(
-    title: 'Arte en Movimiento',
-    description: 'Embárcate en un viaje asombroso a través de una experiencia cultural única. Desde la expresión artística hasta las vibrantes melodías, cada pantalla te sumergirá en un mundo de asombro y creatividad.',
-    image: 'assets/images/pinceles.jpeg',
+    title: '',
+    description: '',
+    image: 'assets/images/Intructivo01.png',
   ),
   OnBoarding(
     title: 'Cultura en HD',
