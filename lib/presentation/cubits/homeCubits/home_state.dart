@@ -28,7 +28,8 @@ class HomeProfile extends HomeState {
 
 class ImageFileProfile extends HomeState {
   final File? imageFile;
-  ImageFileProfile(this.imageFile);
+  final int? numImagen;
+  ImageFileProfile(this.imageFile, this.numImagen);
 }
 
 class EventAdd extends HomeState {
@@ -55,4 +56,9 @@ class GetCategoryEvents extends HomeState {
 class CategoryAdd extends HomeState {
   final bool status;
   CategoryAdd(this.status);
+}
+
+class OfertaCulturalAdd extends HomeState {
+  final bool status;
+  OfertaCulturalAdd(this.status);
 }

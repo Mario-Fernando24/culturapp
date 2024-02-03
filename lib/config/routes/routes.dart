@@ -5,6 +5,7 @@ import 'package:culturappco/presentation/views/admin/agenda_cultural/agenda_deta
 import 'package:culturappco/presentation/views/admin/directorio_artista/home_categoria_directorio_add.dart';
 import 'package:culturappco/presentation/views/admin/directorio_artista/home_directorio_artista.dart';
 import 'package:culturappco/presentation/views/admin/home/home_view_admin.dart';
+import 'package:culturappco/presentation/views/admin/oferta_cultural/oferta_cultural_add.dart';
 import 'package:culturappco/presentation/views/admin/oferta_cultural/oferta_cultural_home.dart';
 import 'package:culturappco/presentation/views/admin/profile/perfil_view.dart';
 import 'package:culturappco/presentation/views/auth/login_view.dart';
@@ -26,6 +27,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
 
   homeDirectorioArtistaCulturalviewRoutes: (_) => HomeDirectorioArtista(),
   ofertaCulturalHomeviewRoutes: (_) => OfertaCulturalHome(),
+  ofertaCulturalAddviewRoutes: (_) => OfertaCulturalAdd(),
 
 
 

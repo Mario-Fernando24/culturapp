@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:culturappco/domain/models/categoria_models.dart';
 import 'package:culturappco/domain/models/evento_models.dart';
+import 'package:culturappco/domain/models/oferta_cultural_model.dart';
 import 'package:culturappco/domain/models/usuario.dart';
 import 'package:culturappco/domain/repositories/homeRespository.dart';
 import 'package:culturappco/utils/constants/constant_string.dart';
@@ -40,10 +41,26 @@ class HomeCubit extends Cubit<HomeState> {
 
     if (imagen != null) {
       imageFile = File(imagen.path);
-      emit(ImageFileProfile(imageFile));
+      emit(ImageFileProfile(imageFile,1));
     }
     // emit(HomeInitial());
   }
+
+    Future selectImageOfertaCultural(ImageSource imageSource, int number) async {
+    ImagePicker picker = ImagePicker();
+    File? imageFile;
+
+    XFile? imagen = await picker.pickImage(source: imageSource);
+
+    emit(HomeLoading());
+
+    if (imagen != null) {
+      imageFile = File(imagen.path);
+      emit(ImageFileProfile(imageFile,number));
+    }
+    // emit(HomeInitial());
+  }
+
 
   Future<void> saveEvents(Evento evento, File? imageFile) async {
     try {
@@ -75,6 +92,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> updateEvents(String uidEvent, bool estado) async {
+    emit(HomeInitial());
     try {
       emit(HomeLoading());
       final status = await homeRespository.updateEstadoEvents(uidEvent,estado);
@@ -86,6 +104,7 @@ class HomeCubit extends Cubit<HomeState> {
 
 
    Future<void> getCategoryEvent() async {
+    emit(HomeInitial());
     try {
       emit(HomeLoading());
       // emit(GetCategoryEvents([]));
@@ -103,6 +122,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> saveCategoryEvents(CategoriaEvento categoriaEvento) async {
+    emit(HomeInitial());
     try {
       emit(HomeLoading());
       final status = await homeRespository.saveCategoryEvents(categoriaEvento);
@@ -111,5 +131,20 @@ class HomeCubit extends Cubit<HomeState> {
       emit(CategoryAdd(false));
     }
   }
+
+
+
+  Future<void> saveOfertaCultural(OfertaCultural ofertaCultural, File imageFile, File imageFile2, File imageFile3) async {
+    emit(HomeInitial());
+    try {
+      emit(HomeLoading());
+      final status = await homeRespository.saveOfertaCultural(ofertaCultural, imageFile, imageFile2, imageFile3);
+      emit(OfertaCulturalAdd(status));
+    } catch (e) {
+      emit(OfertaCulturalAdd(false));
+    }
+  }
+
+  
 
 }

@@ -22,6 +22,7 @@ class OfertaCultural {
   String? facebook;
   String? instagram;
   String? whatsapp;
+  String? uid;
 
   OfertaCultural({
     this.titleOfertaCultural,
@@ -34,6 +35,7 @@ class OfertaCultural {
     this.facebook,
     this.instagram,
     this.whatsapp,
+    this.uid
   });
 
   factory OfertaCultural.fromJson(Map<String, dynamic> json) => OfertaCultural(
@@ -47,6 +49,7 @@ class OfertaCultural {
         facebook: json["facebook"],
         instagram: json["instagram"],
         whatsapp: json["whatsapp"],
+        uid: json["uid"],
       );
 
   factory OfertaCultural.fromDocumentSnapshot(DocumentSnapshot doc) {
@@ -63,6 +66,7 @@ class OfertaCultural {
       facebook: data["facebook"],
       instagram: data["instagram"],
       whatsapp: data["whatsapp"],
+      uid: data["uid"],
     );
   }
 
@@ -77,5 +81,6 @@ class OfertaCultural {
         "facebook": facebook,
         "instagram": instagram,
         "whatsapp": whatsapp,
+        "uid": uid,
       };
 }

@@ -50,9 +50,7 @@ class _AddAgendaCulturaState extends State<AddAgendaCultura> {
       body: BlocConsumer<HomeCubit, HomeState>(listener: (context, state) {
         if (state is ImageFileProfile) {
 
-          print(")))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))");
           print(state.imageFile!.path);
-          print(")))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))");
             // Navigator.pop(context);
             imageFile = state.imageFile;
           
