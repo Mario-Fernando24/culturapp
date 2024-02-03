@@ -53,16 +53,8 @@ class _LoginViewState extends State<LoginView> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Stack(
-            children: [
-              Container(
-                child: Image.asset("assets/images/onbording2.jpg",
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.50,
-                    fit: BoxFit.cover),
-              ),
-            ],
-          ),
+          Image.asset("assets/images/INICIAR_SESION.png",
+              width: double.infinity, fit: BoxFit.contain),
           _container(context)
         ],
       ),
@@ -71,28 +63,28 @@ class _LoginViewState extends State<LoginView> {
 
   Widget _container(BuildContext context) {
     return Transform.translate(
-      offset: Offset(0.0, -85.0),
+      offset: Offset(0.0, 88.0),
       child: Container(
         width: double.infinity,
         height: 500,
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(20.0)),
         child: Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: EdgeInsets.only(left: 20, right: 20, top: 20),
           child: Center(
             child: Column(
               children: [
-                headerText('Bienvenido', kPrimaryColor, FontWeight.bold, 30.0, TextAlign.center),
-                Text("inicia sesión en tu cuenta",
-                    style: TextStyle(
-                        color: kSecondaryColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15.0)),
+                // headerText('Bienvenido', PrimaryBlackColors, FontWeight.bold, 30.0, TextAlign.center),
+                // Text("inicia sesión en tu cuenta",
+                //     style: TextStyle(
+                //         color: PrimaryBlackColors,
+                //         fontWeight: FontWeight.w300,
+                //         fontSize: 15.0)),
                 _emailInput(),
                 _passwordInput(),
                 _buttonLogin(context),
                 Container(
-                  margin: EdgeInsets.only(top: 30.0),
+                  margin: EdgeInsets.only(top: 80.0),
                   child: GestureDetector(
                     onTap: () => {},
                     child: Text(
@@ -124,8 +116,8 @@ class _LoginViewState extends State<LoginView> {
                           child: Text(
                             'Registrarse',
                             style: TextStyle(
-                                color: kSecondaryColor,
-                                fontWeight: FontWeight.w400,
+                                color: PrimaryBlackColors,
+                                fontWeight: FontWeight.bold,
                                 fontSize: 15.0),
                           ),
                         ),

@@ -65,18 +65,17 @@ class _RegisterViewState extends State<RegisterView> {
           children: [
             Stack(
               children: [
-                Container(
-                  child: Image.asset(
-                    "assets/images/onbording2.jpg",
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.22,
-                    fit:
-                        BoxFit.cover, // Ajusta el BoxFit según tus preferencias
-                  ),
+                Image.asset(
+                  "assets/images/REGISTRATE.png",
+                  width: double.infinity,
+                  height: 179,
+                  // height: MediaQuery.of(context).size.height * 0.62,
+                  fit:
+                      BoxFit.contain, // Ajusta el BoxFit según tus preferencias
                 ),
                 Container(
-                    margin: EdgeInsets.only(left: 20, top: 10),
-                    child: backButton(context, kPrimaryColor))
+                    margin: EdgeInsets.only(left: 5, top: 10),
+                    child: backButton(context, Colors.white))
               ],
             ),
             _container(context)
@@ -90,11 +89,10 @@ class _RegisterViewState extends State<RegisterView> {
   Widget _container(BuildContext context) {
     return Center(
       child: Container(
-        padding: EdgeInsets.all(30.0),
+        padding: EdgeInsets.only(left: 30, right: 30, top: 20),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              headerText('Crear cuenta', kPrimaryColor, FontWeight.bold, 30.0, TextAlign.center),
               _userInput(context),
               _lastNameInput(context),
               _emailInput(context),

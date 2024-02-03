@@ -6,6 +6,8 @@ Color kPrimaryColor = Color(0xffEE8235);
 Color kSecondaryColor = Color(0xff71C7E3);
 Color inputColors = Color.fromRGBO(142, 142, 147, 1.2);
 final PrimaryGreyColors = Color(0xFFBCB9B7); 
+final PrimaryBlackColors = Color.fromARGB(255, 20, 19, 19); 
+
 
 final kTitle = TextStyle(
   fontFamily: 'Klasik',

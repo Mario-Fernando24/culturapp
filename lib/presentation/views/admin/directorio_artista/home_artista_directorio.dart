@@ -1,5 +1,4 @@
-import 'package:culturappco/config/themes/app_style.dart';
-import 'package:culturappco/config/themes/size_config.dart';
+
 import 'package:flutter/material.dart';
 
 class HomeArtistaDirectorio extends StatelessWidget {
@@ -24,7 +23,9 @@ class HomeArtistaDirectorio extends StatelessWidget {
             itemBuilder: (context, int index) {
               return SingleChildScrollView(
                 child: Column(
-                  children: [cardListArtista()],
+                  children: [
+                    cardListArtista()
+                    ],
                 ),
               );
             }),

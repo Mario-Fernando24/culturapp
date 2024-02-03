@@ -17,7 +17,7 @@ Widget titleForm(String title) {
       title,
       textAlign: TextAlign.start,
       style: TextStyle(
-        color: kSecondaryColor,
+        color: Colors.black,
         fontSize: 16.0,
         fontWeight: FontWeight.bold,
       ),

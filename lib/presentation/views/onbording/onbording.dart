@@ -16,13 +16,15 @@ class _OnbordingViewState extends State<OnbordingView> {
   PageController _pageController = PageController(initialPage: 0);
 
   AnimatedContainer doIndicator(index) {
-    return AnimatedContainer(
+    return  AnimatedContainer(
       margin: EdgeInsets.only(right: 5),
       duration: Duration(milliseconds: 400),
       height: 10,
       width: 10,
       decoration: BoxDecoration(
-          color: currentPage == index ? kPrimaryColor : kSecondaryColor,
+          color: currentPage == index
+              ? kPrimaryColor
+              : Color.fromARGB(255, 82, 80, 80),
           shape: BoxShape.circle),
     );
   }
@@ -62,29 +64,21 @@ class _OnbordingViewState extends State<OnbordingView> {
                                 ),
                               ),
                             ),
-                            Positioned(
-                              top: 40,
-                              left: 0,
-                              right: 0,
-                              child: Text(
-                                onboardingContents[index].title,
-                                style: kTitle,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            Positioned(
-                              top: SizeConfig.blockSizeH! * 130,
-                              left: 10,
-                              right: 10,
-                              child: Text(
-                                onboardingContents[index].description,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.justify,
-                              ),
-                            ),
+                            index<5? Positioned(
+                                top: SizeConfig.blockSizeH! * 4.0,
+                                left: SizeConfig.screenWidth! * 0.82,
+                                right: 10,
+                                child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, loginViewRoutes);
+                                    },
+                                    child: Text('omitir',
+                                        style: TextStyle(
+                                            color:index==2? Colors.black: Colors.white,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            fontSize: 14.0)))):Container(),
                             Positioned(
                               top: SizeConfig.blockSizeH! * 180,
                               left: 10,
@@ -106,9 +100,9 @@ class _OnbordingViewState extends State<OnbordingView> {
                                               height:
                                                   SizeConfig.blockSizeH! * 12,
                                               child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  primary: Colors.transparent,
-                                                  onPrimary: kPrimaryColor,
+                                               style: ElevatedButton.styleFrom(
+                                                  primary: kPrimaryColor,
+                                                  onPrimary: Colors.white,
                                                   side: BorderSide(
                                                       color: kPrimaryColor),
                                                 ),
@@ -131,7 +125,7 @@ class _OnbordingViewState extends State<OnbordingView> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,
                                           children: [
-                                            Container(
+                                           index>0? Container(
                                               margin: EdgeInsets.only(top: 10),
                                               width:
                                                   SizeConfig.screenWidth! * 0.3,
@@ -139,8 +133,8 @@ class _OnbordingViewState extends State<OnbordingView> {
                                                   SizeConfig.blockSizeH! * 12,
                                               child: ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
-                                                  primary: Colors.transparent,
-                                                  onPrimary: kPrimaryColor,
+                                                  primary: kPrimaryColor,
+                                                  onPrimary: Colors.white,
                                                   side: BorderSide(
                                                       color: kPrimaryColor),
                                                 ),
@@ -158,23 +152,23 @@ class _OnbordingViewState extends State<OnbordingView> {
                                                           FontWeight.bold),
                                                 ),
                                               ),
-                                            ),
-                                            Row(
+                                            ):Container(),
+                                          index>0?  Row(
                                               children: List.generate(
                                                   onboardingContents.length,
                                                   (index) =>
                                                       doIndicator(index)),
-                                            ),
+                                            ):Container(),
                                             Container(
                                               margin: EdgeInsets.only(top: 10),
                                               width:
-                                                  SizeConfig.screenWidth! * 0.3,
+                                                index==0 ? SizeConfig.screenWidth! * 0.9:SizeConfig.screenWidth! * 0.3,
                                               height:
                                                   SizeConfig.blockSizeH! * 12,
                                               child: ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
-                                                  primary: Colors.transparent,
-                                                  onPrimary: kPrimaryColor,
+                                                  primary: kPrimaryColor,
+                                                  onPrimary: Colors.white,
                                                   side: BorderSide(
                                                       color: kPrimaryColor),
                                                 ),

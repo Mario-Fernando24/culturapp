@@ -29,21 +29,24 @@ class _HomeCategoriaDirectorioState extends State<HomeCategoriaDirectorio> {
         builder: (context, state) {
           if (state is GetCategoryEvents) {
             categoryEvents = state.listCategoryEvents;
-            return _listArtista(context);
+            return Padding(
+              padding: const EdgeInsets.only(top: 14),
+              child: _listArtista(context),
+            );
           }
           return CircularProgressIndicator();
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, homeDirectorioAddviewRoutes);
-        },
-        backgroundColor: kSecondaryColor,
-        child: Icon(
-          Icons.add,
-          color: kPrimaryColor,
-        ),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.pushNamed(context, homeDirectorioAddviewRoutes);
+      //   },
+      //   backgroundColor: kSecondaryColor,
+      //   child: Icon(
+      //     Icons.add,
+      //     color: kPrimaryColor,
+      //   ),
+      // ),
     );
   }
 

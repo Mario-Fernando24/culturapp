@@ -16,21 +16,21 @@ Widget drawer_menu(BuildContext context, Color color) {
     builder: (context, state) {
       return Drawer(
         child: ListView(
-          padding: EdgeInsets.only(left: 20),
+          padding: EdgeInsets.only(left: 10),
           children: [
             DrawerHeader(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SizedBox(
-                      width: 90.0,
-                      height: 90.0,
+                      width: 130.0,
+                      height: 130.0,
                       child: Image.asset(
                         'assets/images/logoapp.png',
                       )),
                   Text(
-                    'Admin',
-                    style: TextStyle(color: kSecondaryColor, fontSize: 18),
+                    'Mario Muñoz',
+                    style: TextStyle(color: PrimaryBlackColors, fontSize: 18),
                   ),
                   SizedBox(
                     width: SizeConfig.screenWidth! * 0.01,
@@ -50,46 +50,56 @@ Widget drawer_menu(BuildContext context, Color color) {
             ListTile(
               leading: Icon(Icons.home, size: 35, color: kPrimaryColor),
               title: Text('Home',
-                  style: TextStyle(fontSize: 20, color: kSecondaryColor)),
+                  style: TextStyle(fontSize: 20, color: PrimaryBlackColors  )),
               onTap: () => Navigator.pushNamed(context, homeAdminviewRoutes),
             ),
             ListTile(
               leading: Icon(Icons.account_circle_outlined,
                   size: 35, color: kPrimaryColor),
               title: Text('Mi perfil',
-                  style: TextStyle(fontSize: 20, color: kSecondaryColor)),
+                  style: TextStyle(fontSize: 20, color: PrimaryBlackColors  )),
               onTap: () => Navigator.pushNamed(context, profileUsviewRoutes),
             ),
             ListTile(
               leading: Icon(Icons.event, size: 35, color: kPrimaryColor),
               title: Text('Agenda cultural',
-                  style: TextStyle(fontSize: 20, color: kSecondaryColor)),
+                  style: TextStyle(fontSize: 20, color: PrimaryBlackColors  )),
               onTap: () => Navigator.pushNamed(context, agendaCulturalListviewRoutes),
             ),
             ListTile(
-              leading: Icon(Icons.library_music_sharp,
+              leading: Icon(Icons.bookmark_add_outlined,
                   size: 35, color: kPrimaryColor),
               title: Text('Directorio de artista',
-                  style: TextStyle(fontSize: 20, color: kSecondaryColor)),
+                  style: TextStyle(fontSize: 20, color: PrimaryBlackColors  )),
               onTap: () => Navigator.pushNamed(context, homeDirectorioArtistaCulturalviewRoutes),
+            ),
+            ListTile(
+              leading: Icon(Icons.bookmark_add_outlined,
+                  size: 35, color: kPrimaryColor),
+              title: Text('Oferta cultural',
+                  style: TextStyle(fontSize: 20, color: PrimaryBlackColors  )),
+              onTap: () => Navigator.pushNamed(context, ofertaCulturalHomeviewRoutes),
             ),
             ListTile(
                 leading:
                     Icon(Icons.exit_to_app, size: 35, color: kPrimaryColor),
                 title: Text('Salir',
-                    style: TextStyle(fontSize: 20, color: kSecondaryColor)),
+                    style: TextStyle(fontSize: 20, color: PrimaryBlackColors)),
                 onTap: () => {
                       context.read<AuthenticationCubit>().logOut(),
                     }),
-            SizedBox(height: SizeConfig.screenHeight! * 0.31),
+            SizedBox(height: SizeConfig.screenHeight! * 0.22),
             Padding(
               padding: const EdgeInsets.only(right: 80, bottom: 40),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   redesSocialesDrawer('assets/images/facebook.svg'),
-                  redesSocialesDrawer('assets/images/twiter.svg'),
-                  redesSocialesDrawer('assets/images/instagram.svg')
+                  redesSocialesDrawer('assets/images/instagram.svg'),
+                                    redesSocialesDrawer('assets/images/instagram.svg'),
+                                                      redesSocialesDrawer('assets/images/instagram.svg')
+
+
                 ],
               ),
             )
