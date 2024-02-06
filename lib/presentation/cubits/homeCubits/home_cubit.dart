@@ -139,9 +139,9 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       emit(HomeLoading());
       final status = await homeRespository.saveOfertaCultural(ofertaCultural, imageFile, imageFile2, imageFile3);
-      emit(OfertaCulturalAdd(status));
+      emit(OfertaCulturalAddState(status));
     } catch (e) {
-      emit(OfertaCulturalAdd(false));
+      emit(OfertaCulturalAddState(false));
     }
   }
 

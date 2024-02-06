@@ -58,7 +58,7 @@ class CategoryAdd extends HomeState {
   CategoryAdd(this.status);
 }
 
-class OfertaCulturalAdd extends HomeState {
+class OfertaCulturalAddState extends HomeState {
   final bool status;
-  OfertaCulturalAdd(this.status);
+  OfertaCulturalAddState(this.status);
 }

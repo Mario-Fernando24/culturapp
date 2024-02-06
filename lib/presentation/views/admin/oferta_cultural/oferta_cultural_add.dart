@@ -6,6 +6,7 @@ import 'package:culturappco/domain/models/oferta_cultural_model.dart';
 import 'package:culturappco/presentation/cubits/homeCubits/home_cubit.dart';
 import 'package:culturappco/presentation/widgets/back_button.dart';
 import 'package:culturappco/presentation/widgets/toasMessage.dart';
+import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -43,12 +44,6 @@ class _OfertaCulturalAddState extends State<OfertaCulturalAdd> {
           })),
       body: BlocConsumer<HomeCubit, HomeState>(listener: (context, state) {
         if (state is ImageFileProfile) {
-          print(
-              "9999999999999999999999999999999999999999999999999999999999999999999");
-          print(state.numImagen);
-
-          print(
-              "9999999999999999999999999999999999999999999999999999999999999999999");
           if (state.numImagen == 1) {
             imageFile = state.imageFile;
           }
@@ -57,6 +52,14 @@ class _OfertaCulturalAddState extends State<OfertaCulturalAdd> {
           }
           if (state.numImagen == 3) {
             imageFile3 = state.imageFile;
+          }
+        }
+        if (state is OfertaCulturalAddState) {
+          if (state.status) {
+            toasMessage("Oferta cultural guardada correctamente");
+            Navigator.pushNamed(context, ofertaCulturalHomeviewRoutes);
+          } else {
+            toasMessage("Hubo un error interno\nPor favor intentelo mas tarde");
           }
         }
       }, builder: (context, state) {
@@ -364,11 +367,9 @@ class _OfertaCulturalAddState extends State<OfertaCulturalAdd> {
               _youtubeController.text.trim().isNotEmpty &&
               _instagramController.text.trim().isNotEmpty &&
               _facebookController.text.trim().isNotEmpty) {
-
             if (imageFile!.path.isNotEmpty &&
                 imageFile2!.path.isNotEmpty &&
                 imageFile3!.path.isNotEmpty) {
-
               final ofertaModels = OfertaCultural(
                   titleOfertaCultural: _titleController.text.trim(),
                   description: _descriptionController.text.trim(),
@@ -380,7 +381,8 @@ class _OfertaCulturalAddState extends State<OfertaCulturalAdd> {
                   image2: imageFile2!.path,
                   image3: imageFile3!.path);
 
-              context.read<HomeCubit>().saveOfertaCultural(ofertaModels, imageFile!, imageFile2!, imageFile3!);
+              context.read<HomeCubit>().saveOfertaCultural(
+                  ofertaModels, imageFile!, imageFile2!, imageFile3!);
             } else {
               toasMessage("Todos las imagenes son obligatorias");
             }
