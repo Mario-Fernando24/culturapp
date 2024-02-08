@@ -15,7 +15,10 @@ abstract class HomeRespository {
   //Categoria
   Future<List<CategoriaEvento>> getCategoria();
   Future<bool> saveCategoryEvents(CategoriaEvento categoriaEvento);
+
+  //Oferta cultural
   Future<bool> saveOfertaCultural(OfertaCultural ofertaCultural, File file1, File file2, File file3);
+  Future<List<OfertaCultural>> getOfertaCultural();
 
   
 }

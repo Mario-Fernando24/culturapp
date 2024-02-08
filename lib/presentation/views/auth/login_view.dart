@@ -19,33 +19,12 @@ class _LoginViewState extends State<LoginView> {
   bool _obscureText = true;
   bool _emailValidate = false;
   bool _passwordValidate = false;
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: BlocConsumer<AuthenticationCubit, AuthenticationState>(
-          listener: (context, state) {
-            if (state is AuthenticationSuccess) {
-              state.user.rol == rolAdmin
-                  ? Navigator.pushNamed(context, homeAdminviewRoutes)
-                  : Navigator.pushNamed(context, homeUserviewRoutes);
-            } else if (state is AuthenticationFailure) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(state.error),
-                backgroundColor: Colors.red, // Color de fondo rojo
-                behavior: SnackBarBehavior.floating, // Posición superior
-              ));
-            }
-          },
-          builder: (context, state) {
-            if (state is AuthenticationLoading) {
-              return Center(child: CircularProgressIndicator());
-            }
-            return loginForm(context);
-          },
-        ),
-      ),
+      child: Scaffold(body: loginForm(context)),
     );
   }
 
@@ -62,74 +41,92 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget _container(BuildContext context) {
-    return Transform.translate(
-      offset: Offset(0.0, 60.0),
-      child: Container(
-        width: double.infinity,
-        height: 500,
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(20.0)),
-        child: Padding(
-          padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-          child: Center(
-            child: Column(
-              children: [
-                // headerText('Bienvenido', PrimaryBlackColors, FontWeight.bold, 30.0, TextAlign.center),
-                // Text("inicia sesión en tu cuenta",
-                //     style: TextStyle(
-                //         color: PrimaryBlackColors,
-                //         fontWeight: FontWeight.w300,
-                //         fontSize: 15.0)),
-                _emailInput(),
-                _passwordInput(),
-                _buttonLogin(context),
-                Container(
-                  margin: EdgeInsets.only(top: 80.0),
-                  child: GestureDetector(
-                    onTap: () => {},
-                    child: Text(
-                      'Olvidaste tu contraseña',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 15.0),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'no tengo una cuenta? ',
-                        style: TextStyle(
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15.0),
-                      ),
-                      GestureDetector(
-                        onTap: () =>
-                            Navigator.pushNamed(context, registeriewRoutes),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            'Registrarse',
-                            style: TextStyle(
-                                color: PrimaryBlackColors,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0),
-                          ),
+    return BlocConsumer<AuthenticationCubit, AuthenticationState>(
+      listener: (context, state) {
+        if (state is AuthenticationSuccess) {
+          loading = false;
+          state.user.rol == rolAdmin
+              ? Navigator.pushNamed(context, homeAdminviewRoutes)
+              : Navigator.pushNamed(context, homeUserviewRoutes);
+        } else if (state is AuthenticationFailure) {
+          loading = false;
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(state.error),
+            backgroundColor: Colors.red, // Color de fondo rojo
+            behavior: SnackBarBehavior.floating, // Posición superior
+          ));
+        }
+      },
+      builder: (context, state) {
+        if (state is AuthenticationLoading) {
+          loading = true;
+        }
+
+        return Transform.translate(
+          offset: Offset(0.0, 60.0),
+          child: Container(
+            width: double.infinity,
+            height: 500,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(20.0)),
+            child: Padding(
+              padding: EdgeInsets.only(left: 20, right: 20, top: 20),
+              child: Center(
+                child: Column(
+                  children: [
+                    _emailInput(),
+                    _passwordInput(),
+                    loadingFunctions(),
+                    _buttonLogin(context),
+                    Container(
+                      margin: EdgeInsets.only(top: 80.0),
+                      child: GestureDetector(
+                        onTap: () => {},
+                        child: Text(
+                          'Olvidaste tu contraseña',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 15.0),
                         ),
                       ),
-                    ],
-                  ),
-                )
-              ],
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 30.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'no tengo una cuenta? ',
+                            style: TextStyle(
+                                color: kPrimaryColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15.0),
+                          ),
+                          GestureDetector(
+                            onTap: () =>
+                                Navigator.pushNamed(context, registeriewRoutes),
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Text(
+                                'Registrarse',
+                                style: TextStyle(
+                                    color: PrimaryBlackColors,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -217,6 +214,19 @@ class _LoginViewState extends State<LoginView> {
         ],
       ),
     );
+  }
+
+  Widget loadingFunctions() {
+    return loading
+        ? Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+                child: CircularProgressIndicator(
+              strokeWidth: 7.0,
+              color: kPrimaryColor,
+            )),
+          )
+        : Container();
   }
 
   Widget _buttonLogin(BuildContext context) {

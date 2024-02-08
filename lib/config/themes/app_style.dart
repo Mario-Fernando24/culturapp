@@ -15,6 +15,12 @@ final kTitle = TextStyle(
   color: kSecondaryColor,
 );
 
+final kTitleBlackcolor = TextStyle(
+  fontFamily: 'Klasik',
+  fontSize: SizeConfig.blockSizeH! * 7,
+  color: PrimaryBlackColors,
+);
+
 final kBodyText1 = TextStyle(
   color: kSecondaryColor,
   fontSize: SizeConfig.blockSizeH! * 4.5,
@@ -27,10 +33,10 @@ final kBodyText2 = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
-Widget redesSocialesDrawer(String directorio) {
+Widget redesSocialesDrawer(String directorio, double width ,double height) {
   return SvgPicture.asset(
     directorio,
-    width: 44.0,
-    height: 44.0,
+    width: width,
+    height: height,
   );
 }

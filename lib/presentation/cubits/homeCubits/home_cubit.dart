@@ -146,5 +146,22 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   
+   Future<void> getOfertaCultural() async {
+    emit(HomeInitial());
+    try {
+      emit(HomeLoading());
+      
+      final get_oferta_cultural = await homeRespository.getOfertaCultural();
+      print("Ofertaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+      print(get_oferta_cultural.length);
+      print("Ofertaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+      emit(GetOfertaCulturalEvents(get_oferta_cultural));
+
+    } catch (e) {
+      emit(HomeInitial());
+    }
+  }
+
+  
 
 }

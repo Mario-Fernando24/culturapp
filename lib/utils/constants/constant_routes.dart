@@ -14,3 +14,4 @@ const String homeDirectorioAddviewRoutes = 'home_categoria_agregar';
 const String ofertaCulturalHomeviewRoutes = 'ofertaCulturalHomeviewRoutes';
 const String ofertaCulturalAddviewRoutes = 'ofertaCulturalAddviewRoutes';
 
+const String detailsOfertaCulturalviewRoutes = 'detailsOfertaCulturalviewRoutes';

@@ -5,12 +5,14 @@ import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Widget drawer_menu(BuildContext context, Color color) {
   return BlocConsumer<AuthenticationCubit, AuthenticationState>(
     listener: (context, state) {
       if (state is Unauthenticated) {
-        Navigator.pushNamedAndRemoveUntil(context, loginViewRoutes, (route) => false);
+        Navigator.pushNamedAndRemoveUntil(
+            context, loginViewRoutes, (route) => false);
       }
     },
     builder: (context, state) {
@@ -50,35 +52,38 @@ Widget drawer_menu(BuildContext context, Color color) {
             ListTile(
               leading: Icon(Icons.home, size: 35, color: kPrimaryColor),
               title: Text('Home',
-                  style: TextStyle(fontSize: 20, color: PrimaryBlackColors  )),
+                  style: TextStyle(fontSize: 20, color: PrimaryBlackColors)),
               onTap: () => Navigator.pushNamed(context, homeAdminviewRoutes),
             ),
             ListTile(
               leading: Icon(Icons.account_circle_outlined,
                   size: 35, color: kPrimaryColor),
               title: Text('Mi perfil',
-                  style: TextStyle(fontSize: 20, color: PrimaryBlackColors  )),
+                  style: TextStyle(fontSize: 20, color: PrimaryBlackColors)),
               onTap: () => Navigator.pushNamed(context, profileUsviewRoutes),
             ),
             ListTile(
               leading: Icon(Icons.event, size: 35, color: kPrimaryColor),
               title: Text('Agenda cultural',
-                  style: TextStyle(fontSize: 20, color: PrimaryBlackColors  )),
-              onTap: () => Navigator.pushNamed(context, agendaCulturalListviewRoutes),
+                  style: TextStyle(fontSize: 20, color: PrimaryBlackColors)),
+              onTap: () =>
+                  Navigator.pushNamed(context, agendaCulturalListviewRoutes),
             ),
             ListTile(
               leading: Icon(Icons.bookmark_add_outlined,
                   size: 35, color: kPrimaryColor),
               title: Text('Directorio de artista',
-                  style: TextStyle(fontSize: 20, color: PrimaryBlackColors  )),
-              onTap: () => Navigator.pushNamed(context, homeDirectorioArtistaCulturalviewRoutes),
+                  style: TextStyle(fontSize: 20, color: PrimaryBlackColors)),
+              onTap: () => Navigator.pushNamed(
+                  context, homeDirectorioArtistaCulturalviewRoutes),
             ),
             ListTile(
               leading: Icon(Icons.bookmark_add_outlined,
                   size: 35, color: kPrimaryColor),
               title: Text('Oferta cultural',
-                  style: TextStyle(fontSize: 20, color: PrimaryBlackColors  )),
-              onTap: () => Navigator.pushNamed(context, ofertaCulturalHomeviewRoutes),
+                  style: TextStyle(fontSize: 20, color: PrimaryBlackColors)),
+              onTap: () =>
+                  Navigator.pushNamed(context, ofertaCulturalHomeviewRoutes),
             ),
             ListTile(
                 leading:
@@ -89,17 +94,36 @@ Widget drawer_menu(BuildContext context, Color color) {
                       context.read<AuthenticationCubit>().logOut(),
                     }),
             SizedBox(height: SizeConfig.screenHeight! * 0.22),
-            Padding(
-              padding: const EdgeInsets.only(right: 80, bottom: 40),
+            const Padding(
+              padding: EdgeInsets.only(right: 20, bottom: 40, left: 10),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  redesSocialesDrawer('assets/images/facebook.svg'),
-                  redesSocialesDrawer('assets/images/instagram.svg'),
-                                    redesSocialesDrawer('assets/images/instagram.svg'),
-                                                      redesSocialesDrawer('assets/images/instagram.svg')
-
-
+                  FaIcon(
+                    FontAwesomeIcons.facebook,
+                    size: 40,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(width: 10),
+                  FaIcon(
+                    FontAwesomeIcons.instagram,
+                    size: 40,
+                    color: Colors.red,
+                  ),
+                  SizedBox(width: 10),
+                  FaIcon(FontAwesomeIcons.tiktok, size: 40),
+                  SizedBox(width: 10),
+                  FaIcon(
+                    FontAwesomeIcons.youtube,
+                    size: 40,
+                    color: Colors.red,
+                  ),
+                  SizedBox(width: 10),
+                  FaIcon(
+                    FontAwesomeIcons.whatsapp,
+                    size: 40,
+                    color: Color.fromRGBO(76, 175, 80, 1),
+                  ),
                 ],
               ),
             )

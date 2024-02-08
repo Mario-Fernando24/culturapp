@@ -108,8 +108,8 @@ class _AgendaDetailsState extends State<AgendaDetails> {
                           ? Icons.check_circle_sharp
                           : Icons.cancel_rounded,
                       color: widget.evento!.estado == true
-                          ? Color.fromARGB(255, 4, 88, 8)
-                          : Colors.red,
+                          ? kPrimaryColor
+                          : Colors.white,
                       size: 30,
                     ),
                     label: Text(

@@ -62,3 +62,8 @@ class OfertaCulturalAddState extends HomeState {
   final bool status;
   OfertaCulturalAddState(this.status);
 }
+
+class GetOfertaCulturalEvents extends HomeState {
+  final List<OfertaCultural> listOferaCultural;
+  GetOfertaCulturalEvents(this.listOferaCultural);
+}

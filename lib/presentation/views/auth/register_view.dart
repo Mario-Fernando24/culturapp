@@ -31,6 +31,7 @@ class _RegisterViewState extends State<RegisterView> {
   bool _phoneValidate = false;
   bool _passwordValidate = false;
   bool _password_confirm_Validate = false;
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +39,12 @@ class _RegisterViewState extends State<RegisterView> {
       body: BlocConsumer<AuthenticationCubit, AuthenticationState>(
         listener: (context, state) {
           if (state is AuthenticationSuccess) {
+            loading = false;
+
             if (state.user.rol == rolUser)
               Navigator.pushNamed(context, homeUserviewRoutes);
           } else if (state is AuthenticationFailure) {
+            loading = false;
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(state.error),
               backgroundColor: Colors.red, // Color de fondo rojo
@@ -50,7 +54,7 @@ class _RegisterViewState extends State<RegisterView> {
         },
         builder: (context, state) {
           if (state is AuthenticationLoading) {
-            return Center(child: CircularProgressIndicator());
+            loading = true;
           }
           return _registerForm(context);
         },
@@ -99,6 +103,7 @@ class _RegisterViewState extends State<RegisterView> {
               _phoneInput(context),
               _passwordInput(context),
               _passwordConfirmInput(context),
+              loadingFunctions(),
               _buttonSign_up(context)
               //_phoneInput(context)
             ],
@@ -106,6 +111,19 @@ class _RegisterViewState extends State<RegisterView> {
         ),
       ),
     );
+  }
+
+  Widget loadingFunctions() {
+    return loading
+        ? Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+                child: CircularProgressIndicator(
+              strokeWidth: 7.0,
+              color: kPrimaryColor,
+            )),
+          )
+        : Container();
   }
 
   Widget _userInput(BuildContext context) {
@@ -134,8 +152,8 @@ class _RegisterViewState extends State<RegisterView> {
             _usersValidate
                 ? Padding(
                     padding: const EdgeInsets.only(right: 10),
-                  child: Icon(Icons.check_circle, color: Colors.green),
-                )
+                    child: Icon(Icons.check_circle, color: Colors.green),
+                  )
                 : Container(),
           ],
         ));
@@ -165,9 +183,9 @@ class _RegisterViewState extends State<RegisterView> {
           ),
           _lastNameValidate
               ? Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                child: Icon(Icons.check_circle, color: Colors.green),
-              )
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Icon(Icons.check_circle, color: Colors.green),
+                )
               : Container(),
         ],
       ),
@@ -198,9 +216,9 @@ class _RegisterViewState extends State<RegisterView> {
           ),
           _emailValidate
               ? Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                child: Icon(Icons.check_circle, color: Colors.green),
-              )
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Icon(Icons.check_circle, color: Colors.green),
+                )
               : Container(),
         ],
       ),

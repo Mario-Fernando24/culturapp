@@ -39,8 +39,7 @@ class HomeArtistaDirectorio extends StatelessWidget {
       child: GestureDetector(
         onTap: () => {},
         child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           elevation: 4,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +63,7 @@ class HomeArtistaDirectorio extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.only(left: 12.0, bottom: 12.0),
                 child: Column(

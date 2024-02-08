@@ -6,4 +6,5 @@ abstract class AuthRespository {
   bool isSignedIn();
   Future<void> signOut();
   Future<String> getCurrentUserUid();
+  
 }

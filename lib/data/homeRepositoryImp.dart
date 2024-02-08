@@ -182,4 +182,23 @@ class HomeRespositoryImpl implements HomeRespository {
       return false;
     }
   }
+
+  
+  @override
+  Future<List<OfertaCultural>> getOfertaCultural() async {
+    List<OfertaCultural> ofertaCultural = [];
+
+    try {
+      QuerySnapshot querySnapshot = await firestore.collection('OfertaCultural').get();
+
+      ofertaCultural = querySnapshot.docs.map((doc) {
+        return OfertaCultural.fromDocumentSnapshot(doc);
+      }).toList();
+
+      return ofertaCultural;
+    } catch (e) {
+      print('Error al obtener las products: $e');
+      return ofertaCultural;
+    }
+  }
 }

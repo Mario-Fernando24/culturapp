@@ -22,6 +22,7 @@ class OfertaCultural {
   String? facebook;
   String? instagram;
   String? whatsapp;
+  String? fecha;
   String? uid;
 
   OfertaCultural({
@@ -35,6 +36,7 @@ class OfertaCultural {
     this.facebook,
     this.instagram,
     this.whatsapp,
+    this.fecha,
     this.uid
   });
 
@@ -49,6 +51,7 @@ class OfertaCultural {
         facebook: json["facebook"],
         instagram: json["instagram"],
         whatsapp: json["whatsapp"],
+        fecha: json["fecha"],
         uid: json["uid"],
       );
 
@@ -66,6 +69,7 @@ class OfertaCultural {
       facebook: data["facebook"],
       instagram: data["instagram"],
       whatsapp: data["whatsapp"],
+      fecha: data["fecha"],
       uid: data["uid"],
     );
   }
@@ -81,6 +85,7 @@ class OfertaCultural {
         "facebook": facebook,
         "instagram": instagram,
         "whatsapp": whatsapp,
+        "fecha":fecha,
         "uid": uid,
       };
 }

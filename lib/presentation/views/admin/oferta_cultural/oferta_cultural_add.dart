@@ -27,6 +27,7 @@ class _OfertaCulturalAddState extends State<OfertaCulturalAdd> {
   final TextEditingController _youtubeController = TextEditingController();
   final TextEditingController _instagramController = TextEditingController();
   final TextEditingController _facebookController = TextEditingController();
+  TextEditingController _dateController = TextEditingController();
 
   File? imageFile;
   File? imageFile2;
@@ -71,6 +72,7 @@ class _OfertaCulturalAddState extends State<OfertaCulturalAdd> {
             children: [
               _title(context),
               _description(context),
+              _dateEvento(),
               _telefono(context),
               _youtube(context),
               _instagram(context),
@@ -354,6 +356,75 @@ class _OfertaCulturalAddState extends State<OfertaCulturalAdd> {
     );
   }
 
+    Widget _dateEvento() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        titleForm('Fecha del evento '),
+        Container(
+          margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 5),
+          padding: const EdgeInsets.only(left: 5.0),
+          width: SizeConfig.blockSizeV! * 43,
+          height: SizeConfig.blockSizeH! * 13,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: PrimaryGreyColors),
+            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+          ),
+          child: TextFormField(
+            controller: _dateController,
+            decoration: InputDecoration(
+              labelText: 'Fecha del evento',
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              hintStyle: TextStyle(
+                fontSize: 17,
+                color: Colors.grey,
+              ),
+              suffixIcon: IconButton(
+                icon: Icon(Icons.calendar_today, color: kPrimaryColor),
+                onPressed: () => _selectDate(context),
+              ),
+              filled: true,
+              focusColor: Colors.transparent,
+              focusedBorder: InputBorder.none,
+              labelStyle: TextStyle(
+                color: kPrimaryColor,
+              ),
+            ),
+            readOnly: true,
+            onTap: () => _selectDate(context),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? selectedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: kPrimaryColor,
+            colorScheme: ColorScheme.light(primary: kPrimaryColor),
+            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (selectedDate != null) {
+      print(selectedDate.toLocal());
+      _dateController.text = "${selectedDate.toLocal()}".split(' ')[0];
+    }
+  }
+
+
   Widget _buttonCultura(BuildContext context) {
     return Container(
       width: 350.0,
@@ -366,6 +437,7 @@ class _OfertaCulturalAddState extends State<OfertaCulturalAdd> {
               _telefonoController.text.trim().isNotEmpty &&
               _youtubeController.text.trim().isNotEmpty &&
               _instagramController.text.trim().isNotEmpty &&
+              _dateController.text.toString().isNotEmpty &&
               _facebookController.text.trim().isNotEmpty) {
             if (imageFile!.path.isNotEmpty &&
                 imageFile2!.path.isNotEmpty &&
@@ -377,6 +449,7 @@ class _OfertaCulturalAddState extends State<OfertaCulturalAdd> {
                   youtube: _youtubeController.text.trim(),
                   instagram: _instagramController.text.trim(),
                   facebook: _facebookController.text.trim(),
+                  fecha: _dateController.text.trim().toString(),
                   image1: imageFile!.path,
                   image2: imageFile2!.path,
                   image3: imageFile3!.path);
