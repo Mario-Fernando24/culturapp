@@ -9,14 +9,16 @@ String categoriaEventoToJson(CategoriaEvento data) =>
     json.encode(data.toJson());
 
 class CategoriaEvento {
-  String name;
-  String description;
-  String uidUserIngresado;
+  String ?name;
+  String ?description;
+  String ?uidUserIngresado;
+  String ?uid;
 
   CategoriaEvento({
-    required this.name,
-    required this.description,
-    required this.uidUserIngresado,
+    this.name,
+    this.description,
+    this.uidUserIngresado,
+    this.uid
   });
 
   factory CategoriaEvento.fromJson(Map<String, dynamic> json) =>

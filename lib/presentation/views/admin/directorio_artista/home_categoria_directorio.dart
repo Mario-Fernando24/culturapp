@@ -36,17 +36,8 @@ class _HomeCategoriaDirectorioState extends State<HomeCategoriaDirectorio> {
           }
           return CircularProgressIndicator();
         },
+        
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.pushNamed(context, homeDirectorioAddviewRoutes);
-      //   },
-      //   backgroundColor: kSecondaryColor,
-      //   child: Icon(
-      //     Icons.add,
-      //     color: kPrimaryColor,
-      //   ),
-      // ),
     );
   }
 

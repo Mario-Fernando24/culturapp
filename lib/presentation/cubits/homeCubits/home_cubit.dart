@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:culturappco/domain/models/categoria_models.dart';
+import 'package:culturappco/domain/models/directorio_artista.dart';
 import 'package:culturappco/domain/models/evento_models.dart';
 import 'package:culturappco/domain/models/oferta_cultural_model.dart';
 import 'package:culturappco/domain/models/usuario.dart';
@@ -131,6 +132,18 @@ class HomeCubit extends Cubit<HomeState> {
       emit(CategoryAdd(false));
     }
   }
+
+    Future<void> saveDirectorioArtista(DirectorioArtista directorioArtista, File imageFile, File imageFile2, File imageFile3) async {
+    emit(HomeInitial());
+    try {
+      emit(HomeLoading());
+      final status = await homeRespository.saveDirectorioArtista(directorioArtista, imageFile, imageFile2, imageFile3);
+      emit(OfertaCulturalAddState(status));
+    } catch (e) {
+      emit(OfertaCulturalAddState(false));
+    }
+  }
+
 
 
 

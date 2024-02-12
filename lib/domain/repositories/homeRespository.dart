@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:culturappco/domain/models/categoria_models.dart';
+import 'package:culturappco/domain/models/directorio_artista.dart';
 import 'package:culturappco/domain/models/evento_models.dart';
 import 'package:culturappco/domain/models/oferta_cultural_model.dart';
 import 'package:culturappco/domain/models/usuario.dart';
@@ -14,6 +15,9 @@ abstract class HomeRespository {
 
   //Categoria
   Future<List<CategoriaEvento>> getCategoria();
+  Future<bool> saveDirectorioArtista(DirectorioArtista directorioArtista, File file1, File file2, File file3);
+
+  
   Future<bool> saveCategoryEvents(CategoriaEvento categoriaEvento);
 
   //Oferta cultural

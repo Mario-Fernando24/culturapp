@@ -1,14 +1,35 @@
-
+import 'package:culturappco/config/themes/app_style.dart';
+import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
 
-class HomeArtistaDirectorio extends StatelessWidget {
+class HomeArtistaDirectorio extends StatefulWidget {
   const HomeArtistaDirectorio({super.key});
 
   @override
+  State<HomeArtistaDirectorio> createState() => _HomeArtistaDirectorioState();
+}
+
+class _HomeArtistaDirectorioState extends State<HomeArtistaDirectorio> {
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [_listArtista(context)],
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [_listArtista(context)],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, homeDirectorioArtistaAddviewRoutes);
+        },
+        // ignore: sort_child_properties_last
+        child: Icon(
+          Icons.add,
+          size: 40,
+          weight: 20,
+          color: kPrimaryColor,
+        ),
+        backgroundColor: kSecondaryColor,
       ),
     );
   }
@@ -23,9 +44,7 @@ class HomeArtistaDirectorio extends StatelessWidget {
             itemBuilder: (context, int index) {
               return SingleChildScrollView(
                 child: Column(
-                  children: [
-                    cardListArtista()
-                    ],
+                  children: [cardListArtista()],
                 ),
               );
             }),
@@ -39,7 +58,8 @@ class HomeArtistaDirectorio extends StatelessWidget {
       child: GestureDetector(
         onTap: () => {},
         child: Card(
-          shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           elevation: 4,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

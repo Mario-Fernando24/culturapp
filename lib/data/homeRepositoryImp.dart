@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:culturappco/domain/models/categoria_models.dart';
+import 'package:culturappco/domain/models/directorio_artista.dart';
 import 'package:culturappco/domain/models/evento_models.dart';
 import 'package:culturappco/domain/models/oferta_cultural_model.dart';
 import 'package:culturappco/domain/models/usuario.dart';
@@ -148,17 +149,7 @@ class HomeRespositoryImpl implements HomeRespository {
     }
   }
 
-  @override
-  Future<bool> saveCategoryEvents(CategoriaEvento categoriaEvento) async {
-    try {
-      await firestore.collection('Categoria').add(categoriaEvento.toJson());
-
-      return true;
-    } catch (error) {
-      return false;
-    }
-  }
-
+  
   @override
   Future<bool> saveOfertaCultural(
       OfertaCultural ofertaCultural, File file, File file2, File file3) async {
@@ -175,6 +166,45 @@ class HomeRespositoryImpl implements HomeRespository {
     try {
       await firestore
           .collection('OfertaCultural')
+          .doc(uid)
+          .set(ofertaCultural.toJson());
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  
+
+
+
+  @override
+  Future<bool> saveCategoryEvents(CategoriaEvento categoriaEvento) async {
+    try {
+      await firestore.collection('Categoria').add(categoriaEvento.toJson());
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> saveDirectorioArtista(
+      DirectorioArtista ofertaCultural, File file, File file2, File file3) async {
+    String imgageuno = await saveImageStorage(file);
+    String imagedos = await saveImageStorage(file2);
+    String imagetres = await saveImageStorage(file3);
+
+    String uid = _uuid.v4();
+    ofertaCultural.uid = uid;
+    ofertaCultural.image1 = imgageuno;
+    ofertaCultural.image2 = imagedos;
+    ofertaCultural.image3 = imagetres;
+
+    try {
+      await firestore
+          .collection('DirectoriArtista')
           .doc(uid)
           .set(ofertaCultural.toJson());
       return true;

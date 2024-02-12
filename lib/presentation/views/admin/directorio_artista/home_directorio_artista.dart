@@ -1,10 +1,3 @@
-//  HomeDirectorioArtista
-//        appBar: AppBar(
-//           title: Text('Directorio de artista'),
-//           backgroundColor: kPrimaryColor,
-//          ),
-//                 drawer: drawer_menu(context, Colors.black),
-
 import 'package:culturappco/config/themes/app_style.dart';
 import 'package:culturappco/presentation/views/admin/directorio_artista/home_artista_directorio.dart';
 import 'package:culturappco/presentation/views/admin/directorio_artista/home_categoria_directorio.dart';
