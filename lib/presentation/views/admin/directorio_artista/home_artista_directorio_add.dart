@@ -8,6 +8,7 @@ import 'package:culturappco/domain/models/oferta_cultural_model.dart';
 import 'package:culturappco/presentation/cubits/homeCubits/home_cubit.dart';
 import 'package:culturappco/presentation/widgets/header_text.dart';
 import 'package:culturappco/presentation/widgets/toasMessage.dart';
+import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -74,6 +75,14 @@ class _HomeArtistaDirectorioAddState extends State<HomeArtistaDirectorioAdd> {
           imageFile3 = state.imageFile;
         }
       }
+      if(state is OfertaCulturalAddState){
+        if(state.status){
+            toasMessage("Artista creado correctamente");
+           Navigator.of(context).pushNamed(homeDirectorioArtistaCulturalviewRoutes);
+        }else{
+          toasMessage("Error interno\nIntentalo de nuevo mas tarde");
+        }
+      }
     }, builder: (context, state) {
       if (state is HomeLoading) {
         return Center(child: CircularProgressIndicator());
@@ -87,7 +96,7 @@ class _HomeArtistaDirectorioAddState extends State<HomeArtistaDirectorioAdd> {
             _facebook(context),
             _instagram(context),
             _imagenes(context),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             _buttonDirectorioArtista(context)
           ],
         ),
@@ -192,7 +201,10 @@ class _HomeArtistaDirectorioAddState extends State<HomeArtistaDirectorioAdd> {
           margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 5),
           padding: const EdgeInsets.only(left: 5.0),
           width: MediaQuery.of(context).size.width * 0.9,
-          height: MediaQuery.of(context).size.height * 0.07,
+          height: MediaQuery.of(context).size.height * 0.17,
+
+
+          
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: PrimaryGreyColors),
@@ -355,23 +367,65 @@ class _HomeArtistaDirectorioAddState extends State<HomeArtistaDirectorioAdd> {
     return Container(
       width: 350.0,
       height: 50.0,
-      margin: EdgeInsets.only(top: 25.0, right: 20, left: 20),
+      margin: EdgeInsets.only(top: 25.0, right: 20, left: 20, bottom: 10.0),
       child: ElevatedButton(
         onPressed: () {
-          final directorioArtista = DirectorioArtista(
-              categoria: NameGender,
-              idCategoria: codeGender,
-              name: _nameController.text.trim(),
-              descripcion: _descripcionController.text.trim(),
-              facebook: _facebookController.text.trim(),
-              instagram: _instagramController.text.trim(),
-              image1: imageFile!.path,
-              image2: imageFile2!.path,
-              image3: imageFile3!.path
-              );
 
-          context.read<HomeCubit>().saveDirectorioArtista(
-              directorioArtista, imageFile!, imageFile2!, imageFile3!);
+          if(codeGender!='ok'){
+            if(_nameController.text.trim().isNotEmpty){
+              if(_descripcionController.text.trim().isNotEmpty){
+                if(_facebookController.text.trim().isNotEmpty){
+                  if(_instagramController.text.trim().isNotEmpty){
+                    if(imageFile!=null){
+                      if(imageFile2!=null ){
+                        if(imageFile3!=null){
+
+
+                                final directorioArtista = DirectorioArtista(
+                                      categoria: NameGender,
+                                      idCategoria: codeGender,
+                                      name: _nameController.text.trim(),
+                                      descripcion: _descripcionController.text.trim(),
+                                      facebook: _facebookController.text.trim(),
+                                      instagram: _instagramController.text.trim(),
+                                      image1: imageFile!.path,
+                                      image2: imageFile2!.path,
+                                      image3: imageFile3!.path
+                                      );
+
+                    context.read<HomeCubit>().saveDirectorioArtista(
+                        directorioArtista, imageFile!, imageFile2!, imageFile3!);
+                        }else{
+                           toasMessage('La tercera imagen es obligatoria');
+                        }
+
+                        }else{
+                          toasMessage('La segunda imagen es obligatoria');
+                        }
+                         
+                    }else{
+                      toasMessage("La primera imagen es obligatoria");
+                    }
+
+                  }else{
+                    toasMessage("El campo de instagram es obligatorio");
+                  }
+
+                }else{
+                  toasMessage("El campo de facebook es obligatorio");
+                }
+
+              }else{
+              toasMessage("El campo nombre Descripción es obligatorio");
+              }
+            }else{
+              toasMessage("El campo nombre es obligatorio");
+            }
+          }else{
+             toasMessage("Seleccione una categoria");
+          }
+
+
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -448,8 +502,6 @@ class _HomeArtistaDirectorioAddState extends State<HomeArtistaDirectorioAdd> {
 
                                   codeGender =
                                       categoria[selectedGenderIndex].uid ?? '';
-
-                                  print("mario");
 
                                   Navigator.pop(context);
                                 } else {

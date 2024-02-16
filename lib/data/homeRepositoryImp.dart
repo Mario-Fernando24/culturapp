@@ -207,9 +207,32 @@ class HomeRespositoryImpl implements HomeRespository {
           .collection('DirectoriArtista')
           .doc(uid)
           .set(ofertaCultural.toJson());
+          
+      print("TRUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
       return true;
     } catch (error) {
+      
+      print("FALSEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
       return false;
+    }
+  }
+
+@override
+  Future<List<DirectorioArtista>> getDirectorioArtista() async {
+    List<DirectorioArtista> categoriaModelo = [];
+
+    try {
+      QuerySnapshot querySnapshot =
+          await firestore.collection('DirectoriArtista').get();
+
+      categoriaModelo = querySnapshot.docs.map((doc) {
+        return DirectorioArtista.fromDocumentSnapshot(doc);
+      }).toList();
+
+      return categoriaModelo;
+    } catch (e) {
+      print('Error al obtener las products: $e');
+      return categoriaModelo;
     }
   }
 

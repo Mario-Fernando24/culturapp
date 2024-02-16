@@ -67,3 +67,9 @@ class GetOfertaCulturalEvents extends HomeState {
   final List<OfertaCultural> listOferaCultural;
   GetOfertaCulturalEvents(this.listOferaCultural);
 }
+
+
+class GetDirectorioArtista extends HomeState {
+  final List<DirectorioArtista> listDirectorioArtista;
+  GetDirectorioArtista(this.listDirectorioArtista);
+}

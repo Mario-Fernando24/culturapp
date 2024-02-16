@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 DirectorioArtista directorioArtistaFromJson(String str) => DirectorioArtista.fromJson(json.decode(str));
 
 String directorioArtistaToJson(DirectorioArtista data) => json.encode(data.toJson());
@@ -46,6 +48,23 @@ class DirectorioArtista {
         uid: json["uid"],
 
     );
+
+    factory DirectorioArtista.fromDocumentSnapshot(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+
+    return DirectorioArtista(
+         categoria: data["categoria"],
+        idCategoria: data["id_categoria"],
+        image1: data["image1"],
+        image2: data["image2"],
+        image3: data["image3"],
+        name: data["name"],
+        descripcion: data["descripcion"],
+        facebook: data["facebook"],
+        instagram: data["instagram"],
+        uid: data["uid"],
+    );
+  }
 
     Map<String, dynamic> toJson() => {
         "categoria": categoria,

@@ -92,6 +92,18 @@ class HomeCubit extends Cubit<HomeState> {
       launchUrl(url);
   }
 
+
+
+
+  
+  Future<void> urlGlobal(String urlEnpoind) async {
+    print("############################################################################");
+    print(urlEnpoind);
+    print("############################################################################");
+    final Uri url = Uri.parse(urlEnpoind.toString());
+      launchUrl(url);
+  }
+
   Future<void> updateEvents(String uidEvent, bool estado) async {
     emit(HomeInitial());
     try {
@@ -122,6 +134,8 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+  
+
   Future<void> saveCategoryEvents(CategoriaEvento categoriaEvento) async {
     emit(HomeInitial());
     try {
@@ -138,9 +152,27 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       emit(HomeLoading());
       final status = await homeRespository.saveDirectorioArtista(directorioArtista, imageFile, imageFile2, imageFile3);
+
+      print("printttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+      print(status);
+      print("printttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
       emit(OfertaCulturalAddState(status));
     } catch (e) {
       emit(OfertaCulturalAddState(false));
+    }
+  }
+
+
+  
+   Future<void> getDirectorioArtista() async {
+    emit(HomeInitial());
+    try {   
+      final get_directorioArtista = await homeRespository.getDirectorioArtista();
+      await Future.delayed(Duration(seconds: 3));
+      emit(GetDirectorioArtista(get_directorioArtista));
+
+    } catch (e) {
+      emit(HomeInitial());
     }
   }
 

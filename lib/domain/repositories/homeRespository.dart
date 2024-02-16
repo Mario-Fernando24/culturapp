@@ -16,6 +16,7 @@ abstract class HomeRespository {
   //Categoria
   Future<List<CategoriaEvento>> getCategoria();
   Future<bool> saveDirectorioArtista(DirectorioArtista directorioArtista, File file1, File file2, File file3);
+  Future<List<DirectorioArtista>> getDirectorioArtista();
 
   
   Future<bool> saveCategoryEvents(CategoriaEvento categoriaEvento);

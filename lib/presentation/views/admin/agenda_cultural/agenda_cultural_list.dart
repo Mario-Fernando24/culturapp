@@ -57,7 +57,6 @@ class _AgendaCulturalListState extends State<AgendaCulturalList> {
         }
         if (state is EventUpdate) {
           toasMessage("Evento actualizado correctamente");
-          //Navigator.pushNamed(context, homeAdminviewRoutes);
         }
         return _listEvento();
       },
@@ -129,9 +128,7 @@ class _AgendaCulturalListState extends State<AgendaCulturalList> {
                   size: 30.0,
                 ),
                 onPressed: () {
-                  context
-                      .read<HomeCubit>()
-                      .openGoogleMaps(evento.latitud, evento.longitud);
+                  context.read<HomeCubit>().openGoogleMaps(evento.latitud, evento.longitud);
                 },
               ),
               IconButton(
