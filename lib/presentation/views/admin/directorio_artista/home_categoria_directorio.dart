@@ -34,7 +34,7 @@ class _HomeCategoriaDirectorioState extends State<HomeCategoriaDirectorio> {
               child: _listArtista(context),
             );
           }
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         },
         
       ),

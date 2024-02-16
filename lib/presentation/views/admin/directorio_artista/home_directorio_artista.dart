@@ -27,7 +27,7 @@ class _HomeDirectorioArtistaState extends State<HomeDirectorioArtista> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Directorio de artista'),
-          backgroundColor: kPrimaryColor,
+          backgroundColor: colorDirectorioArtista,
         ),
         drawer: drawer_menu(context, Colors.black),
         bottomNavigationBar:
@@ -45,7 +45,7 @@ class _HomeDirectorioArtistaState extends State<HomeDirectorioArtista> {
     return GestureDetector(
       child: CustomAnimatedBottomBar(
           containerHeight: 60,
-          backgroundColor: kPrimaryColor,
+          backgroundColor: colorDirectorioArtista,
           showElevation: true,
           itemCornerRadius: 24,
           curve: Curves.easeIn,

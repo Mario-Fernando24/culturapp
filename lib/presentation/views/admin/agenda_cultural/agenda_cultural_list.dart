@@ -31,7 +31,7 @@ class _AgendaCulturalListState extends State<AgendaCulturalList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: colorAgendaCultural,
         title: Text('Agenda cultural'),
       ),
       drawer: drawer_menu(context, Colors.black),
@@ -42,7 +42,7 @@ class _AgendaCulturalListState extends State<AgendaCulturalList> {
         },
         child: Icon(
           Icons.add,
-          color: kPrimaryColor,
+          color: colorAgendaCultural,
         ),
         backgroundColor: kSecondaryColor,
       ),

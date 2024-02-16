@@ -149,7 +149,6 @@ class HomeRespositoryImpl implements HomeRespository {
     }
   }
 
-  
   @override
   Future<bool> saveOfertaCultural(
       OfertaCultural ofertaCultural, File file, File file2, File file3) async {
@@ -174,10 +173,6 @@ class HomeRespositoryImpl implements HomeRespository {
     }
   }
 
-  
-
-
-
   @override
   Future<bool> saveCategoryEvents(CategoriaEvento categoriaEvento) async {
     try {
@@ -190,8 +185,8 @@ class HomeRespositoryImpl implements HomeRespository {
   }
 
   @override
-  Future<bool> saveDirectorioArtista(
-      DirectorioArtista ofertaCultural, File file, File file2, File file3) async {
+  Future<bool> saveDirectorioArtista(DirectorioArtista ofertaCultural,
+      File file, File file2, File file3) async {
     String imgageuno = await saveImageStorage(file);
     String imagedos = await saveImageStorage(file2);
     String imagetres = await saveImageStorage(file3);
@@ -207,17 +202,16 @@ class HomeRespositoryImpl implements HomeRespository {
           .collection('DirectoriArtista')
           .doc(uid)
           .set(ofertaCultural.toJson());
-          
+
       print("TRUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
       return true;
     } catch (error) {
-      
       print("FALSEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
       return false;
     }
   }
 
-@override
+  @override
   Future<List<DirectorioArtista>> getDirectorioArtista() async {
     List<DirectorioArtista> categoriaModelo = [];
 
@@ -236,13 +230,13 @@ class HomeRespositoryImpl implements HomeRespository {
     }
   }
 
-  
   @override
   Future<List<OfertaCultural>> getOfertaCultural() async {
     List<OfertaCultural> ofertaCultural = [];
 
     try {
-      QuerySnapshot querySnapshot = await firestore.collection('OfertaCultural').get();
+      QuerySnapshot querySnapshot =
+          await firestore.collection('OfertaCultural').get();
 
       ofertaCultural = querySnapshot.docs.map((doc) {
         return OfertaCultural.fromDocumentSnapshot(doc);
@@ -253,5 +247,24 @@ class HomeRespositoryImpl implements HomeRespository {
       print('Error al obtener las products: $e');
       return ofertaCultural;
     }
+  }
+
+  Future<List<String>> numeroEventos() async {
+    final directorio =
+        FirebaseFirestore.instance.collection('DirectoriArtista');
+    final snapshotdirectorio = await directorio.get();
+
+    final ofertaCultural =
+        FirebaseFirestore.instance.collection('OfertaCultural');
+    final snapshotofertaCultural = await ofertaCultural.get();
+
+    final agenda = FirebaseFirestore.instance.collection('eventos');
+    final agendaCultural = await agenda.get();
+
+    return [
+      snapshotdirectorio.docs.length.toString(),
+      snapshotofertaCultural.docs.length.toString(),
+      agendaCultural.docs.length.toString()
+    ];
   }
 }

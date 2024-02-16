@@ -5,6 +5,7 @@ import 'package:culturappco/presentation/cubits/homeCubits/home_cubit.dart';
 import 'package:culturappco/utils/function/parsear_date.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AgendaDetails extends StatefulWidget {
   final Evento? evento;
@@ -36,7 +37,7 @@ class _AgendaDetailsState extends State<AgendaDetails> {
             ClipRRect(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
               child: FadeInImage(
-                height: SizeConfig.screenHeight!*0.35,
+                height: SizeConfig.screenHeight! * 0.35,
                 fit: BoxFit.cover,
                 image: NetworkImage(widget.evento!.imagen),
                 placeholder: AssetImage('assets/images/loading.gif'),
@@ -51,74 +52,89 @@ class _AgendaDetailsState extends State<AgendaDetails> {
                   Text(
                     widget.evento!.tituloEvento,
                     style: TextStyle(
-                        fontSize: 28,
+                        fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: kPrimaryColor),
+                        color: Colors.black),
                   ),
                   SizedBox(height: 8),
                   Text(
                     widget.evento!.descriptionEvento,
-                    style: TextStyle(fontSize: 18, color: Colors.black54),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.grey),
                   ),
                   SizedBox(height: 30),
-                  Text(
-                    "Fecha del evento \n" +
-                        parsearDateTime(widget.evento!.fechaEvento),
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black54,
-                        fontWeight: FontWeight.bold),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      FaIcon(
+                        FontAwesomeIcons.calendarCheck,
+                        size: 40,
+                        color: Colors.red,
+                      ),
+                      Text(
+                        "Fecha del evento \n" +
+                            parsearDateTime(widget.evento!.fechaEvento),
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 30),
-                  Text(
-                    "Dirección\n" + widget.evento!.direccionEvento,
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black54,
-                        fontWeight: FontWeight.bold),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      FaIcon(
+                        FontAwesomeIcons.locationArrow,
+                        size: 40,
+                        color: Colors.red,
+                      ),
+                      Text(
+                        "Dirección\n" + widget.evento!.direccionEvento,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 24),
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      primary: kPrimaryColor, // Color del botón
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          context.read<HomeCubit>().openGoogleMaps(
+                              widget.evento!.latitud, widget.evento!.longitud);
+                        },
+                        child: FaIcon(
+                          FontAwesomeIcons.mapLocation,
+                          size: 50,
+                          color: Colors.red,
+                        ),
                       ),
-                    ),
-                    onPressed: () {
-                      context.read<HomeCubit>().openGoogleMaps(
-                          widget.evento!.latitud, widget.evento!.longitud);
-                    },
-                    icon: Icon(Icons.map, color: Colors.white),
-                    label: Text('Ver Ubicación en Mapa',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold)),
-                  ),
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: kSecondaryColor,
-                      primary: kPrimaryColor, // Color del botón
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                      GestureDetector(
+                        onTap: () {
+                          context.read<HomeCubit>().openGoogleMaps(
+                              widget.evento!.latitud, widget.evento!.longitud);
+                        },
+                        child: widget.evento!.estado == true
+                            ? FaIcon(
+                                FontAwesomeIcons.check,
+                                size: 50,
+                                color: Colors.green[900],
+                              )
+                            : FaIcon(
+                                FontAwesomeIcons.circleInfo,
+                                size: 50,
+                                color: Colors.red[900],
+                              ),
                       ),
-                    ),
-                    onPressed: () {},
-                    icon: Icon(
-                      widget.evento!.estado == true
-                          ? Icons.check_circle_sharp
-                          : Icons.cancel_rounded,
-                      color: widget.evento!.estado == true
-                          ? kPrimaryColor
-                          : Colors.white,
-                      size: 30,
-                    ),
-                    label: Text(
-                        widget.evento!.estado == true
-                            ? 'HABILITADO'
-                            : 'INHABILITADO',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold)),
-                  ),
+                    ],
+                  )
                 ],
               ),
             ),

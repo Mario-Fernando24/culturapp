@@ -8,6 +8,10 @@ Color inputColors = Color.fromRGBO(142, 142, 147, 1.2);
 final PrimaryGreyColors = Color(0xFFBCB9B7); 
 final PrimaryBlackColors = Color.fromARGB(255, 20, 19, 19); 
 
+final colorDirectorioArtista=Color(0xff71C7E3);
+final colorAgendaCultural=Color(0xffF9B539);
+final colorOfertaCultural=Color(0xffDADB19);
+
 
 final kTitle = TextStyle(
   fontFamily: 'Klasik',

@@ -73,3 +73,8 @@ class GetDirectorioArtista extends HomeState {
   final List<DirectorioArtista> listDirectorioArtista;
   GetDirectorioArtista(this.listDirectorioArtista);
 }
+
+class NumeroEventos extends HomeState {
+  final List<String> listEventos;
+  NumeroEventos(this.listEventos);
+}

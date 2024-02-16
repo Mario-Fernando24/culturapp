@@ -28,7 +28,7 @@ class _OfertaCulturalDetailsState extends State<OfertaCulturalDetails> {
     return Scaffold(
       appBar: AppBar(
           title: Text('Detalles Oferta cultural'),
-          backgroundColor: kPrimaryColor,
+          backgroundColor: colorOfertaCultural,
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);

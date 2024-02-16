@@ -38,9 +38,9 @@ class _HomeArtistaDirectorioState extends State<HomeArtistaDirectorio> {
           Icons.add,
           size: 40,
           weight: 20,
-          color: kPrimaryColor,
+          color: Colors.white,
         ),
-        backgroundColor: kSecondaryColor,
+        backgroundColor: colorDirectorioArtista,
       ),
     );
   }
@@ -81,7 +81,7 @@ class _HomeArtistaDirectorioState extends State<HomeArtistaDirectorio> {
           ),
         );
        }
-        return CircularProgressIndicator();
+        return Center(child: CircularProgressIndicator());
       },
     );
   }

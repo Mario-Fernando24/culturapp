@@ -37,7 +37,7 @@ class _OfertaCulturalAddState extends State<OfertaCulturalAdd> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: kPrimaryColor,
+          backgroundColor: colorOfertaCultural,
           elevation: 0.0,
           title: Text('Nueva oferta cultural'),
           leading: Builder(builder: (BuildContext context) {
@@ -382,14 +382,14 @@ class _OfertaCulturalAddState extends State<OfertaCulturalAdd> {
                 color: Colors.grey,
               ),
               suffixIcon: IconButton(
-                icon: Icon(Icons.calendar_today, color: kPrimaryColor),
+                icon: Icon(Icons.calendar_today, color: colorOfertaCultural),
                 onPressed: () => _selectDate(context),
               ),
               filled: true,
               focusColor: Colors.transparent,
               focusedBorder: InputBorder.none,
               labelStyle: TextStyle(
-                color: kPrimaryColor,
+                color: colorOfertaCultural,
               ),
             ),
             readOnly: true,
@@ -409,8 +409,8 @@ class _OfertaCulturalAddState extends State<OfertaCulturalAdd> {
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
-            primaryColor: kPrimaryColor,
-            colorScheme: ColorScheme.light(primary: kPrimaryColor),
+            primaryColor: colorOfertaCultural,
+            colorScheme: ColorScheme.light(primary: colorOfertaCultural),
             buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
           child: child!,
@@ -479,7 +479,7 @@ class _OfertaCulturalAddState extends State<OfertaCulturalAdd> {
               borderRadius: BorderRadius.circular(20.0),
             ),
           ),
-          backgroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
+          backgroundColor: MaterialStateProperty.all<Color>(colorOfertaCultural),
           foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
         ),
       ),
@@ -489,7 +489,7 @@ class _OfertaCulturalAddState extends State<OfertaCulturalAdd> {
   void showAlertDialog(BuildContext context, int number) async {
     Widget galleryButton = ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: kPrimaryColor,
+          primary: colorOfertaCultural,
         ),
         onPressed: () async {
           context
@@ -500,7 +500,7 @@ class _OfertaCulturalAddState extends State<OfertaCulturalAdd> {
 
     Widget cameraButton = ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: kPrimaryColor,
+          primary: colorOfertaCultural,
         ),
         onPressed: () async {
           context

@@ -31,7 +31,7 @@ class _HomeArtistaDirectorioDetailsState
     return Scaffold(
       appBar: AppBar(
           title: Text('Detalles de Artista'),
-          backgroundColor: kPrimaryColor,
+          backgroundColor: colorDirectorioArtista,
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -45,6 +45,7 @@ class _HomeArtistaDirectorioDetailsState
   Widget _container(BuildContext context, Map<String, String> mapa) {
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _bannerOfertaCultura(context, mapa),
           titleOfertaCulturalForm(),
@@ -89,10 +90,19 @@ class _HomeArtistaDirectorioDetailsState
   }
 
   Widget titleOfertaCulturalForm() {
-    return Container(
-      margin: EdgeInsets.only(top: 10.0, bottom: 10.0, right: 15, left: 15),
-      child: Text(widget.directorioArtista!.facebook ?? "",
-          style: kTitleBlackcolor),
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 10.0, bottom: 10.0, right: 15, left: 15),
+          child: Text(widget.directorioArtista!.name ?? "",
+              style: kTitleBlackcolor),
+        ),
+        Container(
+          margin: EdgeInsets.only(  right: 15, left: 15),
+          child: Text(widget.directorioArtista!.categoria ?? "",
+              style: TextStyle(fontSize: 15)),
+        ),
+      ],
     );
   }
 

@@ -48,7 +48,7 @@ class _HomeArtistaDirectorioAddState extends State<HomeArtistaDirectorioAdd> {
     return Scaffold(
       appBar: AppBar(
           title: Text('Agregar Artista'),
-          backgroundColor: kPrimaryColor,
+          backgroundColor: colorDirectorioArtista,
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -146,7 +146,7 @@ class _HomeArtistaDirectorioAddState extends State<HomeArtistaDirectorioAdd> {
                   padding: const EdgeInsets.only(right: 10),
                   child: Icon(
                     Icons.arrow_drop_down,
-                    color: kPrimaryColor,
+                    color: colorDirectorioArtista,
                     size: 40,
                   ),
                 )
@@ -443,7 +443,7 @@ class _HomeArtistaDirectorioAddState extends State<HomeArtistaDirectorioAdd> {
               borderRadius: BorderRadius.circular(20.0),
             ),
           ),
-          backgroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
+          backgroundColor: MaterialStateProperty.all<Color>(colorDirectorioArtista),
           foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
         ),
       ),
@@ -488,7 +488,7 @@ class _HomeArtistaDirectorioAddState extends State<HomeArtistaDirectorioAdd> {
                         trailing: Transform.scale(
                           scale: 1.5,
                           child: Checkbox(
-                            activeColor: kPrimaryColor,
+                            activeColor: colorDirectorioArtista,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0),
                             ),
@@ -527,7 +527,7 @@ class _HomeArtistaDirectorioAddState extends State<HomeArtistaDirectorioAdd> {
   void showAlertDialog(BuildContext context, int number) async {
     Widget galleryButton = ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: kPrimaryColor,
+          primary: colorDirectorioArtista,
         ),
         onPressed: () async {
           context
@@ -538,7 +538,7 @@ class _HomeArtistaDirectorioAddState extends State<HomeArtistaDirectorioAdd> {
 
     Widget cameraButton = ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: kPrimaryColor,
+          primary: colorDirectorioArtista,
         ),
         onPressed: () async {
           context

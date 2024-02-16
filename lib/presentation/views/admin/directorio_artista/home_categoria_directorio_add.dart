@@ -16,7 +16,7 @@ class _HomeCategoriaDirectorioAddState extends State<HomeCategoriaDirectorioAdd>
     return Scaffold(
       appBar: AppBar(
           title: Text('Agregar nueva categoria'),
-          backgroundColor: kPrimaryColor,
+          backgroundColor: colorDirectorioArtista,
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -37,7 +37,7 @@ class _HomeCategoriaDirectorioAddState extends State<HomeCategoriaDirectorioAdd>
    return Container(
     width: double.infinity,
     height: MediaQuery.of(context).size.height*0.4,
-    color: kPrimaryColor,
+    color: colorDirectorioArtista,
    );
 }
 Widget _textNewCategory(BuildContext context){
@@ -185,7 +185,7 @@ Widget _buttonUpdate(BuildContext context) {
               borderRadius: BorderRadius.circular(20.0),
             ),
           ),
-          backgroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
+          backgroundColor: MaterialStateProperty.all<Color>(colorDirectorioArtista),
           foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
         ),
       ),

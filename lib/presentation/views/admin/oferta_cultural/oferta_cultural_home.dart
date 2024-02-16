@@ -28,7 +28,7 @@ class _OfertaCulturalHomeState extends State<OfertaCulturalHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: colorOfertaCultural,
         title: Text('Oferta cultural'),
       ),
       drawer: drawer_menu(context, Colors.black),
@@ -41,7 +41,7 @@ class _OfertaCulturalHomeState extends State<OfertaCulturalHome> {
           Icons.add,
           size: 40,
           weight: 20,
-          color: kPrimaryColor,
+          color: colorOfertaCultural,
         ),
         backgroundColor: kSecondaryColor,
       ),

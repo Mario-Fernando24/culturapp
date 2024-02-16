@@ -45,7 +45,7 @@ class _MarkersMapPageState extends State<MarkersMapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: kPrimaryColor,
+          backgroundColor: colorAgendaCultural,
           elevation: 0.0,
           title: Text('Ubica tu dirección del evento'),
           leading: Builder(builder: (BuildContext context) {
@@ -126,7 +126,7 @@ Widget buttonSelect(BuildContext context){
           
         ),),
         style: ElevatedButton.styleFrom(
-          backgroundColor: kPrimaryColor,
+          backgroundColor: colorAgendaCultural,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30)
           ),

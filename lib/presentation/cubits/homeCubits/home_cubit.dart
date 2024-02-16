@@ -94,6 +94,21 @@ class HomeCubit extends Cubit<HomeState> {
 
 
 
+Future<void> numeroEventos() async {
+    try {
+      final numEventos = await homeRespository.numeroEventos();
+      emit(NumeroEventos(numEventos));
+
+
+    } catch (e) {
+      emit(HomeInitial());
+    }
+  }
+
+
+
+
+
 
   
   Future<void> urlGlobal(String urlEnpoind) async {

@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
-        statusBarColor: kPrimaryColor,
+        statusBarColor: PrimaryGreyColors,
         statusBarIconBrightness: Brightness.light,
       ),
       child: MaterialApp(

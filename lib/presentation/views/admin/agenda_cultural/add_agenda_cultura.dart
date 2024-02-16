@@ -41,7 +41,7 @@ class _AddAgendaCulturaState extends State<AddAgendaCultura> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: kPrimaryColor,
+          backgroundColor: colorAgendaCultural,
           elevation: 0.0,
           title: Text('Nuevo evento cultural'),
           leading: Builder(builder: (BuildContext context) {
@@ -235,14 +235,14 @@ class _AddAgendaCulturaState extends State<AddAgendaCultura> {
                 color: Colors.grey,
               ),
               suffixIcon: IconButton(
-                icon: Icon(Icons.calendar_today, color: kPrimaryColor),
+                icon: Icon(Icons.calendar_today, color: colorAgendaCultural),
                 onPressed: () => _selectDate(context),
               ),
               filled: true,
               focusColor: Colors.transparent,
               focusedBorder: InputBorder.none,
               labelStyle: TextStyle(
-                color: kPrimaryColor,
+                color: colorAgendaCultural,
               ),
             ),
             readOnly: true,
@@ -262,8 +262,8 @@ class _AddAgendaCulturaState extends State<AddAgendaCultura> {
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
-            primaryColor: kPrimaryColor,
-            colorScheme: ColorScheme.light(primary: kPrimaryColor),
+            primaryColor: colorAgendaCultural,
+            colorScheme: ColorScheme.light(primary: colorAgendaCultural),
             buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
           child: child!,
@@ -319,7 +319,7 @@ class _AddAgendaCulturaState extends State<AddAgendaCultura> {
               borderRadius: BorderRadius.circular(20.0),
             ),
           ),
-          backgroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
+          backgroundColor: MaterialStateProperty.all<Color>(colorAgendaCultural),
           foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
         ),
       ),
@@ -329,7 +329,7 @@ class _AddAgendaCulturaState extends State<AddAgendaCultura> {
   void showAlertDialog(BuildContext context) async {
     Widget galleryButton = ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: kPrimaryColor,
+          primary: colorAgendaCultural,
         ),
         onPressed: () async {
           context.read<HomeCubit>().selectImage(ImageSource.gallery);
@@ -338,7 +338,7 @@ class _AddAgendaCulturaState extends State<AddAgendaCultura> {
 
     Widget cameraButton = ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: kPrimaryColor,
+          primary: colorAgendaCultural,
         ),
         onPressed: () async {
           context.read<HomeCubit>().selectImage(ImageSource.camera);
