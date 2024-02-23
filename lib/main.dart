@@ -18,6 +18,10 @@ void main() async {
   await initializeDateFormatting('es_ES', null);
   await UserPreferences.init();
   await Firebase.initializeApp();
+
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+
   final authenticationRepository = AuthRespositoryImpl();
   final homeRepository = HomeRespositoryImpl();
 
@@ -46,7 +50,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'cultura app',
         home: OnbordingView(),
-        initialRoute: onbordingViewRoutes,
+       // initialRoute: onbordingViewRoutes,
+       initialRoute: homeUserviewRoutes,
         routes: appRoutes,
       ),
     );

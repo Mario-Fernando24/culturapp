@@ -31,7 +31,7 @@ class _HomeViewAdminState extends State<HomeViewAdmin> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
-          title: Text('Cultura app'),
+          title: Text('Culturapp'),
         ),
         drawer: drawer_menu(context, Colors.black),
         body: BlocBuilder<HomeCubit, HomeState>(
@@ -52,13 +52,13 @@ class _HomeViewAdminState extends State<HomeViewAdmin> {
                         "Agenda cultural", state.listEventos[2].toString(), colorAgendaCultural)),
                 GestureDetector(
                     onTap: () => Navigator.pushNamed(
-                        context, homeDirectorioArtistaCulturalviewRoutes),
+                        context, homeArtistaDirectorio),
                     child: _cardOfertas(
                         "Directorio de artista", state.listEventos[0].toString(), colorDirectorioArtista))
               ],
             );
             }
-                      return Center(child: CircularProgressIndicator());
+              return Center(child: CircularProgressIndicator());
 
           },
         ),

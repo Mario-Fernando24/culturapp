@@ -66,38 +66,42 @@ class _AgendaDetailsState extends State<AgendaDetails> {
                   ),
                   SizedBox(height: 30),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       FaIcon(
                         FontAwesomeIcons.calendarCheck,
                         size: 40,
                         color: Colors.red,
                       ),
-                      Text(
-                        "Fecha del evento \n" +
-                            parsearDateTime(widget.evento!.fechaEvento),
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
+                      Container(
+                        margin: EdgeInsets.only(left: 10),
+                        child: Text(
+                          "Fecha del evento \n" +
+                              parsearDateTime(widget.evento!.fechaEvento),
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ],
                   ),
                   SizedBox(height: 30),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       FaIcon(
                         FontAwesomeIcons.locationArrow,
                         size: 40,
                         color: Colors.red,
                       ),
-                      Text(
-                        "Dirección\n" + widget.evento!.direccionEvento,
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
+                      Container(
+                        margin: EdgeInsets.only(left: 10),
+                        child: Text(
+                          "Dirección\n" + widget.evento!.direccionEvento,
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ],
                   ),

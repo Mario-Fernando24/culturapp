@@ -11,6 +11,10 @@ const String addAgendaCulturalviewRoutes = 'add_agendaCulturalView';
 const String detailsAgendaCulturalviewRoutes = 'detailsg_agendaCulturalView';
 
 const String homeDirectorioArtistaCulturalviewRoutes = 'home_directorio_artisata_agendaCulturalView';
+
+
+
+const String homeArtistaDirectorio = 'home_artista_directorio_View';
 const String homeDirectorioArtistaAddviewRoutes = 'home_directorio_artisata_addView';
 const String homeDirectorioArtistaviewRoutes = 'home_directorio_artisata';
 const String homeDirectorioArtistaDetailsviewRoutes = 'homeDirectorioArtistaDetailsviewRoutes';

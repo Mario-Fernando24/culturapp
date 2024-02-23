@@ -72,7 +72,7 @@ Widget drawer_menu(BuildContext context, Color color) {
               title: Text('Directorio de artista',
                   style: TextStyle(fontSize: 20, color: PrimaryBlackColors)),
               onTap: () => Navigator.pushNamed(
-                  context, homeDirectorioArtistaCulturalviewRoutes),
+                  context, homeArtistaDirectorio),
             ),
             ListTile(
               leading: Icon(Icons.campaign_sharp,

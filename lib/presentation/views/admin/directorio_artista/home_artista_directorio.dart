@@ -1,6 +1,7 @@
 import 'package:culturappco/config/themes/app_style.dart';
 import 'package:culturappco/domain/models/directorio_artista.dart';
 import 'package:culturappco/presentation/cubits/homeCubits/home_cubit.dart';
+import 'package:culturappco/presentation/widgets/drawer.dart';
 import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,16 +25,17 @@ class _HomeArtistaDirectorioState extends State<HomeArtistaDirectorio> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [_listArtista(context)],
+      
+        appBar: AppBar(
+          title: Text('Directorio de artista'),
+          backgroundColor: colorDirectorioArtista,
         ),
-      ),
+      drawer: drawer_menu(context, Colors.black),
+      body: _listArtista(context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, homeDirectorioArtistaAddviewRoutes);
         },
-        // ignore: sort_child_properties_last
         child: Icon(
           Icons.add,
           size: 40,
@@ -45,30 +47,13 @@ class _HomeArtistaDirectorioState extends State<HomeArtistaDirectorio> {
     );
   }
 
-
-  // BlocBuilder<HomeCubit, HomeState>(
-  //       builder: (context, state) {
-  //         if (state is GetCategoryEvents) {
-  //           categoryEvents = state.listCategoryEvents;
-  //           return Padding(
-  //             padding: const EdgeInsets.only(top: 14),
-  //             child: _listArtista(context),
-  //           );
-  //         }
-  //         return CircularProgressIndicator();
-  //       },
-        
-  //     )
-  
-
   Widget _listArtista(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
          if (state is GetDirectorioArtista) {
         return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.77,
-          child: Expanded(
-            child: ListView.builder(
+          height: MediaQuery.of(context).size.height * 1,
+          child: ListView.builder(
                 itemCount: state.listDirectorioArtista.length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, int index) {
@@ -78,10 +63,12 @@ class _HomeArtistaDirectorioState extends State<HomeArtistaDirectorio> {
                     ),
                   );
                 }),
-          ),
         );
        }
-        return Center(child: CircularProgressIndicator());
+        return Padding(
+          padding: const EdgeInsets.only(top: 200),
+          child: Center(child: CircularProgressIndicator()),
+        );
       },
     );
   }
