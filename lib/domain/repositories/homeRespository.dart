@@ -13,9 +13,7 @@ abstract class HomeRespository {
   Future<List<Evento>> getEvents();
   Future<bool> updateEstadoEvents(String uidEvento, bool estado);
 
-
   Future<List<String>> numeroEventos();
-
 
   //Categoria
   Future<List<CategoriaEvento>> getCategoria();

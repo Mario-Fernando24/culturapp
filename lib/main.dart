@@ -4,6 +4,7 @@ import 'package:culturappco/data/authRepositoryImp.dart';
 import 'package:culturappco/data/homeRepositoryImp.dart';
 import 'package:culturappco/presentation/cubits/homeCubits/home_cubit.dart';
 import 'package:culturappco/presentation/cubits/loginCubits/auth_cubit.dart';
+import 'package:culturappco/presentation/cubits/usuarioCubits/usuario_cubit.dart';
 import 'package:culturappco/presentation/views/onbording/onbording.dart';
 import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:culturappco/utils/function/preference.dart';
@@ -30,6 +31,7 @@ void main() async {
       providers: [
         BlocProvider<AuthenticationCubit>(create: (context) => AuthenticationCubit(authenticationRepository)),
         BlocProvider<HomeCubit>(create: (context) => HomeCubit(homeRepository)),
+        BlocProvider<UsuarioCubit>(create: (context) => UsuarioCubit(homeRepository)),
       ],
       child: const MyApp(),
     ),
@@ -51,7 +53,7 @@ class MyApp extends StatelessWidget {
         title: 'cultura app',
         home: OnbordingView(),
        // initialRoute: onbordingViewRoutes,
-       initialRoute: homeUserviewRoutes,
+        initialRoute: homeUserviewRoutes,
         routes: appRoutes,
       ),
     );

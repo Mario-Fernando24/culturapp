@@ -64,6 +64,9 @@ dependencies:
   intl: ^0.19.0
   font_awesome_flutter: ^10.5.0
   flutter_launcher_icons:
+  dio: ^4.0.0
+  path_provider: ^2.0.2
+  share_plus: ^7.2.2
 
 
 dev_dependencies:

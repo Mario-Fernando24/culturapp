@@ -1,4 +1,5 @@
 import 'package:culturappco/config/themes/app_style.dart';
+import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
 
 class DrawerUsuario extends StatefulWidget {
@@ -36,11 +37,16 @@ class _DrawerUsuarioState extends State<DrawerUsuario> {
                   title: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(Icons.calendar_today, color: colorWhite, size: 40,),
-                      Text('Minha agenda',style: TextStyle(color: colorWhite),),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(Icons.calendar_today, color: colorWhite, size: 40,),
+                      ),
+                      Text('Agenda cultural',style: TextStyle(color: colorWhite, fontSize: 12),),
                     ],
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, homeUserviewRoutes);
+                  },
                 ),
               ),
               Container(

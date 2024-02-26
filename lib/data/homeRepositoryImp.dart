@@ -96,12 +96,19 @@ class HomeRespositoryImpl implements HomeRespository {
   Future<List<Evento>> getEvents() async {
     List<Evento> eventModelo = [];
 
+    print("11111111111111111111111111111111111111111111111111111111111111111");
+
     try {
       QuerySnapshot querySnapshot = await firestore.collection('eventos').get();
+      print("222222222222222222222222222222222222222222222222222222222222222");
 
       eventModelo = querySnapshot.docs.map((doc) {
         return Evento.fromDocumentSnapshot(doc);
       }).toList();
+
+      print("mario fernando muñoz rivera");
+      print(eventModelo.toString());
+      print("mario fernando muñoz rivera");
 
       return eventModelo;
     } catch (e) {
