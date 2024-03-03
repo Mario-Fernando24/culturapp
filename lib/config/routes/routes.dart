@@ -16,6 +16,7 @@ import 'package:culturappco/presentation/views/auth/login_view.dart';
 import 'package:culturappco/presentation/views/auth/register_view.dart';
 import 'package:culturappco/presentation/views/onbording/onbording.dart';
 import 'package:culturappco/presentation/views/users/home/home_view_user.dart';
+import 'package:culturappco/presentation/views/users/home/home_view_user_details.dart';
 import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,18 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   loginViewRoutes: (_) => LoginView(),
   registeriewRoutes: (_) => RegisterView(),
   homeAdminviewRoutes: (_) => HomeViewAdmin(),
+  
+  
   homeUserviewRoutes: (_) => HomeViewUser(),
+  //homeUserviewDetailsRoutes: (_) => HomeViewUserDetails(),
+
+   homeUserviewDetailsRoutes: (_) {
+    final Evento evento = ModalRoute.of(_)!.settings.arguments as Evento;
+    return HomeViewUserDetails(evento: evento);
+  },
+
+
+
   profileUsviewRoutes: (_) => PerfilView(),
   agendaCulturalListviewRoutes: (_) => AgendaCulturalList(),
   addAgendaCulturalviewRoutes: (_) => AddAgendaCultura(),

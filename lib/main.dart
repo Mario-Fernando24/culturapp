@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +22,7 @@ void main() async {
   await Firebase.initializeApp();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  tz.initializeTimeZones(); // Necesario para inicializar los datos de zona horaria.
 
 
   final authenticationRepository = AuthRespositoryImpl();
@@ -52,8 +54,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'cultura app',
         home: OnbordingView(),
-       // initialRoute: onbordingViewRoutes,
-        initialRoute: homeUserviewRoutes,
+       //initialRoute: onbordingViewRoutes,
+       initialRoute: homeUserviewRoutes,
         routes: appRoutes,
       ),
     );

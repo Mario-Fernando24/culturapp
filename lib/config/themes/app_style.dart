@@ -10,6 +10,9 @@ final PrimaryBlackColors = Color.fromARGB(255, 20, 19, 19);
 
 final colorDirectorioArtista=Color(0xff71C7E3);
 final colorAgendaCultural=Color(0xffF9B539);
+final colorAgendaCulturalOscuro=Color(0xffEE8235);
+
+
 final colorOfertaCultural=Color(0xffDADB19);
 final colorWhite = Colors.white;
 

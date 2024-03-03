@@ -77,7 +77,7 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       emit(HomeInitial());
       emit(HomeLoading());
-      final get_events = await homeRespository.getEvents();
+      final get_events = await homeRespository.getEvents("");
       emit(GetEvents(get_events));
 
 

@@ -13,101 +13,128 @@ class _DrawerUsuarioState extends State<DrawerUsuario> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Drawer(
-          width: MediaQuery.of(context).size.width * 0.33,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: Container(
-                    height: MediaQuery.of(context).size.height * 0.166,
-                    padding: EdgeInsets.all(16.0),
-                    color: Color(0xffEB5C60),
-                    child: Icon(
-                      Icons.close,
-                      size: 45,
-                      color: Colors.white,
-                    )),
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.166,
-                child: ListTile(
-                  tileColor: Color(0xffED6567),
-                  title: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(Icons.calendar_today, color: colorWhite, size: 40,),
+      child: Drawer(
+        width: MediaQuery.of(context).size.width * 0.33,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Container(
+                  height: MediaQuery.of(context).size.height * 0.166,
+                  padding: EdgeInsets.all(16.0),
+                  color: colorAgendaCulturalOscuro,
+                  child: Icon(
+                    Icons.close,
+                    size: 45,
+                    color: Colors.white,
+                  )),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.166,
+              child: ListTile(
+                tileColor: colorAgendaCultural,
+                title: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.event,
+                        color: colorWhite,
+                        size: 40,
                       ),
-                      Text('Agenda cultural',style: TextStyle(color: colorWhite, fontSize: 12),),
-                    ],
-                  ),
-                  onTap: () {
-                    Navigator.pushNamed(context, homeUserviewRoutes);
-                  },
+                    ),
+                    Text(
+                      'Agenda cultural',
+                      style: TextStyle(
+                        color: colorWhite,
+                        fontSize: 12,
+                        fontFamily: 'Roboto',
+                      ),
+                    ),
+                  ],
                 ),
+                onTap: () {
+                  Navigator.pushNamed(context, homeUserviewRoutes);
+                },
               ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.166,
-                child: ListTile(
-                  tileColor: Color(0xffD31D2A),
-                  title: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.image, color: colorWhite,size: 40),
-                      Text('Artes Visuais',style: TextStyle(color: colorWhite)),
-                    ],
-                  ),
-                  onTap: () {},
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.166,
+              child: ListTile(
+                tileColor: colorOfertaCultural,
+                title: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.campaign_sharp, color: colorWhite, size: 40),
+                    Text('Oferta cultural ',
+                        style: TextStyle(
+                          color: colorWhite,
+                          fontFamily: 'Roboto',
+                        )),
+                  ],
                 ),
+                onTap: () {},
               ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.166,
-                child: ListTile(
-                  tileColor: Color(0xffEC6521),
-                  title: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.movie , color: colorWhite,size: 40),
-                      Text('Cine & Video',style: TextStyle(color: colorWhite)),
-                    ],
-                  ),
-                  onTap: () {},
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.166,
+              child: ListTile(
+                tileColor: colorDirectorioArtista,
+                title: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.music_note, color: colorWhite, size: 40),
+                    Text('Artista',
+                        style: TextStyle(
+                          color: colorWhite,
+                          fontFamily: 'Roboto',
+                        )),
+                  ],
                 ),
+                onTap: () {},
               ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.166,
-                child: ListTile(
-                  tileColor: Color(0xffF8AD20),
-                  title: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.music_note, color: colorWhite, size: 40),
-                      Text('Música',style: TextStyle(color: colorWhite)),
-                    ],
-                  ),
-                  onTap: () {},
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.166,
+              child: ListTile(
+                tileColor: colorAgendaCultural,
+                title: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.theater_comedy, color: colorWhite, size: 40),
+                    Text('Agente cultural',
+                        style: TextStyle(
+                          color: colorWhite,
+                          fontFamily: 'Roboto',
+                        )),
+                  ],
                 ),
+                onTap: () {},
               ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.166,
-                child: ListTile(
-                  tileColor: Color(0xffA6C83E),
-                  title: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.theater_comedy , color: colorWhite, size: 40),
-                      Text('Teatro',style: TextStyle(color: colorWhite)),
-                    ],
-                  ),
-                  onTap: () {},
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.166,
+              child: ListTile(
+                tileColor: Color(0xffA6C83E),
+                title: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.movie, color: colorWhite, size: 40),
+                    Text('Gestor cultural',
+                        style: TextStyle(
+                          color: colorWhite,
+                          fontFamily: 'Roboto',
+                        )),
+                  ],
                 ),
+                onTap: () {},
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
+      ),
+    );
   }
 }

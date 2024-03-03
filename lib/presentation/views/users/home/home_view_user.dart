@@ -2,12 +2,12 @@ import 'package:culturappco/config/themes/app_style.dart';
 import 'package:culturappco/domain/models/evento_models.dart';
 import 'package:culturappco/presentation/cubits/usuarioCubits/usuario_cubit.dart';
 import 'package:culturappco/presentation/widgets/drawer_usuario.dart';
+import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:culturappco/utils/function/parsear_date.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share_plus/share_plus.dart';
-
 
 class HomeViewUser extends StatefulWidget {
   const HomeViewUser({super.key});
@@ -17,13 +17,15 @@ class HomeViewUser extends StatefulWidget {
 }
 
 class _HomeViewUserState extends State<HomeViewUser> {
-
   List<Evento> listEventos = [];
   bool loading = false;
+  // Asegúrate de definir estas variables en el estado de tu Widget
+  bool _isSearching = false;
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
-    context.read<UsuarioCubit>().getEventsUsuario();
+    context.read<UsuarioCubit>().getEventsUsuario("");
     super.initState();
   }
 
@@ -31,9 +33,10 @@ class _HomeViewUserState extends State<HomeViewUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: DrawerUsuario(),
+
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80.0),
-        child: new AppBar(
+        preferredSize: Size.fromHeight(80.0), // Ajusta esto según sea necesario
+        child: AppBar(
           leading: Builder(builder: (BuildContext context) {
             return IconButton(
               icon: Icon(
@@ -46,75 +49,110 @@ class _HomeViewUserState extends State<HomeViewUser> {
               },
             );
           }),
-          toolbarHeight: 150.0,
-          title: Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.30,
-              height: MediaQuery.of(context).size.height * 0.04,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/agendacultural.png')
-                      as ImageProvider,
-                  fit: BoxFit.cover,
+          toolbarHeight: 150.0, // Ajusta esto según sea necesario
+          title: _isSearching
+              ? Container(
+                  padding: EdgeInsets.all(10.0),
+                  margin: EdgeInsets.only(left: 16, top: 10),
+                  height: MediaQuery.of(context).size.height * 0.07,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: TextField(
+                    onChanged: (value) => {
+                      if (value.isNotEmpty)
+                        {
+                          setState(() {
+                            context.read<UsuarioCubit>().getEventsUsuario(value);
+                          }),
+                        }
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'Buscar...',
+                      hintStyle: TextStyle(color: Colors.black),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.transparent),
+                      ),
+                    ),
+                    style: TextStyle(color: Colors.black),
+                    autofocus: true,
+                  ),
+                )
+              : Container(
+                  width: MediaQuery.of(context).size.width * 0.35,
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/logovert.png')
+                          as ImageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-          backgroundColor: colorWhite,
           actions: <Widget>[
-            new IconButton(
-              icon: Container(
-                margin: EdgeInsets.only(right: 20),
-                child: new Icon(
-                  FontAwesomeIcons.search,
-                  color: Color(0xffEB5C60),
-                ),
+            IconButton(
+              icon: Icon(
+                _isSearching ? Icons.cancel : FontAwesomeIcons.search,
+                color: Color(0xffEB5C60),
               ),
-              onPressed: () => {},
+              onPressed: () {
+                setState(() {
+                  if (_isSearching) {
+                    // Si ya está buscando, limpia el controlador y oculta el campo de búsqueda
+                    _searchController.clear();
+                        context.read<UsuarioCubit>().getEventsUsuario("");
+
+                  }
+                  // Cambia el estado de la búsqueda
+                  _isSearching = !_isSearching;
+                });
+              },
             ),
           ],
+          backgroundColor: Colors.white,
         ),
       ),
+
       body: SingleChildScrollView(
-        child: BlocConsumer<UsuarioCubit, UsuarioCubitState>(
-          listener: (context, state) {
+        child: BlocBuilder<UsuarioCubit, UsuarioCubitState>(
+          builder: (context, state) {
             if (state is GetEventsUsuario) {
-              listEventos.addAll(state.listEvents);
+               listEventos.clear(); // Limpiar la lista actual
+               listEventos.addAll(state.listEvents);
+             
             }
-            if(state is UsuarioLoading){
-               loading= true;
+            if (state is UsuarioLoading) {
+              loading = true;
+              return Container();
             }
-            if(state is UsuarioInitial){
+            if (state is UsuarioInitial) {
               loading = false;
             }
-            // TODO: implement listene
-          },
-          builder: (context, state) {
             return Column(
-              children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                modalLoading(),
-                listBuilder()
-              ],
-            );
+               children: [
+                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                 modalLoading(),
+                 listBuilder()
+               ],
+             );
+            // TODO: implement listene
           },
         ),
       ),
     );
   }
 
-
   Widget listBuilder() {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.85,
-      child: ListView.builder(
+      child: listEventos.length>0? ListView.builder(
           itemCount: listEventos.length,
           scrollDirection: Axis.vertical,
           itemBuilder: (context, int index) {
             return SingleChildScrollView(
               child: _cardList(listEventos[index]),
             );
-          }),
+          }):Center(child: Text("No tiene ningun evento", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)),
     );
   }
 
@@ -127,7 +165,9 @@ class _HomeViewUserState extends State<HomeViewUser> {
           Stack(
             alignment: Alignment.bottomRight,
             children: <Widget>[
-              Image.network(evento.imagen, // Sustituye con la URL de la imagen que quieres mostrar.
+              Image.network(
+                evento
+                    .imagen, // Sustituye con la URL de la imagen que quieres mostrar.
                 fit: BoxFit.cover,
               ),
               Positioned(
@@ -140,6 +180,7 @@ class _HomeViewUserState extends State<HomeViewUser> {
                     parsearDateTime(evento.fechaEvento),
                     style: TextStyle(
                       fontSize: 20,
+                      fontFamily: 'Roboto',
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -157,7 +198,17 @@ class _HomeViewUserState extends State<HomeViewUser> {
                         icon: Icon(Icons.share),
                         color: Colors.white,
                         onPressed: () {
-                            context.read<UsuarioCubit>().downloadAndShare(evento);
+                          context.read<UsuarioCubit>().downloadAndShare(evento);
+                        },
+                      ),
+                    ),
+                    Container(
+                      color: colorDirectorioArtista,
+                      child: IconButton(
+                        icon: Icon(Icons.calendar_month),
+                        color: Colors.white,
+                        onPressed: () {
+                          context.read<UsuarioCubit>().addEventToCalendar();
                         },
                       ),
                     ),
@@ -167,7 +218,9 @@ class _HomeViewUserState extends State<HomeViewUser> {
                         icon: Icon(Icons.visibility),
                         color: Colors.white,
                         onPressed: () {
-                          // Acción para ver detalle
+                          Navigator.pushNamed(
+                              context, homeUserviewDetailsRoutes,
+                              arguments: evento);
                         },
                       ),
                     ),
@@ -192,6 +245,7 @@ class _HomeViewUserState extends State<HomeViewUser> {
                   evento.tituloEvento,
                   style: TextStyle(
                       color: Colors.white,
+                      fontFamily: 'Roboto',
                       fontWeight: FontWeight.bold,
                       fontSize: 16),
                 ),
@@ -204,23 +258,24 @@ class _HomeViewUserState extends State<HomeViewUser> {
   }
 
   Future<void> shareDialog() async {
-     FloatingActionButton(
-        onPressed: () {
+    FloatingActionButton(
+      onPressed: () {
         Share.share('Comparte mi aplicación!');
       },
       child: Icon(Icons.share),
     );
   }
 
-  Widget modalLoading(){
-    return loading? Container(
-              color: colorDirectorioArtista,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: kPrimaryColor,
-                ),
+  Widget modalLoading() {
+    return loading
+        ? Container(
+            color: colorDirectorioArtista,
+            child: Center(
+              child: CircularProgressIndicator(
+                color: kPrimaryColor,
               ),
-            ):Container();
+            ),
+          )
+        : Container();
   }
-
 }

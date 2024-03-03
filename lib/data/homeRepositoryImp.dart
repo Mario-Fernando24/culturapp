@@ -93,22 +93,49 @@ class HomeRespositoryImpl implements HomeRespository {
   }
 
   @override
-  Future<List<Evento>> getEvents() async {
+  Future<List<Evento>> getEvents(String search) async {
+    print("object");
+    print(search);
+    print("object");
     List<Evento> eventModelo = [];
-
-    print("11111111111111111111111111111111111111111111111111111111111111111");
 
     try {
       QuerySnapshot querySnapshot = await firestore.collection('eventos').get();
-      print("222222222222222222222222222222222222222222222222222222222222222");
 
-      eventModelo = querySnapshot.docs.map((doc) {
-        return Evento.fromDocumentSnapshot(doc);
-      }).toList();
+      if (search == '') {
+        eventModelo = querySnapshot.docs.map((doc) {
+          return Evento.fromDocumentSnapshot(doc);
+        }).toList();
+      }
+      if (search != '') {
+        eventModelo = querySnapshot.docs
+            .map((doc) => Evento.fromDocumentSnapshot(doc))
+            .where((evento) => evento.tituloEvento
+                .toLowerCase()
+                .contains(search.toLowerCase()))
+            .toList();
+      }
 
-      print("mario fernando muñoz rivera");
-      print(eventModelo.toString());
-      print("mario fernando muñoz rivera");
+      // Obtener la fecha actual y remover la hora, minutos y segundos para la comparación.
+      /*
+DateTime hoy = DateTime.now();
+DateTime fechaHoy = DateTime(hoy.year, hoy.month, hoy.day);
+
+List<Evento> eventModelo = querySnapshot.docs.map((doc) {
+    return Evento.fromDocumentSnapshot(doc);
+}).where((evento) {
+    // Convertir la fecha del evento a medianoche para la comparación.
+    DateTime fechaEvento = DateTime(evento.fechaEvento.year, evento.fechaEvento.month, evento.fechaEvento.day);
+    return fechaEvento.compareTo(fechaHoy) >= 0;
+}).toList();
+
+// Ordenar la lista de eventos futuros por fechaEvento
+eventModelo.sort((a, b) => a.fechaEvento.compareTo(b.fechaEvento));
+
+*/
+
+      eventModelo.sort((a, b) => DateTime.parse(a.fechaEvento)
+          .compareTo(DateTime.parse(b.fechaEvento)));
 
       return eventModelo;
     } catch (e) {
