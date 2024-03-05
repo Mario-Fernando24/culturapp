@@ -1,7 +1,7 @@
 import 'package:culturappco/config/themes/app_style.dart';
-import 'package:culturappco/domain/models/evento_models.dart';
+import 'package:culturappco/domain/models/oferta_cultural_model.dart';
 import 'package:culturappco/presentation/cubits/directoryArtistaCubit/directory_artista_usuario_cubit.dart';
-import 'package:culturappco/presentation/cubits/usuarioCubits/usuario_cubit.dart';
+import 'package:culturappco/presentation/cubits/ofertaCulturalUsuarioCubit/oferta_cultural_usuario_cubit.dart';
 import 'package:culturappco/presentation/widgets/drawer_usuario.dart';
 import 'package:culturappco/presentation/widgets/toasMessage.dart';
 import 'package:culturappco/utils/constants/constant_routes.dart';
@@ -9,25 +9,24 @@ import 'package:culturappco/utils/function/parsear_date.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:share_plus/share_plus.dart';
 
-class HomeViewUser extends StatefulWidget {
-  const HomeViewUser({super.key});
+class UsersOfertaCulturalHome extends StatefulWidget {
+  const UsersOfertaCulturalHome({super.key});
 
   @override
-  State<HomeViewUser> createState() => _HomeViewUserState();
+  State<UsersOfertaCulturalHome> createState() =>
+      _UsersOfertaCulturalHomeState();
 }
 
-class _HomeViewUserState extends State<HomeViewUser> {
-  List<Evento> listEventos = [];
-  bool loading = false;
+class _UsersOfertaCulturalHomeState extends State<UsersOfertaCulturalHome> {
+  List<OfertaCultural> listEventos = [];
   // Asegúrate de definir estas variables en el estado de tu Widget
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
-    context.read<UsuarioCubit>().getEventsUsuario("");
+    context.read<OfertaCulturalUsuarioCubit>().getOfertaCultural("");
     super.initState();
   }
 
@@ -35,7 +34,6 @@ class _HomeViewUserState extends State<HomeViewUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: DrawerUsuario(),
-
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(80.0), // Ajusta esto según sea necesario
         child: AppBar(
@@ -65,12 +63,14 @@ class _HomeViewUserState extends State<HomeViewUser> {
                       if (value.isNotEmpty)
                         {
                           setState(() {
-                            context.read<UsuarioCubit>().getEventsUsuario(value);
+                            context
+                                .read<OfertaCulturalUsuarioCubit>()
+                                .getOfertaCultural(value);
                           }),
                         }
                     },
                     decoration: InputDecoration(
-                      hintText: 'Buscar agenda cultural',
+                      hintText: 'Buscar oferta cultural',
                       hintStyle: TextStyle(color: Colors.black),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.transparent),
@@ -102,8 +102,9 @@ class _HomeViewUserState extends State<HomeViewUser> {
                   if (_isSearching) {
                     // Si ya está buscando, limpia el controlador y oculta el campo de búsqueda
                     _searchController.clear();
-                        context.read<UsuarioCubit>().getEventsUsuario("");
-
+                    context
+                        .read<OfertaCulturalUsuarioCubit>()
+                        .getOfertaCultural("");
                   }
                   // Cambia el estado de la búsqueda
                   _isSearching = !_isSearching;
@@ -114,29 +115,28 @@ class _HomeViewUserState extends State<HomeViewUser> {
           backgroundColor: Colors.white,
         ),
       ),
-
       body: SingleChildScrollView(
-        child: BlocBuilder<UsuarioCubit, UsuarioCubitState>(
+        child:
+            BlocBuilder<OfertaCulturalUsuarioCubit, OfertaCulturalUsuarioState>(
           builder: (context, state) {
-            if (state is GetEventsUsuario) {
-               listEventos.clear(); // Limpiar la lista actual
-               listEventos.addAll(state.listEvents);
-             
+            if (state is GetOfertaCulturalEventUsuario) {
+              listEventos.clear(); // Limpiar la lista actual
+              listEventos.addAll(state.listOferaCultural);
             }
-            if (state is UsuarioLoading) {
-              loading = true;
+            if (state is OfertaCulturaLoading) {
+              //  loading = true;
               return Container();
             }
-            if (state is UsuarioInitial) {
-              loading = false;
+            if (state is OfertaCulturalInitial) {
+              // loading = false;
             }
             return Column(
-               children: [
-                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                 modalLoading(),
-                 listBuilder()
-               ],
-             );
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                //modalLoading(),
+                _container()
+              ],
+            );
             // TODO: implement listene
           },
         ),
@@ -144,10 +144,10 @@ class _HomeViewUserState extends State<HomeViewUser> {
     );
   }
 
-  Widget listBuilder() {
+  Widget _container() {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.85,
-      child:  ListView.builder(
+      child: ListView.builder(
           itemCount: listEventos.length,
           scrollDirection: Axis.vertical,
           itemBuilder: (context, int index) {
@@ -158,7 +158,7 @@ class _HomeViewUserState extends State<HomeViewUser> {
     );
   }
 
-  Widget _cardList(Evento evento) {
+  Widget _cardList(OfertaCultural ofertaCultural) {
     return Card(
       clipBehavior: Clip.antiAlias,
       color: colorAgendaCultural,
@@ -168,8 +168,8 @@ class _HomeViewUserState extends State<HomeViewUser> {
             alignment: Alignment.bottomRight,
             children: <Widget>[
               Image.network(
-                evento
-                    .imagen, // Sustituye con la URL de la imagen que quieres mostrar.
+                ofertaCultural.image1
+                    .toString(), // Sustituye con la URL de la imagen que quieres mostrar.
                 fit: BoxFit.cover,
               ),
               Positioned(
@@ -177,9 +177,9 @@ class _HomeViewUserState extends State<HomeViewUser> {
                 right: 0,
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  color: colorAgendaCultural,
+                  color: colorOfertaCultural,
                   child: Text(
-                    parsearDateTime(evento.fechaEvento),
+                    parsearDateTime(ofertaCultural.fecha!),
                     style: TextStyle(
                       fontSize: 20,
                       fontFamily: 'Roboto',
@@ -200,51 +200,38 @@ class _HomeViewUserState extends State<HomeViewUser> {
                         icon: Icon(Icons.share),
                         color: Colors.white,
                         onPressed: () async {
-                          final resp = await context.read<DirectoryArtistaCubit>().getCurrent();
-                         if(resp=='null'){
-                          toasMessage("Debes iniciar sesión");
-                          Navigator.pushNamed(context, loginViewRoutes);
-                         }else{
-                          context.read<UsuarioCubit>().downloadAndShare(evento);
-                         }
+                          final resp = await context
+                              .read<DirectoryArtistaCubit>()
+                              .getCurrent();
+                          if (resp == 'null') {
+                            toasMessage("Debes iniciar sesión");
+                            Navigator.pushNamed(context, loginViewRoutes);
+                          } else {
+                            context
+                                .read<OfertaCulturalUsuarioCubit>()
+                                .downloadAndShareOfertaCultural(ofertaCultural);
+                          }
                         },
-
-                        
                       ),
                     ),
                     Container(
-                      color: colorDirectorioArtista,
-                      child: IconButton(
-                        icon: Icon(Icons.calendar_month),
-                        color: Colors.white,
-
-                        onPressed: () async {
-                          final resp = await context.read<DirectoryArtistaCubit>().getCurrent();
-                         if(resp=='null'){
-                          toasMessage("Debes iniciar sesión");
-                          Navigator.pushNamed(context, loginViewRoutes);
-                         }else{
-                          context.read<UsuarioCubit>().addEventToCalendar();
-                         }
-                        },
-
-                      ),
-                    ),
-                    Container(
-                      color: colorOfertaCultural,
+                      color: colorAgendaCultural,
                       child: IconButton(
                         icon: Icon(Icons.visibility),
                         color: Colors.white,
-
                         onPressed: () async {
-                          final resp = await context.read<DirectoryArtistaCubit>().getCurrent();
-                         if(resp=='null'){
-                          toasMessage("Debes iniciar sesión");
-                          Navigator.pushNamed(context, loginViewRoutes);
-                         }else{
-                            Navigator.pushNamed(context, homeUserviewDetailsRoutes,arguments: evento);                        
-                           }
-                        }
+                          final resp = await context
+                              .read<DirectoryArtistaCubit>()
+                              .getCurrent();
+                          if (resp == 'null') {
+                            toasMessage("Debes iniciar sesión");
+                            Navigator.pushNamed(context, loginViewRoutes);
+                          } else {
+                            Navigator.pushNamed(
+                                context, usersOfertaCulturalDetailsRoute,
+                                arguments: ofertaCultural);
+                          }
+                        },
                       ),
                     ),
                   ],
@@ -257,7 +244,7 @@ class _HomeViewUserState extends State<HomeViewUser> {
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.08,
               decoration: BoxDecoration(
-                color: colorAgendaCultural,
+                color: colorOfertaCultural,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(15),
                   bottomRight: Radius.circular(15),
@@ -265,7 +252,7 @@ class _HomeViewUserState extends State<HomeViewUser> {
               ),
               child: Center(
                 child: Text(
-                  evento.tituloEvento,
+                  ofertaCultural.titleOfertaCultural!,
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Roboto',
@@ -278,27 +265,5 @@ class _HomeViewUserState extends State<HomeViewUser> {
         ],
       ),
     );
-  }
-
-  Future<void> shareDialog() async {
-    FloatingActionButton(
-      onPressed: () {
-        Share.share('Comparte mi aplicación!');
-      },
-      child: Icon(Icons.share),
-    );
-  }
-
-  Widget modalLoading() {
-    return loading
-        ? Container(
-            color: colorDirectorioArtista,
-            child: Center(
-              child: CircularProgressIndicator(
-                color: kPrimaryColor,
-              ),
-            ),
-          )
-        : Container();
   }
 }

@@ -29,6 +29,7 @@ final kTitleBlackcolor = TextStyle(
   color: PrimaryBlackColors,
 );
 
+
 final kBodyText1 = TextStyle(
   color: kSecondaryColor,
   fontSize: SizeConfig.blockSizeH! * 4.5,

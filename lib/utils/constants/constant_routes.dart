@@ -4,10 +4,6 @@ const String loginViewRoutes = 'loginView';
 const String registeriewRoutes = 'registerView';
 const String homeAdminviewRoutes = 'homeAdminView';
 
-const String homeUserviewRoutes = 'homeUserView';
-const String homeUserviewDetailsRoutes = 'homeUserDetailsView';
-
-
 const String profileUsviewRoutes = 'profileUserView';
 const String agendaCulturalListviewRoutes = 'agendaCulturalView';
 const String addAgendaCulturalviewRoutes = 'add_agendaCulturalView';
@@ -27,3 +23,16 @@ const String ofertaCulturalHomeviewRoutes = 'ofertaCulturalHomeviewRoutes';
 const String ofertaCulturalAddviewRoutes = 'ofertaCulturalAddviewRoutes';
 
 const String detailsOfertaCulturalviewRoutes = 'detailsOfertaCulturalviewRoutes';
+
+
+
+const String homeUserviewRoutes = 'homeUserView';
+const String homeUserviewDetailsRoutes = 'homeUserDetailsView';
+const String usersOfertaCulturalHomeRoute = 'usersOfertaCulturalHomeRoute';
+const String usersOfertaCulturalDetailsRoute = 'usersOfertaCulturalDetailsRoute';
+const String usersDirectorioArtistaHomeRoute = 'usersDirectorioArtistaHomeRoute';
+const String usersAgenteCulturalHomeRoute = 'usersAgenteCulturalHomeRoute';
+const String usersGestorCulturalHomeRoute = 'usersGestorCulturalHomeRoute';
+const String usersDirectorioDetailsRoute = 'usersDirectorioDetailsRoute';
+
+

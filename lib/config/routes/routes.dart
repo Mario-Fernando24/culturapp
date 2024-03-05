@@ -15,8 +15,14 @@ import 'package:culturappco/presentation/views/admin/profile/perfil_view.dart';
 import 'package:culturappco/presentation/views/auth/login_view.dart';
 import 'package:culturappco/presentation/views/auth/register_view.dart';
 import 'package:culturappco/presentation/views/onbording/onbording.dart';
+import 'package:culturappco/presentation/views/users/directory_artista/users_agente_cultural_home.dart';
+import 'package:culturappco/presentation/views/users/directory_artista/users_directorio_artista_home.dart';
+import 'package:culturappco/presentation/views/users/directory_artista/users_directorio_details.dart';
+import 'package:culturappco/presentation/views/users/directory_artista/users_gestor_cultural_home.dart';
 import 'package:culturappco/presentation/views/users/home/home_view_user.dart';
 import 'package:culturappco/presentation/views/users/home/home_view_user_details.dart';
+import 'package:culturappco/presentation/views/users/oferta_cultural/users_oferta_cultural_details.dart';
+import 'package:culturappco/presentation/views/users/oferta_cultural/users_oferta_cultural_home.dart';
 import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
 
@@ -26,14 +32,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   registeriewRoutes: (_) => RegisterView(),
   homeAdminviewRoutes: (_) => HomeViewAdmin(),
   
-  
-  homeUserviewRoutes: (_) => HomeViewUser(),
-  //homeUserviewDetailsRoutes: (_) => HomeViewUserDetails(),
 
-   homeUserviewDetailsRoutes: (_) {
-    final Evento evento = ModalRoute.of(_)!.settings.arguments as Evento;
-    return HomeViewUserDetails(evento: evento);
-  },
 
 
 
@@ -64,6 +63,27 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
     return AgendaDetails(evento: evento);
   },
 
-  
+
+
+
+
+//USUARIO APP
+
+   homeUserviewRoutes: (_) => HomeViewUser(),
+   homeUserviewDetailsRoutes: (_) {
+    final Evento evento = ModalRoute.of(_)!.settings.arguments as Evento;
+    return HomeViewUserDetails(evento: evento);
+  },
+
+  usersOfertaCulturalHomeRoute: (_) => UsersOfertaCulturalHome(),
+  usersOfertaCulturalDetailsRoute: (_) {
+    final OfertaCultural ofertaCultural = ModalRoute.of(_)!.settings.arguments as OfertaCultural;
+    return UsersOfertaCulturaDetails(ofertaCultural: ofertaCultural);
+  },
+
+  usersDirectorioArtistaHomeRoute: (_) => UsersDirectoryArtistaHome(),
+  usersAgenteCulturalHomeRoute:    (_) => UsersAgenteCulturalHome(),
+  usersGestorCulturalHomeRoute:    (_) => UsersGestorCulturalHome(),
+  usersDirectorioDetailsRoute:     (_) => UsersDirectorioDetails(),
 
 };

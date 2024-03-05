@@ -75,7 +75,9 @@ class _DrawerUsuarioState extends State<DrawerUsuario> {
                         )),
                   ],
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, usersOfertaCulturalHomeRoute);
+                },
               ),
             ),
             Container(
@@ -93,7 +95,9 @@ class _DrawerUsuarioState extends State<DrawerUsuario> {
                         )),
                   ],
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, usersDirectorioArtistaHomeRoute);
+                },
               ),
             ),
             Container(
@@ -111,7 +115,9 @@ class _DrawerUsuarioState extends State<DrawerUsuario> {
                         )),
                   ],
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, usersAgenteCulturalHomeRoute);
+                },
               ),
             ),
             Container(
@@ -129,7 +135,9 @@ class _DrawerUsuarioState extends State<DrawerUsuario> {
                         )),
                   ],
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, usersGestorCulturalHomeRoute);
+                },
               ),
             ),
           ],
