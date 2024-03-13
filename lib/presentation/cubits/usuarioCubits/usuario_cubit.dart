@@ -20,7 +20,7 @@ class UsuarioCubit extends Cubit<UsuarioCubitState> {
     try {
       print('1111111111111111111111111111111111');
       emit(UsuarioInitial());
-      //   emit(UsuarioLoading());
+       emit(UsuarioLoading());
             print('2222222222222222222222222222222222222222222222222222222');
 
       final get_events = await homeRespository.getEvents(search);

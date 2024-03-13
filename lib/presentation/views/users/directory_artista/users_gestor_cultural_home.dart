@@ -1,10 +1,13 @@
 import 'package:culturappco/config/themes/app_style.dart';
 import 'package:culturappco/domain/models/directorio_artista.dart';
 import 'package:culturappco/presentation/cubits/directoryArtistaCubit/directory_artista_usuario_cubit.dart';
+import 'package:culturappco/presentation/cubits/homeCubits/home_cubit.dart';
+import 'package:culturappco/presentation/cubits/loginCubits/auth_cubit.dart';
 import 'package:culturappco/presentation/cubits/ofertaCulturalUsuarioCubit/oferta_cultural_usuario_cubit.dart';
 import 'package:culturappco/presentation/widgets/drawer_usuario.dart';
 import 'package:culturappco/presentation/widgets/toasMessage.dart';
 import 'package:culturappco/utils/constants/constant_routes.dart';
+import 'package:culturappco/utils/constants/constant_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,6 +24,7 @@ class _UsersGestorCulturalHomeState extends State<UsersGestorCulturalHome> {
   List<DirectorioArtista> listDirectorioArtistaaa = [];
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
+  String estadoApp = 'null';
 
   @override
   void initState() {
@@ -31,6 +35,92 @@ class _UsersGestorCulturalHomeState extends State<UsersGestorCulturalHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: DrawerUsuario(),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            backgroundColor: Colors.white,
+            onPressed: () => context.read<HomeCubit>().urlGlobal(url_facebook),
+            heroTag: 'facebook',
+            child: FaIcon(
+              FontAwesomeIcons.facebook,
+              size: 40,
+              color: Colors.blue,
+            ),
+          ),
+          SizedBox(height: 16.0),
+          FloatingActionButton(
+            backgroundColor: Colors.white,
+            onPressed: () => context.read<HomeCubit>().urlGlobal(url_instagram),
+            heroTag: 'instagram',
+            child: FaIcon(
+              FontAwesomeIcons.instagram,
+              size: 40,
+              color: Colors.red,
+            ),
+          ),
+          SizedBox(height: 16.0),
+          FloatingActionButton(
+            backgroundColor: Colors.white,
+            onPressed: () => context.read<HomeCubit>().urlGlobal(url_whatsapp),
+            heroTag: 'whatsapp',
+            child: FaIcon(
+              FontAwesomeIcons.whatsapp,
+              size: 40,
+              color: Color.fromRGBO(76, 175, 80, 1),
+            ),
+          ),
+          SizedBox(height: 16.0),
+          FloatingActionButton(
+            backgroundColor: Colors.white,
+            onPressed: () => context.read<HomeCubit>().urlGlobal(url_youtube),
+            heroTag: 'youtube',
+            child: FaIcon(
+              FontAwesomeIcons.youtube,
+              size: 40,
+              color: Colors.red,
+            ),
+          ),
+          SizedBox(height: 16.0),
+          FloatingActionButton(
+            backgroundColor: Colors.white,
+            onPressed: () => context.read<HomeCubit>().urlGlobal(url_tiktok),
+            heroTag: 'tiktok',
+            child: FaIcon(
+              FontAwesomeIcons.tiktok,
+              size: 40,
+              color: Colors.black,
+            ),
+          ),
+          SizedBox(height: 16.0),
+          FloatingActionButton(
+            backgroundColor:
+                estadoApp == 'null' ? Colors.green[900] : Colors.red,
+            onPressed: () => {
+              if (estadoApp == 'null')
+                {
+                  toasMessage("Debes iniciar sesión"),
+                  Navigator.pushNamed(context, loginViewRoutes),
+                }
+              else
+                {
+                  toasMessage("Acabas de cerrar sesión"),
+                  context.read<AuthenticationCubit>().logOut(),
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, homeUserviewRoutes, (route) => false),
+                }
+            },
+            heroTag: 'whatsapp',
+            child: Icon(
+              estadoApp == 'null'
+                  ? Icons.exit_to_app_sharp
+                  : Icons.close_rounded,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(80.0), // Ajusta esto según sea necesario
         child: AppBar(
@@ -77,12 +167,12 @@ class _UsersGestorCulturalHomeState extends State<UsersGestorCulturalHome> {
                 )
               : Container(
                   width: MediaQuery.of(context).size.width * 0.35,
-                  height: MediaQuery.of(context).size.height * 0.05,
+                  height: MediaQuery.of(context).size.height * 0.06,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/images/logovert.png')
                           as ImageProvider,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
@@ -162,10 +252,14 @@ class _UsersGestorCulturalHomeState extends State<UsersGestorCulturalHome> {
           Stack(
             alignment: Alignment.bottomRight,
             children: <Widget>[
-              Image.network(
-                directorioArtista
-                    .image1.toString(), // Sustituye con la URL de la imagen que quieres mostrar.
-                fit: BoxFit.cover,
+              FadeInImage(
+                   fit: BoxFit.fill,
+                height: MediaQuery.of(context).size.height*0.45,
+                width: double.infinity,
+                image: NetworkImage(directorioArtista
+                    .image1.toString(),),
+                placeholder: AssetImage('assets/images/loading.gif'),
+                fadeInDuration: Duration(milliseconds: 200),
               ),
               Positioned(
                 bottom: 0,
@@ -173,7 +267,7 @@ class _UsersGestorCulturalHomeState extends State<UsersGestorCulturalHome> {
                 child: Row(
                   children: <Widget>[
                     Container(
-                      color: colorAgendaCulturalOscuro,
+                      color: Colors.grey,
                       child: IconButton(
                         icon: Icon(Icons.share),
                         color: Colors.white,
@@ -190,7 +284,7 @@ class _UsersGestorCulturalHomeState extends State<UsersGestorCulturalHome> {
 
                     ),
                     Container(
-                      color: Colors.grey,
+                      color: Color(0xffFF243F),
                       child: IconButton(
                         icon: Icon(Icons.visibility),
                         color: Colors.white,
@@ -200,7 +294,7 @@ class _UsersGestorCulturalHomeState extends State<UsersGestorCulturalHome> {
                            toasMessage("Debes iniciar sesión");
                            Navigator.pushNamed(context, loginViewRoutes);
                             }else{
-                             Navigator.pushNamed(context, usersDirectorioDetailsRoute);
+                             Navigator.pushNamed(context, usersDirectorioDetailsRoute, arguments: directorioArtista);
                             }
                         },
                       ),
@@ -215,7 +309,7 @@ class _UsersGestorCulturalHomeState extends State<UsersGestorCulturalHome> {
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.08,
               decoration: BoxDecoration(
-                color: colorDirectorioArtista,
+                color: Color(0xffCCA771),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(15),
                   bottomRight: Radius.circular(15),
@@ -236,5 +330,11 @@ class _UsersGestorCulturalHomeState extends State<UsersGestorCulturalHome> {
         ],
       ),
     );
+  }
+  Future<void> _validateStatus() async {
+    final response = await context.read<DirectoryArtistaCubit>().getCurrent();
+    setState(() {
+      estadoApp = response;
+    });
   }
 }

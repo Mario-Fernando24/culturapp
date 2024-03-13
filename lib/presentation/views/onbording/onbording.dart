@@ -71,7 +71,7 @@ class _OnbordingViewState extends State<OnbordingView> {
                                 child: GestureDetector(
                                     onTap: () {
                                       Navigator.pushNamed(
-                                          context, loginViewRoutes);
+                                          context, homeUserviewRoutes);
                                     },
                                     child: Text('omitir',
                                         style: TextStyle(
@@ -108,7 +108,7 @@ class _OnbordingViewState extends State<OnbordingView> {
                                                 ),
                                                 onPressed: () {
                                                   Navigator.pushNamed(
-                                                      context, loginViewRoutes);
+                                                      context, homeUserviewRoutes);
                                                 },
                                                 child: Text(
                                                   'EMPEZAR',

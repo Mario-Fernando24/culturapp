@@ -65,8 +65,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'cultura app',
         home: OnbordingView(),
-        //initialRoute: onbordingViewRoutes,
-        initialRoute: homeUserviewRoutes,
+        initialRoute: onbordingViewRoutes,
+        //initialRoute: homeUserviewRoutes,
         routes: appRoutes,
       ),
     );

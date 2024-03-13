@@ -28,36 +28,35 @@ class _UsersOfertaCulturaDetailsState extends State<UsersOfertaCulturaDetails> {
     };
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80.0),
-        child: new AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Color(0xffED6567),
-              size: 30,
-            ),
-          ),
-          toolbarHeight: 150.0,
-          title: Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.3,
-              height: MediaQuery.of(context).size.height * 0.05,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image:
-                      AssetImage('assets/images/logovert.png') as ImageProvider,
-                  fit: BoxFit.cover,
-                ),
+      appBar: AppBar(
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: const Icon(
+          Icons.arrow_back_ios,
+          color: Color(0xffED6567),
+          size: 30,
+        ),
+      ),
+      toolbarHeight: 70.0,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.end, // Alinea el contenido al final (derecha)
+        children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width * 0.35,
+            height: MediaQuery.of(context).size.height * 0.05,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/logovert.png'),
+                fit: BoxFit.fill,
               ),
             ),
           ),
-          backgroundColor: colorWhite,
-        ),
+        ],
       ),
+      backgroundColor: Colors.white,
+     ),
       body: _container(context, miMapa),
     );
   }

@@ -14,8 +14,10 @@ class DirectoriArtistaRepositoryImp implements DirectoryArtistaRepository {
     List<DirectorioArtista> directoryModelo = [];
 
     try {
-      QuerySnapshot querySnapshot = await firestore.collection('DirectoriArtista')
-      .where('categoria', isEqualTo: parametro).get();
+      //QuerySnapshot querySnapshot = await firestore.collection('DirectoriArtista')
+     // .where('categoria', isEqualTo: parametro).get();
+
+        QuerySnapshot querySnapshot = await firestore.collection('DirectoriArtista').get();
 
       if (search == '') {
         directoryModelo = querySnapshot.docs.map((doc) {

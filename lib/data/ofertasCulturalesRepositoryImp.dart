@@ -2,7 +2,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:culturappco/domain/models/oferta_cultural_model.dart';
 import 'package:culturappco/domain/repositories/ofertasCulturalesRepository.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uuid/uuid.dart';
 
 class OfertasCulturalesRepositoryImp implements OfertasCulturalesRepository {
@@ -45,17 +44,6 @@ class OfertasCulturalesRepositoryImp implements OfertasCulturalesRepository {
 
   }
 
-  
 
-  @override
-  Future<String> getCurrentUser() async {
-    User? user = await FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      String uid = user.uid;
-      return uid;
-    } else {
-      return "null";
-    }
-  }
 
   }

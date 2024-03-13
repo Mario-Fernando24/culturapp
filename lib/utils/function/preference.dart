@@ -11,4 +11,13 @@ class UserPreferences {
 
   static String getPreference(String key, [String defaultValue = '']) =>
       _preferences?.getString(key) ?? defaultValue;
+
+
+      static Future setBoolPreference(String key, bool value) async =>
+      await _preferences?.setBool(key, value);
+
+      // Agrega este método para obtener un valor booleano
+  static bool getBoolPreference(String key, [bool defaultValue = false]) =>
+      _preferences?.getBool(key) ?? defaultValue;
+
 }

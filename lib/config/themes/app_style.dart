@@ -8,9 +8,13 @@ Color inputColors = Color.fromRGBO(142, 142, 147, 1.2);
 final PrimaryGreyColors = Color(0xFFBCB9B7); 
 final PrimaryBlackColors = Color.fromARGB(255, 20, 19, 19); 
 
-final colorDirectorioArtista=Color(0xff71C7E3);
-final colorAgendaCultural=Color(0xffF9B539);
-final colorAgendaCulturalOscuro=Color(0xffEE8235);
+
+final colorDirectorioArtista_gestor_cultural=Color(0xffF4CA87);
+final colorDirectorioArtista_agentes_cultural=Color(0xffDDBD8E);
+
+final colorDirectorioArtista=Color(0xffF9B539);
+final colorAgendaCultural=Color(0xff71C7E3);
+final colorAgendaCulturalOscuro  =Color(0xffEE8235);
 
 
 final colorOfertaCultural=Color(0xffDADB19);

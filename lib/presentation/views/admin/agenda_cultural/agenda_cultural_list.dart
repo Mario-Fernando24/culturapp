@@ -42,7 +42,7 @@ class _AgendaCulturalListState extends State<AgendaCulturalList> {
         },
         child: Icon(
           Icons.add,
-          color: colorAgendaCultural,
+          color: Colors.white,
         ),
         backgroundColor: kSecondaryColor,
       ),

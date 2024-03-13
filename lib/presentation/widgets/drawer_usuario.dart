@@ -1,6 +1,11 @@
 import 'package:culturappco/config/themes/app_style.dart';
+import 'package:culturappco/presentation/cubits/directoryArtistaCubit/directory_artista_usuario_cubit.dart';
+import 'package:culturappco/presentation/cubits/loginCubits/auth_cubit.dart';
+import 'package:culturappco/presentation/widgets/icons_drawer.dart';
 import 'package:culturappco/utils/constants/constant_routes.dart';
+import 'package:culturappco/utils/function/preference.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DrawerUsuario extends StatefulWidget {
   const DrawerUsuario({super.key});
@@ -10,6 +15,15 @@ class DrawerUsuario extends StatefulWidget {
 }
 
 class _DrawerUsuarioState extends State<DrawerUsuario> {
+  bool auxiliar = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _validateLogin();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,19 +51,15 @@ class _DrawerUsuarioState extends State<DrawerUsuario> {
                 title: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.event,
-                        color: colorWhite,
-                        size: 40,
-                      ),
-                    ),
+            
+                    iconDrawer('assets/icons/agenda_cultural_icon.png', context),
+          
                     Text(
                       'Agenda cultural',
                       style: TextStyle(
                         color: colorWhite,
-                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
                         fontFamily: 'Roboto',
                       ),
                     ),
@@ -67,11 +77,14 @@ class _DrawerUsuarioState extends State<DrawerUsuario> {
                 title: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.campaign_sharp, color: colorWhite, size: 40),
+                    iconDrawer('assets/icons/ofertaaaaa.png', context),
                     Text('Oferta cultural ',
-                        style: TextStyle(
+                          style: TextStyle(
                           color: colorWhite,
+                          fontWeight: FontWeight.bold,
                           fontFamily: 'Roboto',
+                          fontSize: 13,
+
                         )),
                   ],
                 ),
@@ -80,6 +93,9 @@ class _DrawerUsuarioState extends State<DrawerUsuario> {
                 },
               ),
             ),
+            
+
+            
             Container(
               height: MediaQuery.of(context).size.height * 0.166,
               child: ListTile(
@@ -87,11 +103,15 @@ class _DrawerUsuarioState extends State<DrawerUsuario> {
                 title: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.music_note, color: colorWhite, size: 40),
-                    Text('Artista',
+                    iconDrawer('assets/icons/directori_artista_icon.png', context),
+                    Text('Directorio de artista',
+                    textAlign: TextAlign.center,
                         style: TextStyle(
                           color: colorWhite,
+                          fontWeight: FontWeight.bold,
                           fontFamily: 'Roboto',
+                          fontSize: 13,
+
                         )),
                   ],
                 ),
@@ -103,15 +123,18 @@ class _DrawerUsuarioState extends State<DrawerUsuario> {
             Container(
               height: MediaQuery.of(context).size.height * 0.166,
               child: ListTile(
-                tileColor: colorAgendaCultural,
+                tileColor: colorDirectorioArtista_agentes_cultural,
                 title: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.theater_comedy, color: colorWhite, size: 40),
-                    Text('Agente cultural',
+                    iconDrawer('assets/icons/AMMgentres_culturales.png', context),
+                    Text('Agentes cultural',
+                    textAlign: TextAlign.center,
                         style: TextStyle(
                           color: colorWhite,
+                          fontWeight: FontWeight.bold,
                           fontFamily: 'Roboto',
+                          fontSize: 13,
                         )),
                   ],
                 ),
@@ -123,15 +146,18 @@ class _DrawerUsuarioState extends State<DrawerUsuario> {
             Container(
               height: MediaQuery.of(context).size.height * 0.166,
               child: ListTile(
-                tileColor: Color(0xffA6C83E),
+                tileColor: colorDirectorioArtista_gestor_cultural,
                 title: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.movie, color: colorWhite, size: 40),
-                    Text('Gestor cultural',
+                    iconDrawer('assets/icons/Gestores____culturales.png', context),
+                    Text('Gestores cultural',
+                    textAlign: TextAlign.center,
                         style: TextStyle(
                           color: colorWhite,
+                          fontWeight: FontWeight.bold,
                           fontFamily: 'Roboto',
+                          fontSize: 13,
                         )),
                   ],
                 ),
@@ -140,9 +166,44 @@ class _DrawerUsuarioState extends State<DrawerUsuario> {
                 },
               ),
             ),
+          //  auxiliar==false? Container(
+          //     height: MediaQuery.of(context).size.height * 0.166,
+          //     child: ListTile(
+          //       tileColor: Colors.redAccent,
+          //       title: Column(
+          //         mainAxisAlignment: MainAxisAlignment.center,
+          //         children: <Widget>[
+          //           Icon(Icons.exit_to_app, color: colorWhite, size: 40),
+          //           Text('Salir',
+          //               style: TextStyle(
+          //                 color: colorWhite,
+          //                 fontWeight: FontWeight.bold,
+          //                 fontFamily: 'Roboto',
+          //                 fontSize: 13,
+          //               )),
+          //         ],
+          //       ),
+          //       onTap: () {
+          //         context.read<AuthenticationCubit>().logOut();
+          //         _validateLogin();
+          //         Navigator.pushNamedAndRemoveUntil(
+          //             context, homeUserviewRoutes, (route) => false);
+          //       },
+          //     ),
+          //   ):Container(),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _validateLogin() async {
+    final resp = await context.read<DirectoryArtistaCubit>().getCurrent();
+    if (resp == 'null') {
+      
+      await UserPreferences.setBoolPreference('logout', false);
+    } else {
+      await UserPreferences.setBoolPreference('logout', true);
+    }
   }
 }

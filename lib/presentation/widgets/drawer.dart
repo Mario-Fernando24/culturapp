@@ -89,6 +89,7 @@ Widget drawer_menu(BuildContext context, Color color) {
                     style: TextStyle(fontSize: 20, color: Colors.black)),
                 onTap: () => {
                       context.read<AuthenticationCubit>().logOut(),
+                      Navigator.pushNamedAndRemoveUntil(context, homeUserviewRoutes, (route) => false)
                     }),
             SizedBox(height: SizeConfig.screenHeight! * 0.22),
             Padding(
@@ -116,7 +117,8 @@ Widget drawer_menu(BuildContext context, Color color) {
                   SizedBox(width: 10),
                   GestureDetector(
                       onTap: () =>context.read<HomeCubit>().urlGlobal(url_tiktok),
-                      child: FaIcon(FontAwesomeIcons.tiktok, size: 40)),
+                      child: FaIcon(FontAwesomeIcons.tiktok, size: 40)
+                      ),
                   SizedBox(width: 10),
                   GestureDetector(
                     onTap: () =>context.read<HomeCubit>().urlGlobal(url_youtube),

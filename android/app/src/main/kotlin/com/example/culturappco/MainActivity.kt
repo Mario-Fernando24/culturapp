@@ -1,4 +1,4 @@
-package com.mario.gamermvvmapp
+package com.culturapp.bogota
 
 import io.flutter.embedding.android.FlutterActivity
 

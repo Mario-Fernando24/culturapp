@@ -84,6 +84,11 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   usersDirectorioArtistaHomeRoute: (_) => UsersDirectoryArtistaHome(),
   usersAgenteCulturalHomeRoute:    (_) => UsersAgenteCulturalHome(),
   usersGestorCulturalHomeRoute:    (_) => UsersGestorCulturalHome(),
-  usersDirectorioDetailsRoute:     (_) => UsersDirectorioDetails(),
+
+  usersDirectorioDetailsRoute: (_) {
+    final DirectorioArtista directorioArtista = ModalRoute.of(_)!.settings.arguments as DirectorioArtista;
+    return UsersDirectorioDetails(directorioArtista: directorioArtista);
+  },
+
 
 };
