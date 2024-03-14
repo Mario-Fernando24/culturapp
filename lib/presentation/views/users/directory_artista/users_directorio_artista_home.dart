@@ -25,6 +25,7 @@ class _UsersDirectoryArtistaHomeState extends State<UsersDirectoryArtistaHome> {
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
   String estadoApp = 'null';
+  bool _showSocialButtons = false;
 
   @override
   void initState() {
@@ -37,9 +38,10 @@ class _UsersDirectoryArtistaHomeState extends State<UsersDirectoryArtistaHome> {
     return Scaffold(
       drawer: DrawerUsuario(),
       floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        if (_showSocialButtons) ...[
           FloatingActionButton(
             backgroundColor: Colors.white,
             onPressed: () => context.read<HomeCubit>().urlGlobal(url_facebook),
@@ -94,34 +96,42 @@ class _UsersDirectoryArtistaHomeState extends State<UsersDirectoryArtistaHome> {
               color: Colors.black,
             ),
           ),
-          SizedBox(height: 16.0),
-          FloatingActionButton(
-            backgroundColor:
-                estadoApp == 'null' ? Colors.green[900] : Colors.red,
-            onPressed: () => {
-              if (estadoApp == 'null')
-                {
-                  toasMessage("Debes iniciar sesión"),
-                  Navigator.pushNamed(context, loginViewRoutes),
-                }
-              else
-                {
-                  toasMessage("Acabas de cerrar sesión"),
-                  context.read<AuthenticationCubit>().logOut(),
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, homeUserviewRoutes, (route) => false),
-                }
-            },
-            heroTag: 'whatsapp',
-            child: Icon(
-              estadoApp == 'null'
-                  ? Icons.exit_to_app_sharp
-                  : Icons.close_rounded,
-              color: Colors.white,
-            ),
-          ),
+          SizedBox(height: 30.0),
         ],
-      ),
+        FloatingActionButton(
+          backgroundColor: Color(0xff71C7E3),
+          onPressed: () {
+            setState(() {
+              _showSocialButtons = !_showSocialButtons;
+            });
+          },
+          heroTag: 'toggle_social',
+          child: Icon(
+            _showSocialButtons ? Icons.visibility_off : Icons.visibility,
+            color: Colors.white,
+          ),
+        ),
+        SizedBox(height: 16.0),
+        FloatingActionButton(
+          backgroundColor: estadoApp == 'null' ? Colors.green[900] : Colors.red,
+          onPressed: () {
+            if (estadoApp == 'null') {
+              toasMessage("Debes iniciar sesión");
+              Navigator.pushNamed(context, loginViewRoutes);
+            } else {
+              toasMessage("Acabas de cerrar sesión");
+              context.read<AuthenticationCubit>().logOut();
+              Navigator.pushNamedAndRemoveUntil(context, homeUserviewRoutes, (route) => false);
+            }
+          },
+          heroTag: 'auth_action',
+          child: Icon(
+            estadoApp == 'null' ? Icons.exit_to_app_sharp : Icons.close_rounded,
+            color: Colors.white,
+          ),
+        ),
+      ],
+    ),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(80.0), // Ajusta esto según sea necesario
         child: AppBar(

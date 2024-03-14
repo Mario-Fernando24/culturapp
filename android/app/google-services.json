@@ -1,37 +1,26 @@
 {
   "project_info": {
-    "project_number": "669365450612",
-    "firebase_url": "https://fluttervarios-4a2ca-default-rtdb.firebaseio.com",
-    "project_id": "fluttervarios-4a2ca",
-    "storage_bucket": "fluttervarios-4a2ca.appspot.com"
+    "project_number": "99884165129",
+    "project_id": "culturapp-9ffd5",
+    "storage_bucket": "culturapp-9ffd5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:669365450612:android:e6985a3f96ae9df553de21",
+        "mobilesdk_app_id": "1:99884165129:android:928ea2d5549f601f5d30d8",
         "android_client_info": {
           "package_name": "com.culturapp.bogota"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "669365450612-nbkfk4glbs5nljcu15f3kqibn8sfvgfc.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAnqCUXKgmGzdXeh8aYYTjvtkRPw7HeUyc"
+          "current_key": "AIzaSyCU3fF1mL3BiQSD_mioEmKEm6X2kVLBZgE"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "669365450612-nbkfk4glbs5nljcu15f3kqibn8sfvgfc.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

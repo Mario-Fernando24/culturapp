@@ -10,7 +10,7 @@ const String url_facebook="https://www.facebook.com/profile.php?id=6155569954047
 const String url_instagram="https://www.instagram.com/culturappco?utm_source=qr&igsh=MTJ5aXR3aWI2bTY1aw==";
 const String url_tiktok="https://www.tiktok.com/@culturappco";
 const String url_youtube="https://www.youtube.com/channel/UCNkLU9o_33XOjijvZYhUPBQ";
-const String url_whatsapp='https://wa.me/3208559650';
+const String url_whatsapp='https://wa.me/573208559650';
 
 
 

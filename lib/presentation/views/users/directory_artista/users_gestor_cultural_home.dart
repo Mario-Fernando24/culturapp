@@ -25,6 +25,7 @@ class _UsersGestorCulturalHomeState extends State<UsersGestorCulturalHome> {
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
   String estadoApp = 'null';
+  bool _showSocialButtons = false;
 
   @override
   void initState() {
@@ -35,87 +36,96 @@ class _UsersGestorCulturalHomeState extends State<UsersGestorCulturalHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: DrawerUsuario(),
-      floatingActionButton: Column(
+        floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          FloatingActionButton(
-            backgroundColor: Colors.white,
-            onPressed: () => context.read<HomeCubit>().urlGlobal(url_facebook),
-            heroTag: 'facebook',
-            child: FaIcon(
-              FontAwesomeIcons.facebook,
-              size: 40,
-              color: Colors.blue,
+          if (_showSocialButtons) ...[
+            FloatingActionButton(
+              backgroundColor: Colors.white,
+              onPressed: () => context.read<HomeCubit>().urlGlobal(url_facebook),
+              heroTag: 'facebook',
+              child: FaIcon(
+                FontAwesomeIcons.facebook,
+                size: 40,
+                color: Colors.blue,
+              ),
             ),
-          ),
-          SizedBox(height: 16.0),
-          FloatingActionButton(
-            backgroundColor: Colors.white,
-            onPressed: () => context.read<HomeCubit>().urlGlobal(url_instagram),
-            heroTag: 'instagram',
-            child: FaIcon(
-              FontAwesomeIcons.instagram,
-              size: 40,
-              color: Colors.red,
+            SizedBox(height: 16.0),
+            FloatingActionButton(
+              backgroundColor: Colors.white,
+              onPressed: () => context.read<HomeCubit>().urlGlobal(url_instagram),
+              heroTag: 'instagram',
+              child: FaIcon(
+                FontAwesomeIcons.instagram,
+                size: 40,
+                color: Colors.red,
+              ),
             ),
-          ),
-          SizedBox(height: 16.0),
-          FloatingActionButton(
-            backgroundColor: Colors.white,
-            onPressed: () => context.read<HomeCubit>().urlGlobal(url_whatsapp),
-            heroTag: 'whatsapp',
-            child: FaIcon(
-              FontAwesomeIcons.whatsapp,
-              size: 40,
-              color: Color.fromRGBO(76, 175, 80, 1),
+            SizedBox(height: 16.0),
+            FloatingActionButton(
+              backgroundColor: Colors.white,
+              onPressed: () => context.read<HomeCubit>().urlGlobal(url_whatsapp),
+              heroTag: 'whatsapp',
+              child: FaIcon(
+                FontAwesomeIcons.whatsapp,
+                size: 40,
+                color: Color.fromRGBO(76, 175, 80, 1),
+              ),
             ),
-          ),
-          SizedBox(height: 16.0),
-          FloatingActionButton(
-            backgroundColor: Colors.white,
-            onPressed: () => context.read<HomeCubit>().urlGlobal(url_youtube),
-            heroTag: 'youtube',
-            child: FaIcon(
-              FontAwesomeIcons.youtube,
-              size: 40,
-              color: Colors.red,
+            SizedBox(height: 16.0),
+            FloatingActionButton(
+              backgroundColor: Colors.white,
+              onPressed: () => context.read<HomeCubit>().urlGlobal(url_youtube),
+              heroTag: 'youtube',
+              child: FaIcon(
+                FontAwesomeIcons.youtube,
+                size: 40,
+                color: Colors.red,
+              ),
             ),
-          ),
-          SizedBox(height: 16.0),
-          FloatingActionButton(
-            backgroundColor: Colors.white,
-            onPressed: () => context.read<HomeCubit>().urlGlobal(url_tiktok),
-            heroTag: 'tiktok',
-            child: FaIcon(
-              FontAwesomeIcons.tiktok,
-              size: 40,
-              color: Colors.black,
+            SizedBox(height: 16.0),
+            FloatingActionButton(
+              backgroundColor: Colors.white,
+              onPressed: () => context.read<HomeCubit>().urlGlobal(url_tiktok),
+              heroTag: 'tiktok',
+              child: FaIcon(
+                FontAwesomeIcons.tiktok,
+                size: 40,
+                color: Colors.black,
+              ),
             ),
-          ),
-          SizedBox(height: 16.0),
+            SizedBox(height: 30.0),
+          ],
           FloatingActionButton(
-            backgroundColor:
-                estadoApp == 'null' ? Colors.green[900] : Colors.red,
-            onPressed: () => {
-              if (estadoApp == 'null')
-                {
-                  toasMessage("Debes iniciar sesión"),
-                  Navigator.pushNamed(context, loginViewRoutes),
-                }
-              else
-                {
-                  toasMessage("Acabas de cerrar sesión"),
-                  context.read<AuthenticationCubit>().logOut(),
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, homeUserviewRoutes, (route) => false),
-                }
+            backgroundColor: Color(0xff71C7E3),
+            onPressed: () {
+              setState(() {
+                _showSocialButtons = !_showSocialButtons;
+              });
             },
-            heroTag: 'whatsapp',
+            heroTag: 'toggle_social',
             child: Icon(
-              estadoApp == 'null'
-                  ? Icons.exit_to_app_sharp
-                  : Icons.close_rounded,
+              _showSocialButtons ? Icons.visibility_off : Icons.visibility,
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(height: 16.0),
+          FloatingActionButton(
+            backgroundColor: estadoApp == 'null' ? Colors.green[900] : Colors.red,
+            onPressed: () {
+              if (estadoApp == 'null') {
+                toasMessage("Debes iniciar sesión");
+                Navigator.pushNamed(context, loginViewRoutes);
+              } else {
+                toasMessage("Acabas de cerrar sesión");
+                context.read<AuthenticationCubit>().logOut();
+                Navigator.pushNamedAndRemoveUntil(context, homeUserviewRoutes, (route) => false);
+              }
+            },
+            heroTag: 'auth_action',
+            child: Icon(
+              estadoApp == 'null' ? Icons.exit_to_app_sharp : Icons.close_rounded,
               color: Colors.white,
             ),
           ),
