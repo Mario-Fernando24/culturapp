@@ -12,13 +12,15 @@ class DirectoriArtistaRepositoryImp implements DirectoryArtistaRepository {
   Future<List<DirectorioArtista>> getDirectorioArtista(String search, String parametro) async {
 
     List<DirectorioArtista> directoryModelo = [];
+    QuerySnapshot querySnapshot ;
 
     try {
-      //QuerySnapshot querySnapshot = await firestore.collection('DirectoriArtista')
-     // .where('categoria', isEqualTo: parametro).get();
-
-        QuerySnapshot querySnapshot = await firestore.collection('DirectoriArtista').get();
-
+      
+      if(parametro.isNotEmpty){
+       querySnapshot = await firestore.collection('DirectoriArtista').where('categoria', isEqualTo: parametro).get();
+      }else{
+       querySnapshot = await firestore.collection('DirectoriArtista').get();
+      }
       if (search == '') {
         directoryModelo = querySnapshot.docs.map((doc) {
           return DirectorioArtista.fromDocumentSnapshot(doc);
