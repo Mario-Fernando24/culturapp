@@ -104,7 +104,7 @@ class _DrawerUsuarioState extends State<DrawerUsuario> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     iconDrawer('assets/icons/directori_artista_icon.png', context),
-                    Text('Directorio de artista',
+                    Text('Directorio General',
                     textAlign: TextAlign.center,
                         style: TextStyle(
                           color: colorWhite,
@@ -120,6 +120,35 @@ class _DrawerUsuarioState extends State<DrawerUsuario> {
                 },
               ),
             ),
+
+              Container(
+              height: MediaQuery.of(context).size.height * 0.166,
+              child: ListTile(
+                tileColor: colorArtista,
+                title: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    iconDrawer('assets/icons/iconoartista.png', context),
+                    Text('Artistas',
+                    textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: colorWhite,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Roboto',
+                          fontSize: 13,
+
+                        )),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.pushNamed(context, usersDirectorioArtistaFiltroHomeRoute);
+                },
+              ),
+            ),
+
+
+
+            
             Container(
               height: MediaQuery.of(context).size.height * 0.166,
               child: ListTile(

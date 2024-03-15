@@ -85,4 +85,19 @@ class AuthRespositoryImpl implements AuthRespository {
       return "null";
     }
   }
+
+    
+  @override
+  Future<void> resetPassword(String email) async {
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  try {
+    await auth.sendPasswordResetEmail(email: email);
+    // Muestra un mensaje de éxito
+    print("El enlace para restablecer la contraseña ha sido enviado.");
+  } on FirebaseAuthException catch (e) {
+    // Manejo de errores, por ejemplo, si el usuario no existe
+    print("Error al enviar el enlace de restablecimiento: ${e.message}");
+  }
+}
 }

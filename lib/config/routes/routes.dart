@@ -12,10 +12,12 @@ import 'package:culturappco/presentation/views/admin/oferta_cultural/oferta_cult
 import 'package:culturappco/presentation/views/admin/oferta_cultural/oferta_cultural_details.dart';
 import 'package:culturappco/presentation/views/admin/oferta_cultural/oferta_cultural_home.dart';
 import 'package:culturappco/presentation/views/admin/profile/perfil_view.dart';
+import 'package:culturappco/presentation/views/auth/forgot_password.dart';
 import 'package:culturappco/presentation/views/auth/login_view.dart';
 import 'package:culturappco/presentation/views/auth/register_view.dart';
 import 'package:culturappco/presentation/views/onbording/onbording.dart';
 import 'package:culturappco/presentation/views/users/directory_artista/users_agente_cultural_home.dart';
+import 'package:culturappco/presentation/views/users/directory_artista/users_artista_filtrado.dart';
 import 'package:culturappco/presentation/views/users/directory_artista/users_directorio_artista_home.dart';
 import 'package:culturappco/presentation/views/users/directory_artista/users_directorio_details.dart';
 import 'package:culturappco/presentation/views/users/directory_artista/users_gestor_cultural_home.dart';
@@ -30,10 +32,9 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   onbordingViewRoutes: (_) => OnbordingView(),
   loginViewRoutes: (_) => LoginView(),
   registeriewRoutes: (_) => RegisterView(),
+  forgotpasswordRoutes: (_) => ForgotPassword(),
   homeAdminviewRoutes: (_) => HomeViewAdmin(),
   
-
-
 
 
   profileUsviewRoutes: (_) => PerfilView(),
@@ -82,6 +83,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   },
 
   usersDirectorioArtistaHomeRoute: (_) => UsersDirectoryArtistaHome(),
+  usersDirectorioArtistaFiltroHomeRoute: (_) => UsersDirectoryArtistaFiltradoHome(),
   usersAgenteCulturalHomeRoute:    (_) => UsersAgenteCulturalHome(),
   usersGestorCulturalHomeRoute:    (_) => UsersGestorCulturalHome(),
 

@@ -29,7 +29,7 @@ class _UsersDirectoryArtistaHomeState extends State<UsersDirectoryArtistaHome> {
 
   @override
   void initState() {
-    context.read<DirectoryArtistaCubit>().getDirectorioArtista("",'ARTISTA');
+    context.read<DirectoryArtistaCubit>().getDirectorioArtista("",'');
     _validateStatus();
     super.initState();
   }
@@ -161,7 +161,7 @@ class _UsersDirectoryArtistaHomeState extends State<UsersDirectoryArtistaHome> {
                       if (value.isNotEmpty)
                         {
                           setState(() {
-                            context.read<DirectoryArtistaCubit>().getDirectorioArtista(value, 'ARTISTA');
+                            context.read<DirectoryArtistaCubit>().getDirectorioArtista(value, '');
                           }),
                         }
                     },

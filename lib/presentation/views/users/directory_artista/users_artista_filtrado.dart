@@ -1,5 +1,5 @@
 import 'package:culturappco/config/themes/app_style.dart';
-import 'package:culturappco/domain/models/oferta_cultural_model.dart';
+import 'package:culturappco/domain/models/directorio_artista.dart';
 import 'package:culturappco/presentation/cubits/directoryArtistaCubit/directory_artista_usuario_cubit.dart';
 import 'package:culturappco/presentation/cubits/homeCubits/home_cubit.dart';
 import 'package:culturappco/presentation/cubits/loginCubits/auth_cubit.dart';
@@ -8,41 +8,36 @@ import 'package:culturappco/presentation/widgets/drawer_usuario.dart';
 import 'package:culturappco/presentation/widgets/toasMessage.dart';
 import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:culturappco/utils/constants/constant_string.dart';
-import 'package:culturappco/utils/function/parsear_date.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class UsersOfertaCulturalHome extends StatefulWidget {
-  const UsersOfertaCulturalHome({super.key});
+class UsersDirectoryArtistaFiltradoHome extends StatefulWidget {
+  const UsersDirectoryArtistaFiltradoHome({super.key});
 
   @override
-  State<UsersOfertaCulturalHome> createState() =>
-      _UsersOfertaCulturalHomeState();
+  State<UsersDirectoryArtistaFiltradoHome> createState() => _UsersDirectoryArtistaFiltradoHomeState();
 }
 
-class _UsersOfertaCulturalHomeState extends State<UsersOfertaCulturalHome> {
-  List<OfertaCultural> listEventos = [];
-  // Asegúrate de definir estas variables en el estado de tu Widget
+class _UsersDirectoryArtistaFiltradoHomeState extends State<UsersDirectoryArtistaFiltradoHome> {
+
+  List<DirectorioArtista> listDirectorioArtistaaa = [];
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
-  bool loading = false;
   String estadoApp = 'null';
   bool _showSocialButtons = false;
 
   @override
   void initState() {
-    context.read<OfertaCulturalUsuarioCubit>().getOfertaCultural("");
+    context.read<DirectoryArtistaCubit>().getDirectorioArtista("",'ARTISTA');
     _validateStatus();
-
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: DrawerUsuario(),
-       floatingActionButton: Column(
+      floatingActionButton: Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -137,7 +132,7 @@ class _UsersOfertaCulturalHomeState extends State<UsersOfertaCulturalHome> {
         ),
       ],
     ),
-       appBar: PreferredSize(
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(80.0), // Ajusta esto según sea necesario
         child: AppBar(
           leading: Builder(builder: (BuildContext context) {
@@ -166,14 +161,12 @@ class _UsersOfertaCulturalHomeState extends State<UsersOfertaCulturalHome> {
                       if (value.isNotEmpty)
                         {
                           setState(() {
-                            context
-                                .read<OfertaCulturalUsuarioCubit>()
-                                .getOfertaCultural(value);
+                            context.read<DirectoryArtistaCubit>().getDirectorioArtista(value, 'ARTISTA');
                           }),
                         }
                     },
                     decoration: InputDecoration(
-                      hintText: 'Buscar oferta cultural',
+                      hintText: 'Buscar directorio de artista',
                       hintStyle: TextStyle(color: Colors.black),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.transparent),
@@ -205,9 +198,8 @@ class _UsersOfertaCulturalHomeState extends State<UsersOfertaCulturalHome> {
                   if (_isSearching) {
                     // Si ya está buscando, limpia el controlador y oculta el campo de búsqueda
                     _searchController.clear();
-                    context
-                        .read<OfertaCulturalUsuarioCubit>()
-                        .getOfertaCultural("");
+                    
+                    context.read<DirectoryArtistaCubit>().getDirectorioArtista("",'ARTISTA');
                   }
                   // Cambia el estado de la búsqueda
                   _isSearching = !_isSearching;
@@ -218,89 +210,72 @@ class _UsersOfertaCulturalHomeState extends State<UsersOfertaCulturalHome> {
           backgroundColor: Colors.white,
         ),
       ),
-      body: SingleChildScrollView(
-        child:
-            BlocBuilder<OfertaCulturalUsuarioCubit, OfertaCulturalUsuarioState>(
-          builder: (context, state) {
-            if (state is GetOfertaCulturalEventUsuario) {
-              listEventos.clear(); // Limpiar la lista actual
-              listEventos.addAll(state.listOferaCultural);
-              loading = false;
+      body: Container(
+              height: MediaQuery.of(context).size.height,
 
-            }
-            if (state is OfertaCulturaLoading) {
-               loading = true;
-            }
-            if (state is OfertaCulturalInitial) {
-              loading = false;
-            }
-            return   Stack(
-             children: [
-              _container(),// El contenido principal de tu aplicación
-                loading==true ? Container(
-                  height: MediaQuery.of(context).size.height*1,
-                  color: Colors.black.withOpacity(0.5), // Fondo semitransparente
-                  child: Center(
-                    child: CircularProgressIndicator(), // El indicador de carga
-                  ),
-                ) : Container(), // Si no está cargando, muestra un contenedor vacío
-              ],
-            );
-            // TODO: implement listene
-          },
+        child: SingleChildScrollView(
+          child: BlocBuilder<DirectoryArtistaCubit, DirectorioArtistaState>(
+            builder: (context, state) {
+              if (state is GetOfertaDirectorioArtistaUsuario) {
+                 listDirectorioArtistaaa.clear(); // Limpiar la lista actual
+                 listDirectorioArtistaaa.addAll(state.listDirectorioArtista);
+              }
+             
+              if (state is DirectorioArtistaLoading) {
+              //  loading = true;
+                return Container();
+              }
+              if (state is OfertaCulturalInitial) {
+               // loading = false;
+              }
+              return Column(
+                 children: [
+                   SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                   //modalLoading(),
+                  _container()
+                 ],
+               );
+            },
+          ),
+          
         ),
       ),
     );
   }
 
-  Widget _container() {
+  Widget _container(){
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.85,
-      child: ListView.builder(
-          itemCount: listEventos.length,
+      child:  ListView.builder(
+          itemCount: listDirectorioArtistaaa.length,
           scrollDirection: Axis.vertical,
           itemBuilder: (context, int index) {
             return SingleChildScrollView(
-              child: _cardList(listEventos[index]),
+              child: _cardList(listDirectorioArtistaaa[index]),
             );
           }),
     );
   }
 
-  Widget _cardList(OfertaCultural ofertaCultural) {
+  
+  Widget _cardList(DirectorioArtista directorioArtista) {
     return Card(
       clipBehavior: Clip.antiAlias,
-      color: colorOfertaCultural,
+      color: Colors.transparent,
       child: Column(
         children: [
           Stack(
             alignment: Alignment.bottomRight,
             children: <Widget>[
+
               FadeInImage(
                 fit: BoxFit.fill,
                 height: MediaQuery.of(context).size.height*0.45,
                 width: double.infinity,
-                image: NetworkImage(ofertaCultural.image1.toString(),),
+                image: NetworkImage(directorioArtista
+                    .image1.toString(),),
                 placeholder: AssetImage('assets/images/loading.gif'),
                 fadeInDuration: Duration(milliseconds: 200),
-              ),
-              Positioned(
-
-                top: 0,
-                right: 0,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  color: colorOfertaCultural,
-                  child: Text(
-                    parsearDateTime(ofertaCultural.fecha!),
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Roboto',
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
               ),
               Positioned(
                 bottom: 0,
@@ -308,42 +283,37 @@ class _UsersOfertaCulturalHomeState extends State<UsersOfertaCulturalHome> {
                 child: Row(
                   children: <Widget>[
                     Container(
+                      
                       color: Colors.grey,
                       child: IconButton(
                         icon: Icon(Icons.share),
                         color: Colors.white,
                         onPressed: () async {
-                          final resp = await context
-                              .read<DirectoryArtistaCubit>()
-                              .getCurrent();
-                          if (resp == 'null') {
-                            toasMessage("Debes iniciar sesión");
-                            Navigator.pushNamed(context, loginViewRoutes);
-                          } else {
-                            context
-                                .read<OfertaCulturalUsuarioCubit>()
-                                .downloadAndShareOfertaCultural(ofertaCultural);
-                          }
+
+                          final resp = await context.read<DirectoryArtistaCubit>().getCurrent();
+                         if(resp=='null'){
+                          toasMessage("Debes iniciar sesión");
+                          Navigator.pushNamed(context, loginViewRoutes);
+                         }else{
+                         context.read<DirectoryArtistaCubit>().downloadAndShareOfertaCultural(directorioArtista);
+                         }
                         },
                       ),
+
                     ),
                     Container(
                       color: Color(0xffFF243F),
                       child: IconButton(
                         icon: Icon(Icons.visibility),
                         color: Colors.white,
-                        onPressed: () async {
-                          final resp = await context
-                              .read<DirectoryArtistaCubit>()
-                              .getCurrent();
-                          if (resp == 'null') {
-                            toasMessage("Debes iniciar sesión");
-                            Navigator.pushNamed(context, loginViewRoutes);
-                          } else {
-                            Navigator.pushNamed(
-                                context, usersOfertaCulturalDetailsRoute,
-                                arguments: ofertaCultural);
-                          }
+                        onPressed: ()async {
+                         final resp = await context.read<DirectoryArtistaCubit>().getCurrent();
+                         if(resp=='null'){
+                          toasMessage("Debes iniciar sesión");
+                          Navigator.pushNamed(context, loginViewRoutes);
+                         }else{
+                          Navigator.pushNamed(context, usersDirectorioDetailsRoute, arguments: directorioArtista);
+                         }
                         },
                       ),
                     ),
@@ -357,7 +327,7 @@ class _UsersOfertaCulturalHomeState extends State<UsersOfertaCulturalHome> {
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.08,
               decoration: BoxDecoration(
-                color: Color(0xffAFAB19),
+                color: colorArtista,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(15),
                   bottomRight: Radius.circular(15),
@@ -365,7 +335,7 @@ class _UsersOfertaCulturalHomeState extends State<UsersOfertaCulturalHome> {
               ),
               child: Center(
                 child: Text(
-                  ofertaCultural.titleOfertaCultural!,
+                  directorioArtista.name ?? '',
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Roboto',
@@ -379,12 +349,10 @@ class _UsersOfertaCulturalHomeState extends State<UsersOfertaCulturalHome> {
       ),
     );
   }
-
   Future<void> _validateStatus() async {
     final response = await context.read<DirectoryArtistaCubit>().getCurrent();
     setState(() {
       estadoApp = response;
     });
   }
-
 }

@@ -11,6 +11,7 @@ final PrimaryBlackColors = Color.fromARGB(255, 20, 19, 19);
 
 final colorDirectorioArtista_gestor_cultural=Color(0xffF4CA87);
 final colorDirectorioArtista_agentes_cultural=Color(0xffDDBD8E);
+final colorArtista=Color(0xffEAB053);
 
 final colorDirectorioArtista=Color(0xffF9B539);
 final colorAgendaCultural=Color(0xff71C7E3);

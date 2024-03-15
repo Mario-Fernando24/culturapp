@@ -2,6 +2,7 @@
 const String onbordingViewRoutes = 'onbordingView';
 const String loginViewRoutes = 'loginView';
 const String registeriewRoutes = 'registerView';
+const String forgotpasswordRoutes = 'forgotpasswordRoutes';
 const String homeAdminviewRoutes = 'homeAdminView';
 
 const String profileUsviewRoutes = 'profileUserView';
@@ -31,6 +32,7 @@ const String homeUserviewDetailsRoutes = 'homeUserDetailsView';
 const String usersOfertaCulturalHomeRoute = 'usersOfertaCulturalHomeRoute';
 const String usersOfertaCulturalDetailsRoute = 'usersOfertaCulturalDetailsRoute';
 const String usersDirectorioArtistaHomeRoute = 'usersDirectorioArtistaHomeRoute';
+const String usersDirectorioArtistaFiltroHomeRoute = 'usersDirectorioArtistaFiltroHomeRoute';
 const String usersAgenteCulturalHomeRoute = 'usersAgenteCulturalHomeRoute';
 const String usersGestorCulturalHomeRoute = 'usersGestorCulturalHomeRoute';
 const String usersDirectorioDetailsRoute = 'usersDirectorioDetailsRoute';

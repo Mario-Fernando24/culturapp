@@ -37,6 +37,19 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }
   }
 
+
+  
+  Future<void> resetPassword(String email) async {
+    try {
+      final user = await authRespository.resetPassword(email);
+      // ignore: unnecessary_null_comparison
+    } on Exception catch (e) {
+    } catch (e) {
+    }
+  }
+
+
+
   void logOut() {
     authRespository.signOut();
     emit(Unauthenticated());

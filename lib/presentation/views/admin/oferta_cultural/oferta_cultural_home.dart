@@ -47,9 +47,7 @@ class _OfertaCulturalHomeState extends State<OfertaCulturalHome> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            _listOfertaCultural()
-            ],
+          children: [_listOfertaCultural()],
         ),
       ),
     );
@@ -64,7 +62,6 @@ class _OfertaCulturalHomeState extends State<OfertaCulturalHome> {
         return SizedBox(
           height: SizeConfig.screenHeight! * 1,
           child: ListView.builder(
-            
               itemCount: listOfertaCultual.length,
               scrollDirection: Axis.vertical,
               itemBuilder: (context, int index) {
@@ -75,22 +72,26 @@ class _OfertaCulturalHomeState extends State<OfertaCulturalHome> {
     );
   }
 
-
-  
-  Widget _cardOfertaCultural(BuildContext context, OfertaCultural ofertaCultural) {
+  Widget _cardOfertaCultural(
+      BuildContext context, OfertaCultural ofertaCultural) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: GestureDetector(
-         onTap: () => Navigator.pushNamed(context, detailsOfertaCulturalviewRoutes, arguments:ofertaCultural ),
+        onTap: () => Navigator.pushNamed(
+            context, detailsOfertaCulturalviewRoutes,
+            arguments: ofertaCultural),
         child: Card(
-          shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           elevation: 4,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-                child: Image.network(ofertaCultural.image1 ?? "https://www.creativefabrica.com/wp-content/uploads/2021/04/05/Photo-Image-Icon-Graphics-10388619-1-1-580x386.jpg",
+                child: Image.network(
+                  ofertaCultural.image1 ??
+                      "https://www.creativefabrica.com/wp-content/uploads/2021/04/05/Photo-Image-Icon-Graphics-10388619-1-1-580x386.jpg",
                   height: 200,
                   width: double.infinity,
                   fit: BoxFit.cover,
@@ -98,28 +99,75 @@ class _OfertaCulturalHomeState extends State<OfertaCulturalHome> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 12, right: 12.0, top: 5.0),
-                child: Text(ofertaCultural.titleOfertaCultural!,
-                 maxLines: 2,
-                 textAlign: TextAlign.center,
+                child: Text(
+                  ofertaCultural.titleOfertaCultural!,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-               Padding(
-                 padding: const EdgeInsets.only(right: 12.0, left: 12.0, bottom: 20.0, top: 10),
-                 child: Text(ofertaCultural.description!,
-                 maxLines: 2,
-                        style:
-                            TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+              Padding(
+                padding: const EdgeInsets.only(
+                    right: 12.0, left: 12.0, bottom: 20.0, top: 10),
+                child: Text(
+                  ofertaCultural.description!,
+                  maxLines: 2,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(colorAgendaCultural),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(8.0),
+                                bottomLeft: Radius.circular(8.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                        child: Text("Editar"),
                       ),
-               ),
+                    ),
+                    SizedBox(width: 8), // Separación entre los botones
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.red),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(8.0),
+                                bottomRight: Radius.circular(8.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                        child: Text("Eliminar"),
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),
       ),
     );
   }
-
 }
