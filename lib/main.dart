@@ -35,16 +35,16 @@ void main() async {
 
 final ofertasCulturalesRepository = OfertasCulturalesRepositoryImp();
 final directoryArtistaRepository = DirectoriArtistaRepositoryImp();
-
+  
   
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider<AuthenticationCubit>(create: (context) => AuthenticationCubit(authenticationRepository)),
-        BlocProvider<HomeCubit>(create: (context) => HomeCubit(homeRepository)),
-        BlocProvider<UsuarioCubit>(create: (context) => UsuarioCubit(homeRepository)),
+        BlocProvider<AuthenticationCubit>(create:        (context) => AuthenticationCubit(authenticationRepository)),
+        BlocProvider<HomeCubit>(create:                  (context) => HomeCubit(homeRepository)),
+        BlocProvider<UsuarioCubit>(create:               (context) => UsuarioCubit(homeRepository)),
         BlocProvider<OfertaCulturalUsuarioCubit>(create: (context) => OfertaCulturalUsuarioCubit(ofertasCulturalesRepository)),
-        BlocProvider<DirectoryArtistaCubit>(create: (context) => DirectoryArtistaCubit(directoryArtistaRepository)),
+        BlocProvider<DirectoryArtistaCubit>(create:      (context) => DirectoryArtistaCubit(directoryArtistaRepository)),
       ],
       child: const MyApp(),
     ),
@@ -72,3 +72,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+

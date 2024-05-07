@@ -11,6 +11,7 @@ const String url_instagram="https://www.instagram.com/culturappco?utm_source=qr&
 const String url_tiktok="https://www.tiktok.com/@culturappco";
 const String url_youtube="https://www.youtube.com/channel/UCNkLU9o_33XOjijvZYhUPBQ";
 const String url_whatsapp='https://wa.me/573208559650';
+const String url_culturApp = 'https://culturapp.co/';
 
 
 

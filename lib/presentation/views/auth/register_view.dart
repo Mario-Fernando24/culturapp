@@ -1,12 +1,15 @@
 import 'package:culturappco/config/themes/app_style.dart';
 import 'package:culturappco/domain/models/usuario.dart';
+import 'package:culturappco/presentation/cubits/homeCubits/home_cubit.dart';
 import 'package:culturappco/presentation/cubits/loginCubits/auth_cubit.dart';
 import 'package:culturappco/presentation/widgets/back_button.dart';
 import 'package:culturappco/presentation/widgets/header_text.dart';
+import 'package:culturappco/presentation/widgets/toasMessage.dart';
 import 'package:culturappco/utils/constants/constant_routes.dart';
 import 'package:culturappco/utils/constants/constant_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/gestures.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -32,6 +35,7 @@ class _RegisterViewState extends State<RegisterView> {
   bool _passwordValidate = false;
   bool _password_confirm_Validate = false;
   bool loading = false;
+  bool acceptTerms= false;
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +108,7 @@ class _RegisterViewState extends State<RegisterView> {
               _passwordInput(context),
               _passwordConfirmInput(context),
               loadingFunctions(),
+              _policiesConditions(),
               _buttonSign_up(context)
               //_phoneInput(context)
             ],
@@ -362,20 +367,75 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
+  Widget _policiesConditions() {
+  return Container(
+    margin: const EdgeInsets.only(left: 10.0, right: 10.0, top:20.0),
+    child: Column(
+         children: [
+           Transform.translate(
+             offset: Offset(0.0, -18.0),
+             child: Row(
+                 children: [
+                    Checkbox(
+
+                       checkColor: colorWhite,
+                       activeColor: kPrimaryColor,
+                       value: acceptTerms,
+                       onChanged: (value) {
+                         setState(() {
+                           acceptTerms = value ?? false;
+                         });
+                       },
+                   ),
+                   RichText(
+                     text: TextSpan(
+                       text: 'Acepto  ',
+                       style: TextStyle(
+                           fontFamily: 'MontserratRegular',
+                           color: Color.fromARGB(255, 58, 57, 57), fontSize: 14),
+                       children: [
+                         TextSpan(
+                             text: 'Política de tratamiento de datos',
+                             style: TextStyle(
+                               color: kPrimaryColor,
+                               fontSize: 14,
+                               fontFamily: 'MontserratRegular',
+                               decoration: TextDecoration.underline,
+                             ),
+                             recognizer: TapGestureRecognizer()
+                               ..onTap =()=>{
+                                context.read<HomeCubit>().urlGlobal(url_culturApp)
+                               }
+                         ),
+                       ],
+                     ),
+                   ),
+                 ]),
+           )
+         ],
+    ),
+  );
+}
+
   Widget _buttonSign_up(BuildContext context) {
     return Container(
       width: 350.0,
       height: 50.0,
-      margin: EdgeInsets.only(top: 25.0),
+      margin: EdgeInsets.only(top: 10.0),
       child: ElevatedButton(
         onPressed: () {
-          final userss = Users(
+          if(acceptTerms==true){
+             final userss = Users(
               username: _usersController.text.trim(),
               lastname: _lastNameController.text.trim(),
               email: _emailController.text.trim(),
               telefono: _phoneController.text.trim(),
               password: _passwordController.text.trim());
           context.read<AuthenticationCubit>().register(userss);
+          }else{
+            toasMessage('Debes aceptar las politicas y tratamiento de datos');
+          }
+          
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

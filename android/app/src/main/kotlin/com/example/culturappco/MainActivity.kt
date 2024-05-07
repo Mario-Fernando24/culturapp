@@ -1,4 +1,4 @@
-package com.culturapp.bogota
+package com.culturapp.bogotaDC
 
 import io.flutter.embedding.android.FlutterActivity
 
